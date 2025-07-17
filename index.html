@@ -1,27 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>We're Getting Married!</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body { font-family: sans-serif; text-align: center; background: #faf3e6; color: #333; margin: 0; }
-    h1 { margin-top: 2em; font-size: 2.5em; }
-    .details { margin: 2em auto; max-width: 500px; background: #fff; border-radius: 8px; padding: 2em; box-shadow: 0 2px 8px rgba(0,0,0,0.06);}
-    .rsvp { margin-top: 2em; }
-    a.button { display: inline-block; padding: 0.8em 1.5em; background: #e3b17b; color: #fff; border-radius: 4px; text-decoration: none; font-weight: bold;}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Wedding</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>[Your Names]</h1>
-  <h2>We're Getting Married!</h2>
-  <div class="details">
-    <p><strong>Date:</strong> [Wedding Date]</p>
-    <p><strong>Location:</strong> [Venue Name], [Address]</p>
-    <p>We'd love for you to join us for our special day.</p>
-    <div class="rsvp">
-      <a href="mailto:your@email.com?subject=Wedding RSVP" class="button">RSVP</a>
+
+    <!-- Background Video Section -->
+    <div class="background-video">
+        <video autoplay muted loop id="background-video">
+            <source src="assets/video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
     </div>
-  </div>
+
+    <!-- Welcome Section -->
+    <div class="welcome">
+        <h1>Welcome to Our Wedding</h1>
+        <p>We’re so glad to share this special day with you!</p>
+        <nav>
+            <ul>
+                <li><a href="#our-story">Our Story</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#rsvp">RSVP</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Our Story Section -->
+    <div class="story" id="our-story">
+        <h2>Our Story</h2>
+        <div class="comic-strip">
+            <div class="panel">
+                <img src="assets/image1.jpg" alt="Comic Image 1">
+                <p>Once upon a time...</p>
+            </div>
+            <div class="panel">
+                <img src="assets/image2.jpg" alt="Comic Image 2">
+                <p>We met and instantly clicked!</p>
+            </div>
+            <!-- Add more panels as necessary -->
+        </div>
+    </div>
+
+    <!-- Gallery Section (Optional) -->
+    <div class="gallery" id="gallery">
+        <h2>Our Memories</h2>
+        <div class="gallery-images">
+            <!-- Gallery Images -->
+            <img src="assets/image1.jpg" alt="Gallery Image">
+            <img src="assets/image2.jpg" alt="Gallery Image">
+            <!-- Add more images as necessary -->
+        </div>
+    </div>
+
+    <!-- RSVP Section -->
+    <div class="rsvp" id="rsvp">
+        <h2>RSVP</h2>
+        <form action="mailto:youremail@example.com" method="post" enctype="text/plain">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br>
+
+            <label for="attending">Will you be attending?</label>
+            <select id="attending" name="attending" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select><br>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
