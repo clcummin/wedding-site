@@ -1,0 +1,131 @@
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+    font-family: Arial, sans-serif;
+    color: #fff;
+    background: #000;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Background Video */
+.background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+#background-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Welcome Section */
+.welcome {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.welcome h1 {
+    font-size: 3rem;
+}
+
+.welcome nav ul {
+    list-style: none;
+}
+
+.welcome nav ul li {
+    display: inline;
+    margin: 0 20px;
+}
+
+.welcome nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+/* Story Section */
+.story {
+    padding: 50px;
+    text-align: center;
+}
+
+.comic-strip {
+    display: flex;
+    justify-content: space-around;
+}
+
+.panel {
+    width: 45%;
+}
+
+.panel img {
+    width: 100%;
+    height: auto;
+}
+
+.panel p {
+    margin-top: 10px;
+    font-size: 1.1rem;
+}
+
+/* Gallery Section */
+.gallery {
+    padding: 50px;
+    text-align: center;
+}
+
+.gallery-images {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.gallery-images img {
+    width: 300px;
+    height: auto;
+}
+
+/* RSVP Section */
+.rsvp {
+    padding: 50px;
+    text-align: center;
+}
+
+.rsvp form {
+    display: inline-block;
+    text-align: left;
+}
+
+.rsvp input, .rsvp select, .rsvp button {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.rsvp button {
+    background-color: #ff8c00;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.rsvp button:hover {
+    background-color: #e07b00;
+}
