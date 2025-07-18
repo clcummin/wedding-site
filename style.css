@@ -21,8 +21,11 @@ html, body {
   z-index: -2;
 }
 .background-video iframe {
-  width: 100vw; height: 100vh;
-  position: absolute; top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0; left: 0;
+  border: none;
   pointer-events: none;
   background: #002d1f;
 }
