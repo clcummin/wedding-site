@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Our Wedding</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Georgia&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -20,14 +21,30 @@
     </iframe>
   </div>
 
-  <!-- Centered Intro Card -->
-  <div class="intro-card-container">
+  <!-- Optional dim overlay (subtle, not required, but pretty on mobile!) -->
+  <div class="video-overlay"></div>
+
+  <!-- Centered Intro Card, locked, fade-in after 1s -->
+  <div class="intro-card-container" id="introCard">
     <a href="home.html" class="card intro-card" tabindex="0">
-      <img src="assets/IMG_6586.jpeg" alt="Couple photo" class="circle-photo"/>
+      <img src="assets/IMG_6586.jpeg" alt="Alex and Taylor smiling together" class="circle-photo"/>
       <h1 class="wedding-names">Alex & Taylor</h1>
       <div class="wedding-date">September 14, 2025 • Santa Barbara, CA</div>
     </a>
   </div>
 
+  <script>
+  // Lock scroll
+  document.documentElement.style.overflow = "hidden";
+  document.body.style.overflow = "hidden";
+  document.body.style.height = "100vh";
+
+  // Fade in card after 1s
+  window.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      document.getElementById('introCard').classList.add('visible');
+    }, 1000);
+  });
+  </script>
 </body>
 </html>
