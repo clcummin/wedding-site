@@ -5,6 +5,90 @@ body {
   background: #002d1f; /* fallback background */
 }
 
+.intro-card-container {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  background: transparent;
+}
+
+.card {
+  background: #fff;
+  color: #222;
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  border: 1.5px solid #e4e4e4;
+  padding: 3rem 2.5rem 2.5rem 2.5rem;
+  min-width: 330px;
+  max-width: 460px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: box-shadow 0.23s;
+}
+.card:hover, .card:focus {
+  box-shadow: 0 12px 48px rgba(1,68,33,0.18);
+  outline: 0;
+}
+.intro-card {
+  background: #fff;
+  color: #222;
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+  border: 2.5px solid #014421;
+  cursor: pointer;
+}
+.circle-photo {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #fff;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+  margin-bottom: 1.4rem;
+}
+
+.wedding-names {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  letter-spacing: 0.07em;
+  color: #014421;
+  text-align: center;
+}
+.wedding-date {
+  font-size: 1.07rem;
+  color: #00975c;
+  margin-bottom: 2.1rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.enter-btn {
+  padding: 0.7rem 2.7rem;
+  border-radius: 30px;
+  background: #014421;
+  color: #fff;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: background 0.2s, color 0.2s;
+  border: none;
+  box-shadow: 0 2px 12px rgba(1,68,33,0.09);
+}
+.intro-card:hover .enter-btn, .intro-card:focus .enter-btn {
+  background: #fff;
+  color: #014421;
+  border: 2px solid #014421;
+}
+
 .background-video {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
