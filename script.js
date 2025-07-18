@@ -1,18 +1,17 @@
 function revealMain() {
   const video = document.getElementById("bg-video-container");
   const overlay = document.getElementById("bg-overlay");
+  const intro = document.getElementById("intro");
 
-  // Fade out video and overlay
+  // Fade out video, overlay, and intro card
   video.classList.add("fade-out");
   overlay.classList.add("fade-out");
+  intro.classList.add("fade-out");
 
-  // Remove video/overlay after fade, show content
   setTimeout(() => {
     if(video) video.remove();
     if(overlay) overlay.remove();
+    if(intro) intro.remove();
     document.getElementById("main-content").classList.remove("hidden");
   }, 1000);
-
-  // Hide intro button
-  document.getElementById("intro").style.display = "none";
 }
