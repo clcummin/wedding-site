@@ -1,190 +1,145 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
-
 body {
   margin: 0;
   font-family: 'Georgia', serif;
   color: #fff;
-  background: #002d1f;
-  min-height: 100vh;
-  box-sizing: border-box;
-  transition: background 1s;
+  background: #002d1f; /* fallback background */
 }
 
-/* Video intro styles */
 .background-video {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
   overflow: hidden;
   z-index: -2;
 }
+
 .background-video iframe {
   width: 100%; height: 100%;
   position: absolute; top: 0; left: 0;
   pointer-events: none;
 }
+
 .video-overlay {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: -1;
 }
+
 .fadeable { transition: opacity 1s ease; }
 .fade-out { opacity: 0; }
 
-.intro-card-container {
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  background: transparent;
+.welcome-button-container {
+  display: flex; justify-content: center; align-items: center;
+  height: 100vh; flex-direction: column; text-align: center;
 }
 
-.card {
-  background: #fff;
-  color: #222;
-  border-radius: 20px;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.12);
-  border: 1.5px solid #e4e4e4;
-  padding: 3rem 2.5rem 2.5rem 2.5rem;
-  min-width: 330px;
-  max-width: 460px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  transition: box-shadow 0.23s;
-}
-.card:hover, .card:focus {
-  box-shadow: 0 12px 48px rgba(1,68,33,0.18);
-  outline: 0;
-}
-.intro-card {
-  background: #fff;
-  color: #222;
-  border-radius: 20px;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.18);
-  border: 2.5px solid #014421;
-  cursor: pointer;
-}
-.enter-btn {
-  margin-top: 2.1rem;
-  padding: 0.7rem 2.7rem;
-  border-radius: 30px;
-  background: #014421;
-  color: #fff;
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.18rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+.welcome-button {
+  background-color: #fff; color: #014421;
+  padding: 1.2rem 2.5rem; font-size: 2rem;
+  border: none; border-radius: 8px; cursor: pointer;
+  font-family: inherit;
+  font-weight: bold;
   transition: background 0.2s, color 0.2s;
-  border: none;
-  box-shadow: 0 2px 12px rgba(1,68,33,0.09);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
 }
-.intro-card:hover .enter-btn, .intro-card:focus .enter-btn {
-  background: #fff;
-  color: #014421;
-  border: 2px solid #014421;
+
+.welcome-button:hover {
+  background: #014421; color: #fff;
 }
 
 .hidden { display: none; }
 
-.content-container {
+/* --- WithJoy-style Welcome --- */
+.main-welcome {
+  background: #013b27;
   min-height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background: #002d1f;
-  transition: background 1s;
   padding-top: 60px;
   animation: fadeIn 1s;
 }
 
-.main-card {
-  margin-top: 40px;
-  padding: 2.8rem 2rem 2.4rem 2rem;
+@keyframes fadeIn {
+  from { opacity:0; }
+  to { opacity:1; }
 }
 
-.circle-photo {
-  width: 170px;
-  height: 170px;
+.main-nav {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: transparent;
+  margin-bottom: 40px;
+}
+
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2.5rem;
+  padding: 0;
+  margin: 0;
+}
+
+.main-nav a {
+  color: #e5ffe4;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.main-nav a:hover {
+  background: #014421;
+  color: #fff;
+}
+
+.center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.hero-img {
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   object-fit: cover;
   border: 5px solid #fff;
   box-shadow: 0 4px 24px rgba(0,0,0,0.13);
-  margin-bottom: 1.4rem;
+  margin-bottom: 1.3rem;
 }
 
-.wedding-names {
-  font-family: 'Playfair Display', Georgia, serif;
+.main-welcome h1 {
   font-size: 2.6rem;
-  font-weight: 600;
-  margin: 0 0 1rem 0;
-  letter-spacing: 0.07em;
-  color: #014421;
-  text-align: center;
-}
-.wedding-date {
-  font-size: 1.18rem;
-  color: #00975c;
-  margin-bottom: 2.3rem;
-  letter-spacing: 0.04em;
-  text-align: center;
+  margin: 0;
+  font-family: 'Georgia', serif;
+  letter-spacing: 0.08em;
 }
 
-.rsvp-btn {
-  display: inline-block;
+.wedding-date {
+  font-size: 1.2rem;
+  color: #b1ffcb;
+  margin-bottom: 1.3rem;
+}
+
+.big-rsvp-btn {
   background: #014421;
   color: #fff;
-  font-size: 1.15rem;
-  font-family: 'Playfair Display', Georgia, serif;
-  padding: 0.7rem 2.4rem;
-  border-radius: 26px;
+  font-size: 1.2rem;
+  padding: 0.8rem 2.2rem;
+  border-radius: 24px;
   text-decoration: none;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  border: 2px solid #014421;
-  box-shadow: 0 2px 12px rgba(1,68,33,0.08);
-  transition: background 0.23s, color 0.23s;
-}
-.rsvp-btn:hover {
-  background: #fff;
-  color: #014421;
+  font-weight: bold;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  transition: background 0.2s;
 }
 
-.main-nav {
-  display: flex;
-  justify-content: center;
-  gap: 2.1rem;
-  margin-bottom: 16px;
-  margin-top: 8px;
-  flex-wrap: wrap;
-}
-.main-nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  gap: 2.1rem;
-}
-.main-nav a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 1.08rem;
-  font-family: 'Playfair Display', Georgia, serif;
-  padding: 0.2rem 0.7rem;
-  border-radius: 16px;
-  transition: background 0.17s, color 0.17s;
-}
-.main-nav a:hover {
-  background: #fff;
-  color: #014421;
-}
-@media (max-width: 600px) {
-  .card { padding: 1.4rem 0.5rem; min-width: 0; max-width: 98vw;}
-  .main-nav ul { gap: 1rem;}
-  .main-card { padding: 1.3rem 0.5rem 1.1rem 0.5rem;}
-  .circle-photo { width: 110px; height: 110px;}
+.big-rsvp-btn:hover {
+  background: #026644;
 }
