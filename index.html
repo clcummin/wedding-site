@@ -20,7 +20,7 @@
     </iframe>
   </div>
 
-  <!-- Overlay -->
+  <!-- Dim Overlay -->
   <div class="video-overlay fadeable" id="bg-overlay"></div>
 
   <!-- Welcome Button -->
@@ -47,28 +47,6 @@
     </nav>
   </div>
 
-  <script>
-    function revealMain() {
-      const video = document.getElementById("bg-video-container");
-      const overlay = document.getElementById("bg-overlay");
-
-      // Add fade-out class
-      video.classList.add("fade-out");
-      overlay.classList.add("fade-out");
-
-      // Change background color
-      document.body.style.backgroundColor = "#002d1f"; // darker emerald
-
-      // After fade transition, remove elements
-      setTimeout(() => {
-        video.remove();
-        overlay.remove();
-      }, 1000); // match transition duration
-
-      // Hide intro button and show main content
-      document.getElementById("intro").style.display = "none";
-      document.getElementById("main-content").classList.remove("hidden");
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
