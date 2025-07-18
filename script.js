@@ -1,8 +1,8 @@
 const panels = [
-  "https://via.placeholder.com/800x600?text=Panel+1",
-  "https://via.placeholder.com/800x600?text=Panel+2",
-  "https://via.placeholder.com/800x600?text=Panel+3",
-  "https://via.placeholder.com/800x600?text=Panel+4"
+  "https://placehold.co/800x600?text=Panel+1",
+  "https://placehold.co/800x600?text=Panel+2",
+  "https://placehold.co/800x600?text=Panel+3",
+  "https://placehold.co/800x600?text=Panel+4"
 ];
 
 let currentIndex = 0;
