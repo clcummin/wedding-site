@@ -12,16 +12,13 @@
 
   <!-- Background Video -->
   <div class="background-video">
-    <iframe
-      src="https://www.youtube.com/embed/N9vjH__0zh0?autoplay=1&mute=1&controls=0&loop=1&playlist=N9vjH__0zh0"
-      frameborder="0"
-      allow="autoplay; fullscreen"
-      allowfullscreen
-      title="Wedding Background Video">
-    </iframe>
+    <video autoplay muted loop playsinline id="bgvid">
+      <source src="assets/wedding-bg.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
   </div>
 
-  <!-- Optional dim overlay (subtle, not required, but pretty on mobile!) -->
+  <!-- Optional dim overlay -->
   <div class="video-overlay"></div>
 
   <!-- Centered Intro Card, locked, fade-in after 1s -->
@@ -33,18 +30,6 @@
     </a>
   </div>
 
-  <script>
-  // Lock scroll
-  document.documentElement.style.overflow = "hidden";
-  document.body.style.overflow = "hidden";
-  document.body.style.height = "100vh";
-
-  // Fade in card after 1s
-  window.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-      document.getElementById('introCard').classList.add('visible');
-    }, 1000);
-  });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
