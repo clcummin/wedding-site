@@ -20,12 +20,19 @@ body {
 
 /* Centered card for welcome page */
 .intro-card-container {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  /* your existing layout styles here (position, centering, etc) */
   position: fixed;
   top: 0; left: 0; width: 100vw; height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;
+  background: transparent;
+}
+.intro-card-container.visible {
+  opacity: 1;
 }
 .card {
   background: #fff;
