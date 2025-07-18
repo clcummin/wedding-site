@@ -30,25 +30,66 @@ body {
 .fadeable { transition: opacity 1s ease; }
 .fade-out { opacity: 0; }
 
-.welcome-button-container {
-  display: flex; justify-content: center; align-items: center;
-  height: 100vh; flex-direction: column; text-align: center;
+.intro-card-container {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  background: transparent;
 }
-.welcome-button {
-  background-color: #fff; color: #014421;
-  padding: 1.2rem 2.5rem; font-size: 2rem;
-  border: none; border-radius: 8px; cursor: pointer;
-  font-family: inherit;
-  font-weight: bold;
+
+.card {
+  background: #fff;
+  color: #222;
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  border: 1.5px solid #e4e4e4;
+  padding: 3rem 2.5rem 2.5rem 2.5rem;
+  min-width: 330px;
+  max-width: 460px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: box-shadow 0.23s;
+}
+.card:hover, .card:focus {
+  box-shadow: 0 12px 48px rgba(1,68,33,0.18);
+  outline: 0;
+}
+.intro-card {
+  background: #fff;
+  color: #222;
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+  border: 2.5px solid #014421;
+  cursor: pointer;
+}
+.enter-btn {
+  margin-top: 2.1rem;
+  padding: 0.7rem 2.7rem;
+  border-radius: 30px;
+  background: #014421;
+  color: #fff;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.18rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   transition: background 0.2s, color 0.2s;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  border: none;
+  box-shadow: 0 2px 12px rgba(1,68,33,0.09);
 }
-.welcome-button:hover {
-  background: #014421; color: #fff;
+.intro-card:hover .enter-btn, .intro-card:focus .enter-btn {
+  background: #fff;
+  color: #014421;
+  border: 2px solid #014421;
 }
+
 .hidden { display: none; }
 
-/* Main Content Container */
 .content-container {
   min-height: 100vh;
   display: flex;
@@ -61,31 +102,25 @@ body {
   animation: fadeIn 1s;
 }
 
-/* Card Styling */
-.card {
-  background: #fff;
-  color: #222;
-  border-radius: 20px;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.12);
-  border: 1.5px solid #e4e4e4;
-  padding: 3rem 2.5rem 2.5rem 2.5rem;
-  margin-top: 32px;
-  min-width: 330px;
-  max-width: 460px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* Main Content Card */
+.main-card {
+  margin-top: 40px;
+  padding: 2.8rem 2rem 2.4rem 2rem;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0;}
-  to { opacity: 1;}
+.circle-photo {
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #fff;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+  margin-bottom: 1.4rem;
 }
 
 .wedding-names {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 2.7rem;
+  font-size: 2.6rem;
   font-weight: 600;
   margin: 0 0 1rem 0;
   letter-spacing: 0.07em;
@@ -97,6 +132,7 @@ body {
   color: #00975c;
   margin-bottom: 2.3rem;
   letter-spacing: 0.04em;
+  text-align: center;
 }
 
 .rsvp-btn {
@@ -150,4 +186,6 @@ body {
 @media (max-width: 600px) {
   .card { padding: 1.4rem 0.5rem; min-width: 0; max-width: 98vw;}
   .main-nav ul { gap: 1rem;}
+  .main-card { padding: 1.3rem 0.5rem 1.1rem 0.5rem;}
+  .circle-photo { width: 110px; height: 110px;}
 }
