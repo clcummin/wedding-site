@@ -1,102 +1,42 @@
-/* Background Video */
-.background-video {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
   height: 100%;
+  background-color: black;
   overflow: hidden;
-  z-index: -2;
 }
 
-.background-video iframe {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-}
-
-/* Overlay */
-.video-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  z-index: -1;
-}
-
-/* Fade Out Transition */
-.fadeable {
-  transition: opacity 1s ease;
-}
-
-.fade-out {
-  opacity: 0;
-}
-
-/* Welcome Button */
-.welcome-button-container {
+.comic-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  flex-direction: column;
-  text-align: center;
-}
-
-.welcome-button {
-  background-color: #fff;
-  color: #333;
-  padding: 1rem 2rem;
-  font-size: 1.5rem;
-  border: none;
-  border-radius: 8px;
+  height: 100%;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.welcome-button:hover {
-  background-color: #f0f0f0;
+.comic-panel {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: opacity 0.5s ease-in-out;
 }
 
-/* Hidden Content */
 .hidden {
-  display: none;
+  opacity: 0;
 }
 
-/* Main Content */
-.content {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  padding: 3rem 1rem;
+.instructions {
+  position: absolute;
+  top: 10px;
+  left: 10px;
   color: white;
-}
-
-.content nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 2rem 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.content nav a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  transition: background 0.3s ease;
-}
-
-.content nav a:hover {
-  background: rgba(255, 255, 255, 0.25);
+  font-family: sans-serif;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
 }
