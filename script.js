@@ -10,10 +10,16 @@ const panelEl = document.getElementById("comicPanel");
 const container = document.getElementById("comicContainer");
 
 container.addEventListener("click", () => {
-  panelEl.classList.add("hidden");
+  panelEl.classList.add("page-turning");
+
+  // Change image at halfway point of animation (300ms)
   setTimeout(() => {
     currentIndex = (currentIndex + 1) % panels.length;
     panelEl.src = panels[currentIndex];
-    panelEl.classList.remove("hidden");
   }, 300);
+
+  // Remove animation class after animation completes (600ms)
+  setTimeout(() => {
+    panelEl.classList.remove("page-turning");
+  }, 600);
 });
