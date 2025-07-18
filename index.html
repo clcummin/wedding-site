@@ -2,15 +2,73 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Interactive Comic</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Wedding</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="instructions">Click anywhere to advance the comic</div>
-  <div class="comic-container" id="comicContainer">
-    <img id="comicPanel" class="comic-panel" src="https://placehold.co/800x600?text=Panel+1" alt="Comic Panel" />
+
+  <!-- Background Video -->
+  <div class="background-video fadeable" id="bg-video-container">
+    <iframe
+      id="bg-video"
+      src="https://www.youtube.com/embed/N9vjH__0zh0?autoplay=1&mute=1&controls=0&loop=1&playlist=N9vjH__0zh0&modestbranding=1&rel=0&showinfo=0"
+      frameborder="0"
+      allow="autoplay; fullscreen"
+      allowfullscreen
+      title="Wedding Background Video">
+    </iframe>
   </div>
 
-  <script src="script.js"></script>
+  <!-- Overlay -->
+  <div class="video-overlay fadeable" id="bg-overlay"></div>
+
+  <!-- Welcome Button -->
+  <div class="welcome-button-container" id="intro">
+    <button class="welcome-button" onclick="revealMain()">Welcome to Our Wedding</button>
+  </div>
+
+  <!-- Hidden Main Content -->
+  <div class="content hidden" id="main-content">
+    <div class="welcome">
+      <h1>Welcome to Our Wedding</h1>
+      <p>We are thrilled to share this special day with you!</p>
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="our-story.html">Our Story</a></li>
+        <li><a href="transportation.html">Transportation</a></li>
+        <li><a href="rsvp.html">RSVP</a></li>
+        <li><a href="faqs.html">FAQs</a></li>
+        <li><a href="accommodation.html">Accommodation</a></li>
+        <li><a href="events.html">Events</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <script>
+    function revealMain() {
+      const video = document.getElementById("bg-video-container");
+      const overlay = document.getElementById("bg-overlay");
+
+      // Add fade-out class
+      video.classList.add("fade-out");
+      overlay.classList.add("fade-out");
+
+      // Change background color
+      document.body.style.backgroundColor = "#002d1f"; // darker emerald
+
+      // After fade transition, remove elements
+      setTimeout(() => {
+        video.remove();
+        overlay.remove();
+      }, 1000); // match transition duration
+
+      // Hide intro button and show main content
+      document.getElementById("intro").style.display = "none";
+      document.getElementById("main-content").classList.remove("hidden");
+    }
+  </script>
 </body>
 </html>
