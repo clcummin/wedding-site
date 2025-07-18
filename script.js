@@ -1,25 +1,21 @@
-const panels = [
-  "https://placehold.co/800x600?text=Panel+1",
-  "https://placehold.co/800x600?text=Panel+2",
-  "https://placehold.co/800x600?text=Panel+3",
-  "https://placehold.co/800x600?text=Panel+4"
-];
+function revealMain() {
+  const video = document.getElementById("bg-video-container");
+  const overlay = document.getElementById("bg-overlay");
 
-let currentIndex = 0;
-const panelEl = document.getElementById("comicPanel");
-const container = document.getElementById("comicContainer");
+  // Trigger fade out
+  video.classList.add("fade-out");
+  overlay.classList.add("fade-out");
 
-container.addEventListener("click", () => {
-  panelEl.classList.add("page-turning");
+  // Set solid background color (dark emerald green)
+  document.body.style.backgroundColor = "#002d1f";
 
-  // Change image at halfway point of animation (300ms)
+  // Remove video and overlay after fade transition
   setTimeout(() => {
-    currentIndex = (currentIndex + 1) % panels.length;
-    panelEl.src = panels[currentIndex];
-  }, 300);
+    video.remove();
+    overlay.remove();
+  }, 1000); // Match CSS transition duration
 
-  // Remove animation class after animation completes (600ms)
-  setTimeout(() => {
-    panelEl.classList.remove("page-turning");
-  }, 600);
-});
+  // Hide intro and show main content
+  document.getElementById("intro").style.display = "none";
+  document.getElementById("main-content").classList.remove("hidden");
+}
