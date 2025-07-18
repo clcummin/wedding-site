@@ -1,17 +1,22 @@
 function revealMain() {
   const video = document.getElementById("bg-video-container");
   const overlay = document.getElementById("bg-overlay");
-  const intro = document.getElementById("intro");
 
-  // Fade out video, overlay, and intro card
+  // Fade out video and overlay
   video.classList.add("fade-out");
   overlay.classList.add("fade-out");
-  intro.classList.add("fade-out");
 
+  // Change background color for main-welcome (handled by CSS)
+  document.body.style.backgroundColor = "#013b27"; // deep green
+
+  // Remove video/overlay after fade
   setTimeout(() => {
     if(video) video.remove();
     if(overlay) overlay.remove();
-    if(intro) intro.remove();
+    // Show main content after fade
     document.getElementById("main-content").classList.remove("hidden");
   }, 1000);
+
+  // Hide intro button
+  document.getElementById("intro").style.display = "none";
 }
