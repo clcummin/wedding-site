@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Our Wedding</title>
+  <title>T & T Wedding</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <!-- Background Video -->
+  <!-- Video and button (as previously set up) -->
   <div class="background-video fadeable" id="bg-video-container">
     <iframe
       id="bg-video"
@@ -19,35 +18,36 @@
       title="Wedding Background Video">
     </iframe>
   </div>
-
-  <!-- Dim Overlay -->
   <div class="video-overlay fadeable" id="bg-overlay"></div>
-
-  <!-- Welcome Button -->
   <div class="welcome-button-container" id="intro">
     <button class="welcome-button" onclick="revealMain()">Welcome to Our Wedding</button>
   </div>
 
-  <!-- Hidden Main Content, WithJoy-Style -->
-  <div class="main-welcome hidden" id="main-content">
-    <nav class="main-nav">
-      <ul>
-        <li><a href="our-story.html">Our Story</a></li>
-        <li><a href="events.html">Events</a></li>
-        <li><a href="rsvp.html">RSVP</a></li>
-        <li><a href="faqs.html">FAQs</a></li>
-        <li><a href="accommodation.html">Accommodation</a></li>
-        <li><a href="transportation.html">Transportation</a></li>
-      </ul>
-    </nav>
-    <div class="center-content">
-      <img class="hero-img" src="assets/IMG_6586.jpeg" alt="Couple photo" />
-      <h1>Alex & Taylor</h1>
-      <p class="wedding-date">September 14, 2025 • Santa Barbara, CA</p>
-      <a href="rsvp.html" class="big-rsvp-btn">RSVP</a>
+  <!-- Welcome/Main Content -->
+  <div class="main-layout hidden" id="main-content">
+    <div class="side-bg left"></div>
+    <div class="center-box">
+      <div class="monogram">T &amp; T</div>
+      <nav>
+        <ul class="main-nav">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">RSVP</a></li>
+          <li><a href="#">Story</a></li>
+          <li><a href="#">Where to Stay</a></li>
+          <li><a href="#">Schedule</a></li>
+          <li><a href="#">Registry</a></li>
+          <li><a href="#">Travel</a></li>
+          <li><a href="#">Q &amp; A</a></li>
+          <li><a href="#">Wedding Party</a></li>
+          <li><a href="#">Moments</a></li>
+          <li><a href="#">Get the app</a></li>
+        </ul>
+      </nav>
+      <div class="countdown" id="countdown"></div>
+      <img src="assets/IMG_6586.jpeg" alt="Couple photo" class="main-photo"/>
     </div>
+    <div class="side-bg right"></div>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
