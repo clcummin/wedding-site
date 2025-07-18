@@ -8,10 +8,11 @@
 </head>
 <body>
 
-  <!-- Background Video -->
-  <div class="background-video">
+  <!-- Background Video (with sound, not muted) -->
+  <div class="background-video" id="bg-video-container">
     <iframe
-      src="https://www.youtube.com/embed/N9vjH__0zh0?autoplay=1&mute=1&controls=0&loop=1&playlist=N9vjH__0zh0&modestbranding=1&rel=0&showinfo=0"
+      id="bg-video"
+      src="https://www.youtube.com/embed/N9vjH__0zh0?autoplay=1&mute=0&controls=0&loop=1&playlist=N9vjH__0zh0&modestbranding=1&rel=0&showinfo=0"
       frameborder="0"
       allow="autoplay; fullscreen"
       allowfullscreen
@@ -19,7 +20,7 @@
     </iframe>
   </div>
 
-  <!-- Dim Overlay -->
+  <!-- Overlay -->
   <div class="video-overlay"></div>
 
   <!-- Welcome Button -->
@@ -48,6 +49,22 @@
 
   <script>
     function revealMain() {
+      // Remove the background video container
+      const bgContainer = document.getElementById("bg-video-container");
+      if (bgContainer) {
+        bgContainer.remove();
+      }
+
+      // Remove the overlay
+      const overlay = document.querySelector(".video-overlay");
+      if (overlay) {
+        overlay.remove();
+      }
+
+      // Set background color of body
+      document.body.style.backgroundColor = "#014421"; // Dark emerald green
+
+      // Show main content
       document.getElementById("intro").style.display = "none";
       document.getElementById("main-content").classList.remove("hidden");
     }
