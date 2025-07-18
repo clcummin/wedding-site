@@ -9,7 +9,7 @@
 </head>
 <body>
 
-  <!-- Background Video -->
+  <!-- VIDEO & BUTTON CARD INTRO -->
   <div class="background-video fadeable" id="bg-video-container">
     <iframe
       id="bg-video"
@@ -20,16 +20,16 @@
       title="Wedding Background Video">
     </iframe>
   </div>
-
-  <!-- Dim Overlay -->
   <div class="video-overlay fadeable" id="bg-overlay"></div>
-
-  <!-- Welcome Button -->
-  <div class="welcome-button-container" id="intro">
-    <button class="welcome-button" onclick="revealMain()">Welcome to Our Wedding</button>
+  <div class="intro-card-container fadeable" id="intro">
+    <div class="card intro-card" onclick="revealMain()" tabindex="0">
+      <h1 class="wedding-names">Alex & Taylor</h1>
+      <div class="wedding-date">September 14, 2025 • Santa Barbara, CA</div>
+      <div class="enter-btn">Enter</div>
+    </div>
   </div>
 
-  <!-- Hidden Main Content -->
+  <!-- HIDDEN MAIN PAGE (AFTER CLICK) -->
   <div class="content-container hidden" id="main-content">
     <nav class="main-nav">
       <ul>
@@ -41,7 +41,8 @@
         <li><a href="transportation.html">Transportation</a></li>
       </ul>
     </nav>
-    <div class="card">
+    <div class="card main-card">
+      <img src="assets/IMG_6586.jpeg" alt="Couple photo" class="circle-photo"/>
       <h1 class="wedding-names">Alex & Taylor</h1>
       <div class="wedding-date">September 14, 2025 • Santa Barbara, CA</div>
       <a href="rsvp.html" class="rsvp-btn">RSVP</a>
