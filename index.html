@@ -1,50 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Wedding</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Wedding</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <!-- Background Video Section -->
-    <div class="background-video">
-        <!-- YouTube video embedded with autoplay, mute, and loop -->
-        <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1;">
-            <iframe 
-                src="https://www.youtube.com/embed/N9vjH__0zh0?autoplay=1&mute=1&controls=0&loop=1&playlist=N9vjH__0zh0&modestbranding=1&rel=0&showinfo=0" 
-                frameborder="0" 
-                allow="autoplay; fullscreen" 
-                allowfullscreen 
-                style="width:100%; height:100%; position:absolute; top:0; left:0; pointer-events: none;"
-                title="Wedding Background Video">
-            </iframe>
-        </div>
+  <!-- Background Video -->
+  <div class="background-video">
+    <iframe
+      src="https://www.youtube.com/embed/N9vjH__0zh0?autoplay=1&mute=1&controls=0&loop=1&playlist=N9vjH__0zh0&modestbranding=1&rel=0&showinfo=0"
+      frameborder="0"
+      allow="autoplay; fullscreen"
+      allowfullscreen
+      title="Wedding Background Video">
+    </iframe>
+  </div>
+
+  <!-- Dim Overlay -->
+  <div class="video-overlay"></div>
+
+  <!-- Welcome Button -->
+  <div class="welcome-button-container" id="intro">
+    <button class="welcome-button" onclick="revealMain()">Welcome to Our Wedding</button>
+  </div>
+
+  <!-- Hidden Main Content -->
+  <div class="content hidden" id="main-content">
+    <div class="welcome">
+      <h1>Welcome to Our Wedding</h1>
+      <p>We are thrilled to share this special day with you!</p>
     </div>
 
-    <!-- Main Content Section -->
-    <div class="content">
-    
+    <nav>
+      <ul>
+        <li><a href="our-story.html">Our Story</a></li>
+        <li><a href="transportation.html">Transportation</a></li>
+        <li><a href="rsvp.html">RSVP</a></li>
+        <li><a href="faqs.html">FAQs</a></li>
+        <li><a href="accommodation.html">Accommodation</a></li>
+        <li><a href="events.html">Events</a></li>
+      </ul>
+    </nav>
+  </div>
 
-        <div class="welcome">
-            <h1>Welcome to Our Wedding</h1>
-            <p>We are thrilled to share this special day with you!</p>
-        </div>
-
-        <!-- Navigation Links to Other Pages -->
-        <nav>
-            <ul>
-                <li><a href="our-story.html">Our Story</a></li>
-                <li><a href="transportation.html">Transportation</a></li>
-                <li><a href="rsvp.html">RSVP</a></li>
-                <li><a href="faqs.html">FAQs</a></li>
-                <li><a href="accommodation.html">Accommodation</a></li>
-                <li><a href="events.html">Events</a></li>
-            </ul>
-        </nav>
-    </div>
-
-    <script src="script.js"></script>
+  <script>
+    function revealMain() {
+      document.getElementById("intro").style.display = "none";
+      document.getElementById("main-content").classList.remove("hidden");
+    }
+  </script>
 </body>
 </html>
