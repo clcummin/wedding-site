@@ -18,7 +18,7 @@
   pointer-events: none;
 }
 
-/* Video Dim Overlay */
+/* Overlay to dim video */
 .video-overlay {
   position: fixed;
   top: 0;
@@ -29,7 +29,7 @@
   z-index: -1;
 }
 
-/* Welcome Button Layout */
+/* Welcome Button */
 .welcome-button-container {
   display: flex;
   justify-content: center;
@@ -59,7 +59,7 @@
   display: none;
 }
 
-/* Main Content Styling */
+/* Main Content */
 .content {
   position: relative;
   z-index: 1;
