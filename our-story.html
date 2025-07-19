@@ -93,8 +93,7 @@
     var $fb = $('#flipbook');
     if (!$fb.length) return;
 
-    // cap width at 450px, height at 2/3rds
-    var vw    = $(window).width();
+    var vw     = $(window).width();
     var width  = Math.min(vw * 0.8, 450);
     var height = width * 0.66;
 
@@ -108,27 +107,13 @@
       elevation:    50
     });
 
-    // debugging helper
     function doFlip(dir, e) {
-      console.log('Flipping', dir);
       e.preventDefault();
       $fb.turn(dir);
     }
 
-    // cover click/tap → next
-    $fb.on('click touchstart pointerup', '.page.cover', function(e) {
-      doFlip('next', e);
-    });
-
-    // right half → next
-    $fb.on('click touchstart pointerup', '.page-right', function(e) {
-      doFlip('next', e);
-    });
-
-    // left half → previous
-    $fb.on('click touchstart pointerup', '.page-left', function(e) {
-      doFlip('previous', e);
-    });
+    $fb.on('click touchstart pointerup', '.page.cover, .page-right', e => doFlip('next', e));
+    $fb.on('click touchstart pointerup', '.page-left',    e => doFlip('previous', e));
   });
 </script>
 
