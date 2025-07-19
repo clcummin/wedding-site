@@ -1,22 +1,20 @@
-// 1. Fade‑in the intro card after 1s
-window.addEventListener('DOMContentLoaded', function() {
-  setTimeout(function() {
+// 1s delay then fade in the intro card
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
     document.getElementById('introCard').classList.add('visible');
   }, 1000);
 });
 
-// 2. On card click: fade out video & card, then navigate
-document.querySelector('.intro-card').addEventListener('click', function(e) {
-  e.preventDefault(); // stop immediate navigation
-  const targetUrl = this.getAttribute('href');
+// when the card (<a>) is clicked…
+document.querySelector('.intro-card').addEventListener('click', e => {
+  e.preventDefault();
+  const url = e.currentTarget.getAttribute('href');
 
-  // fade out elements
+  // fade-out video, overlay, intro
   document.querySelector('.background-video video').classList.add('fade-out');
   document.querySelector('.video-overlay').classList.add('fade-out');
   document.getElementById('introCard').classList.add('fade-out');
 
-  // after fade duration, go to home.html
-  setTimeout(function() {
-    window.location.href = targetUrl;
-  }, 700); // match your CSS transition duration
+  // after fade completes, go to home.html
+  setTimeout(() => window.location.href = url, 700);
 });
