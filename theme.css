@@ -23,7 +23,6 @@
 html, body {
   margin: 0; padding: 0;
   width: 100vw; height: 100vh;
-  overflow: hidden;
   background: var(--bg-emerald-dark);
   font-family: var(--font-serif);
   color: var(--white);
