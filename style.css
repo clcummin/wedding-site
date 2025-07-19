@@ -27,14 +27,14 @@ html, body {
 /* Video background & fallback */
 .background-video {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  inset: 0;                              /* top:0; right:0; bottom:0; left:0 */
   background: url('assets/video-fallback.jpg') center/cover no-repeat;
   overflow: hidden;
   z-index: 0;
 }
 .background-video video {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -44,7 +44,7 @@ html, body {
 /* Dim overlay */
 .video-overlay {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  inset: 0;
   background: var(--emerald-overlay);
   z-index: 1;
   pointer-events: none;
@@ -59,8 +59,11 @@ html, body {
 
 /* Intro card container */
 .intro-card-container {
-  position: fixed; inset: 0;
-  display: flex; align-items: center; justify-content: center;
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 2;
   opacity: 0;
   transition: opacity var(--t-med) var(--ease-med);
@@ -80,8 +83,10 @@ html, body {
   border: 1.5px solid var(--gray-light);
   padding: 3rem 2.5rem 2.5rem;
   max-width: 460px;
-  width: 90%;                 /* changed from 90vw */
-  display: flex; flex-direction: column; align-items: center;
+  width: 90%;                 /* now relative to container, no vw */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-decoration: none;
   cursor: pointer;
   transition:
@@ -157,9 +162,11 @@ html, body {
 .main-welcome {
   background: var(--bg-emerald-dark);
   min-height: 100vh;
-  width: 100%;                /* changed from 100vw */
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: flex-start;
+  width: 100%;                /* no more 100vw */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   padding-top: 60px;
   animation: fadeIn var(--t-med) var(--ease-med);
   box-sizing: border-box;
@@ -168,21 +175,29 @@ html, body {
 /* Navigation */
 .main-nav {
   width: 100%;
-  display: flex; justify-content: center;
-  margin: 16px 0 32px; flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  margin: 16px 0 32px;
+  flex-wrap: wrap;
 }
 .main-nav ul {
-  list-style: none; display: flex; gap: 2rem;
-  margin: 0; padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
 }
 .main-nav a {
   color: var(--white);
   font-family: var(--font-display);
-  font-size: 1.1rem; font-weight: 500;
-  padding: .3rem .8rem; border-radius: 16px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: .3rem .8rem;
+  border-radius: 16px;
   text-decoration: none;
-  transition: background var(--t-fast) var(--ease-med),
-              color var(--t-fast) var(--ease-med);
+  transition:
+    background var(--t-fast) var(--ease-med),
+    color      var(--t-fast) var(--ease-med);
 }
 .main-nav a:hover, .main-nav a:focus {
   background: var(--white);
@@ -191,14 +206,19 @@ html, body {
 
 /* Center content */
 .center-content {
-  display: flex; flex-direction: column;
-  align-items: center; gap: 2.5rem;
-  padding: 0 1rem; max-width: 500px; width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 0 1rem;
+  max-width: 500px;
+  width: 100%;
 }
 
 /* Hero image */
 .hero-img {
-  width: 180px; height: 180px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   object-fit: cover;
   border: 5px solid var(--white);
@@ -208,37 +228,42 @@ html, body {
 /* Text elements */
 .main-welcome .wedding-names {
   font-family: var(--font-display);
-  font-size: 2.8rem; font-weight: 600;
-  margin: 0; letter-spacing: .08em;
+  font-size: 2.8rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: .08em;
   color: var(--emerald-border);
   text-align: center;
 }
 .main-welcome .wedding-date {
   font-family: var(--font-display);
-  font-size: 1.2rem; color: var(--emerald-accent);
-  margin: 0; text-align: center;
+  font-size: 1.2rem;
+  color: var(--emerald-accent);
+  margin: 0;
+  text-align: center;
 }
 
 /* RSVP button */
 .big-rsvp-btn {
   display: inline-block;
   background: var(--emerald-border);
-  color:      var(--white);
+  color: var(--white);
   font-family: var(--font-display);
-  font-size:   1.2rem;
-  padding:     .8rem 2.4rem;
+  font-size: 1.2rem;
+  padding: .8rem 2.4rem;
   border-radius: var(--btn-radius);
-  border:        2px solid var(--emerald-border);
+  border: 2px solid var(--emerald-border);
   text-decoration: none;
   font-weight: 600;
   letter-spacing: .04em;
   box-shadow: 0 2px 10px rgba(1,68,33,0.06);
-  transition: background var(--t-med) var(--ease-med),
-              color      var(--t-med) var(--ease-med);
+  transition:
+    background var(--t-med) var(--ease-med),
+    color      var(--t-med) var(--ease-med);
 }
 .big-rsvp-btn:hover, .big-rsvp-btn:focus {
   background: var(--white);
-  color:      var(--emerald-border);
+  color: var(--emerald-border);
 }
 
 /* Fade‑In keyframes */
@@ -250,7 +275,8 @@ html, body {
 /* Responsive tweaks for home */
 @media (max-width: 600px) {
   .hero-img {
-    width: 120px; height: 120px;
+    width: 120px;
+    height: 120px;
   }
   .main-welcome .wedding-names {
     font-size: 2rem;
