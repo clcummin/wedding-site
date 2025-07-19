@@ -391,3 +391,12 @@ html, body {
   background: var(--bg-emerald-dark);
   box-sizing: border-box;
 }
+/* TEXT pages (left side) get left-only rounding */
+#flipbook .text-page {
+  border-radius: var(--card-radius) 0 0 var(--card-radius);
+}
+
+/* IMAGE pages (right side) get right-only rounding */
+#flipbook .image-page {
+  border-radius: 0 var(--card-radius) var(--card-radius) 0;
+}
