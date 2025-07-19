@@ -3,26 +3,103 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta
-    name="viewport"
+  <meta 
+    name="viewport" 
     content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>Coming Soon</title>
+  <title>Our Story</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
 
-  <!-- 1. Design‑tokens & resets -->
+  <!-- 1️⃣ Theme tokens & reset -->
   <link rel="stylesheet" href="theme.css">
-  <!-- 2. Page styles (includes .coming-soon-banner) -->
+  <!-- 2️⃣ Shared page styles (including flip-book rules) -->
   <link rel="stylesheet" href="style.css">
-  <!-- 3. Heading font -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap"
+  <!-- 3️⃣ Heading font -->
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" 
     rel="stylesheet">
 </head>
-<body>
+<body class="allow-scroll">
 
-  <!-- Centered overlay banner -->
-  <div class="coming-soon-banner">
-    COMING SOON!
+  <!-- Coming Soon overlay (if you need it) -->
+  <!-- <div class="coming-soon-banner">COMING SOON!</div> -->
+
+  <!-- Flip-book container -->
+  <div class="story-page">
+    <div id="flipbook">
+      <!-- Cover -->
+      <div class="page cover" 
+           style="background-image:url('https://raw.githubusercontent.com/your-user/your-repo/main/assets/cover.png');">
+      </div>
+
+      <!-- Page 1 -->
+      <div class="page">
+        <div class="page-left">
+          <div class="text-page">[Your text for page 1 goes here]</div>
+        </div>
+        <div class="page-right">
+          <img src="assets/comic1.png" alt="Comic panel 1">
+        </div>
+      </div>
+
+      <!-- Page 2 -->
+      <div class="page">
+        <div class="page-left">
+          <div class="text-page">[Your text for page 2 goes here]</div>
+        </div>
+        <div class="page-right">
+          <img src="assets/comic2.png" alt="Comic panel 2">
+        </div>
+      </div>
+
+      <!-- Page 3 -->
+      <div class="page">
+        <div class="page-left">
+          <div class="text-page">[Your text for page 3 goes here]</div>
+        </div>
+        <div class="page-right">
+          <img src="assets/comic3.png" alt="Comic panel 3">
+        </div>
+      </div>
+
+      <!-- Page 4 -->
+      <div class="page">
+        <div class="page-left">
+          <div class="text-page">[Your text for page 4 goes here]</div>
+        </div>
+        <div class="page-right">
+          <img src="assets/comic4.png" alt="Comic panel 4">
+        </div>
+      </div>
+
+      <!-- Page 5 -->
+      <div class="page">
+        <div class="page-left">
+          <div class="text-page">[Your text for page 5 goes here]</div>
+        </div>
+        <div class="page-right">
+          <img src="assets/comic5.png" alt="Comic panel 5">
+        </div>
+      </div>
+    </div>
   </div>
 
+  <!-- jQuery & Turn.js from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
+  <!-- Flip-book init -->
+  <script>
+    $(function() {
+      // Only init if #flipbook exists
+      if ($('#flipbook').length) {
+        $('#flipbook').turn({
+          width:  $.isNumeric($(window).width()) ? $(window).width() * 0.8 : 800,
+          height: $(window).width() * 0.6,
+          autoCenter: true,
+          display: 'double',
+          acceleration: true
+        });
+      }
+    });
+  </script>
 </body>
 </html>
