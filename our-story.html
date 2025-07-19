@@ -93,37 +93,48 @@
     </div><!-- /#flipbook -->
   </div><!-- /.story-page -->
 
-  <!-- locally hosted libs -->
   <script src="assets/js/jquery.min.js"></script>
-  <script src="assets/js/turn.min.js"></script>
+<script src="assets/js/turn.min.js"></script>
+<script>
+  $(function() {
+    var $fb = $('#flipbook');
+    if (!$fb.length) return;
 
-  <!-- simplified flip‑book init -->
-  <script>
-    $(function() {
-      var $fb = $('#flipbook');
-      if (!$fb.length) return;
+    // calculate two sizes
+    var vw      = $(window).width();
+    var coverW  = Math.min(vw * 0.95, 800);
+    var coverH  = coverW * 0.66;
+    var pageW   = Math.min(vw * 0.8, 600);
+    var pageH   = pageW * 0.66;
 
-      // size cap
-      var vw     = $(window).width();
-      var width  = Math.min(vw * 0.8, 450);
-      var height = width * 0.66;
-
-      $fb.turn({
-        width:        width,
-        height:       height,
-        display:      'double',
-        autoCenter:   true,
-        acceleration: true,
-        gradients:    true,
-        elevation:    50
-      });
-
-      // one‐and‐only flip per click/tap
-      $fb.on('click', '.page', function(e) {
-        e.preventDefault();
-        $fb.turn('next');
-      });
+    // init at cover size
+    $fb.turn({
+      width:        coverW,
+      height:       coverH,
+      display:      'double',
+      autoCenter:   true,
+      acceleration: true,
+      gradients:    true,
+      elevation:    50
     });
-  </script>
+
+    // whenever a page is turned…
+    $fb.on('turned', function(event, page) {
+      if (page === 1) {
+        // back to cover
+        $fb.turn('size', coverW, coverH);
+      } else {
+        // any other leaf → shrink
+        $fb.turn('size', pageW, pageH);
+      }
+    });
+
+    // single click/tap to advance
+    $fb.on('click', '.page', function(e) {
+      e.preventDefault();
+      $fb.turn('next');
+    });
+  });
+</script>
 </body>
 </html>
