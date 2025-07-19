@@ -1,32 +1,31 @@
-/* theme.css — your immutable site‑wide design tokens */
 :root {
   /* colors */
-  --bg‑emerald‑dark: #002d1f;
-  --emerald‑overlay: rgba(0,0,0,0.22);
-  --emerald‑border: #014421;
-  --emerald‑hover: #015e3c;
-  --emerald‑accent: #00975c;
+  --bg-emerald-dark: #002d1f;
+  --emerald-overlay: rgba(0,0,0,0.22);
+  --emerald-border: #014421;
+  --emerald-hover: #015e3c;
+  --emerald-accent: #00975c;
   --white: #fff;
-  --gray‑light: #e4e4e4;
+  --gray-light: #e4e4e4;
   /* fonts */
-  --font‑serif: 'Georgia', serif;
-  --font‑display: 'Playfair Display', serif;
+  --font-serif: 'Georgia', serif;
+  --font-display: 'Playfair Display', serif;
   /* sizing */
-  --card‑radius: 20px;
-  --photo‑size: 96px;
-  --btn‑radius: 28px;
+  --card-radius: 20px;
+  --photo-size: 96px;
+  --btn-radius: 28px;
   /* transitions */
-  --t‑fast: 0.18s;
-  --t‑med: 0.7s;
-  --ease‑med: ease;
+  --t-fast: 0.18s;
+  --t-med: 0.7s;
+  --ease-med: ease;
 }
 
 html, body {
   margin: 0; padding: 0;
   width: 100vw; height: 100vh;
   overflow: hidden;
-  background: var(--bg‑emerald‑dark);
-  font-family: var(--font‑serif);
+  background: var(--bg-emerald-dark);
+  font-family: var(--font-serif);
   color: var(--white);
 }
 
@@ -42,34 +41,34 @@ html, body {
   width:100vw; height:100vh;
   object-fit: cover;
   position:absolute; top:0; left:0;
-  background: var(--bg‑emerald‑dark);
-  transition: opacity var(--t‑med) var(--ease‑med);
+  background: var(--bg-emerald-dark);
+  transition: opacity var(--t-med) var(--ease-med);
 }
 
 /* overlay */
 .video-overlay {
   position:fixed; top:0; left:0;
   width:100vw; height:100vh;
-  background: var(--emerald‑overlay);
+  background: var(--emerald-overlay);
   z-index:1; pointer-events:none;
 }
 
-/* card */
+/* card & button base */
 .card, .main-btn {
   background: var(--white);
   color: #222;
-  border-radius: var(--card‑radius);
+  border-radius: var(--card-radius);
   box-shadow: 0 8px 40px rgba(0,0,0,0.12);
-  border: 2px solid var(--emerald‑border);
-  font-family: var(--font‑display);
+  border: 2px solid var(--emerald-border);
+  font-family: var(--font-display);
   text-decoration: none;
   cursor: pointer;
   transition:
-    background var(--t‑fast) var(--ease‑med),
-    color var(--t‑fast) var(--ease‑med),
-    transform var(--t‑fast) var(--ease‑med),
-    opacity var(--t‑med) var(--ease‑med);
+    background var(--t-fast) var(--ease-med),
+    color var(--t-fast) var(--ease-med),
+    transform var(--t-fast) var(--ease-med),
+    opacity var(--t-med) var(--ease-med);
 }
 
-/* fade utilities */
+/* fade utility */
 .fade-out { opacity: 0 !important; pointer-events: none; }
