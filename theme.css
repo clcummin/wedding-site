@@ -23,15 +23,14 @@
 html, body {
   margin: 0;
   padding: 0;
-  width: 100%;            /* use 100%, not 100vw */
-  min-height: 100vh;      /* allow content to grow */
-  overflow-x: hidden;     /* never scroll sideways */
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
   background: var(--bg-emerald-dark);
   font-family: var(--font-serif);
   color: var(--white);
 }
 
-/* make widths include padding/borders */
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -39,25 +38,27 @@ html, body {
 /* video background */
 .background-video,
 .video-bg {
-  position: fixed; top:0; left:0;
-  width:100vw; height:100vh;
-  overflow:hidden; z-index:0;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
 }
 .background-video video,
 .video-bg video {
-  width:100vw; height:100vh;
+  position: absolute;
+  inset: 0;
   object-fit: cover;
-  position:absolute; top:0; left:0;
-  background: var(--bg-emerald-dark);
   transition: opacity var(--t-med) var(--ease-med);
+  background: var(--bg-emerald-dark);
 }
 
 /* overlay */
 .video-overlay {
-  position:fixed; top:0; left:0;
-  width:100vw; height:100vh;
+  position: fixed;
+  inset: 0;
   background: var(--emerald-overlay);
-  z-index:1; pointer-events:none;
+  z-index: 1;
+  pointer-events: none;
 }
 
 /* card & button base */
@@ -78,4 +79,14 @@ html, body {
 }
 
 /* fade utility */
-.fade-out { opacity: 0 !important; pointer-events: none; }
+.fade-out {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+/* (optional) allow vertical scroll when needed */
+/*
+body.allow-scroll {
+  overflow-y: auto;
+}
+*/
