@@ -1,9 +1,20 @@
-/* 1. Google Font for headings */
+/* 0. Google Font for headings */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
 
+/* 1. Global resets & box‑sizing */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;       /* prevent horizontal scroll */
+}
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 /* ======================================================
-   A. INTRO‑PAGE RULES
-   (only apply on index.html)
+   A. INTRO‑PAGE RULES (only on index.html)
    ====================================================== */
 
 /* Scroll‑lock only when <body class="no-scroll"> */
@@ -16,14 +27,16 @@
 /* Video background & fallback */
 .background-video {
   position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
+  top: 0; left: 0; right: 0; bottom: 0;
   background: url('assets/video-fallback.jpg') center/cover no-repeat;
   overflow: hidden;
   z-index: 0;
 }
 .background-video video {
   position: absolute;
-  top: 0; left: 0; width: 100vw; height: 100vh;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   transition: opacity var(--t-med) var(--ease-med);
 }
@@ -31,7 +44,7 @@
 /* Dim overlay */
 .video-overlay {
   position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
+  top: 0; left: 0; right: 0; bottom: 0;
   background: var(--emerald-overlay);
   z-index: 1;
   pointer-events: none;
@@ -66,7 +79,8 @@
   box-shadow: 0 8px 40px rgba(0,0,0,0.12);
   border: 1.5px solid var(--gray-light);
   padding: 3rem 2.5rem 2.5rem;
-  max-width: 460px; width: 90vw;
+  max-width: 460px;
+  width: 90%;                 /* changed from 90vw */
   display: flex; flex-direction: column; align-items: center;
   text-decoration: none;
   cursor: pointer;
@@ -113,12 +127,20 @@
 @media (max-width: 600px) {
   .card {
     padding: 1.4rem .5rem;
-    max-width: 98vw;
+    max-width: 98%;
   }
-  .circle-photo { width: 68px; height: 68px; }
-  .wedding-names { font-size: 2rem; }
-  .wedding-date  { font-size: 1rem; }
+  .circle-photo {
+    width: 68px;
+    height: 68px;
+  }
+  .wedding-names {
+    font-size: 2rem;
+  }
+  .wedding-date {
+    font-size: 1rem;
+  }
 }
+
 /* Countdown ticker under the date */
 .countdown {
   font-family: var(--font-display);
@@ -129,13 +151,13 @@
 }
 
 /* ======================================================
-   B. HOME‑PAGE RULES
-   (only apply on home.html)
+   B. HOME‑PAGE RULES (only on home.html)
    ====================================================== */
 
 .main-welcome {
   background: var(--bg-emerald-dark);
-  min-height: 100vh; width: 100vw;
+  min-height: 100vh;
+  width: 100%;                /* changed from 100vw */
   display: flex; flex-direction: column;
   align-items: center; justify-content: flex-start;
   padding-top: 60px;
@@ -145,7 +167,8 @@
 
 /* Navigation */
 .main-nav {
-  width: 100%; display: flex; justify-content: center;
+  width: 100%;
+  display: flex; justify-content: center;
   margin: 16px 0 32px; flex-wrap: wrap;
 }
 .main-nav ul {
@@ -211,11 +234,11 @@
   letter-spacing: .04em;
   box-shadow: 0 2px 10px rgba(1,68,33,0.06);
   transition: background var(--t-med) var(--ease-med),
-              color var(--t-med) var(--ease-med);
+              color      var(--t-med) var(--ease-med);
 }
 .big-rsvp-btn:hover, .big-rsvp-btn:focus {
   background: var(--white);
-  color: var(--emerald-border);
+  color:      var(--emerald-border);
 }
 
 /* Fade‑In keyframes */
