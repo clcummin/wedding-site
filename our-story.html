@@ -84,7 +84,7 @@
     </div><!-- /#flipbook -->
   </div><!-- /.story-page -->
 
-  <!-- jQuery & Turn.js from CDN -->
+ <!-- jQuery & Turn.js (hosted locally in assets/js/) -->
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/turn.min.js"></script>
 
@@ -93,6 +93,7 @@
     var $fb = $('#flipbook');
     if (!$fb.length) return;
 
+    // Calculate a responsive width capped at 450px
     var vw     = $(window).width();
     var width  = Math.min(vw * 0.8, 450);
     var height = width * 0.66;
@@ -107,13 +108,19 @@
       elevation:    50
     });
 
+    // Helper to flip once
     function doFlip(dir, e) {
       e.preventDefault();
+      e.stopPropagation();   // <-- prevent double‑firing
       $fb.turn(dir);
     }
 
-    $fb.on('click touchstart pointerup', '.page.cover, .page-right', e => doFlip('next', e));
-    $fb.on('click touchstart pointerup', '.page-left',    e => doFlip('previous', e));
+    // Cover click → next
+    $fb.on('click', '.page.cover',   function(e) { doFlip('next',     e); });
+    // Right half click → next
+    $fb.on('click', '.page-right',   function(e) { doFlip('next',     e); });
+    // Left half click → previous
+    $fb.on('click', '.page-left',    function(e) { doFlip('previous', e); });
   });
 </script>
 
