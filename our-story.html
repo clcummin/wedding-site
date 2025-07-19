@@ -93,24 +93,24 @@
     </div><!-- /#flipbook -->
   </div><!-- /.story-page -->
 
-  <script src="assets/js/jquery.min.js"></script>
+ <!-- locally hosted libs -->
+<script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/turn.min.js"></script>
+
 <script>
   $(function() {
     var $fb = $('#flipbook');
     if (!$fb.length) return;
 
-    // calculate two sizes
-    var vw      = $(window).width();
-    var coverW  = Math.min(vw * 0.95, 800);
-    var coverH  = coverW * 0.66;
-    var pageW   = Math.min(vw * 0.8, 600);
-    var pageH   = pageW * 0.66;
+    // Define one “big” size for all pages
+    var vw     = $(window).width();
+    var width  = Math.min(vw * 0.9, 800); // up to 800px or 90% viewport
+    var height = width * 0.66;            // maintain ~2:3 ratio
 
-    // init at cover size
+    // Initialize with a single fixed size
     $fb.turn({
-      width:        coverW,
-      height:       coverH,
+      width:        width,
+      height:       height,
       display:      'double',
       autoCenter:   true,
       acceleration: true,
@@ -118,19 +118,8 @@
       elevation:    50
     });
 
-    // whenever a page is turned…
-    $fb.on('turned', function(event, page) {
-      if (page === 1) {
-        // back to cover
-        $fb.turn('size', coverW, coverH);
-      } else {
-        // any other leaf → shrink
-        $fb.turn('size', pageW, pageH);
-      }
-    });
-
-    // single click/tap to advance
-    $fb.on('click', '.page', function(e) {
+    // Click-anywhere flips forward one page
+    $fb.on('click touchstart', '.page', function(e) {
       e.preventDefault();
       $fb.turn('next');
     });
