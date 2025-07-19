@@ -370,5 +370,92 @@ html, body {
   inset: 0;
   background: #ccc;
 }
+/* ======================================================
+   D. STORY-PAGE RULES (only on our-story.html)
+   ====================================================== */
 
+.story-page {
+  background: var(--bg-emerald-dark);
+  padding:   2rem 1rem;
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow-x: hidden;  /* no sideways scroll */
+}
 
+/* Flipbook root */
+#flipbook {
+  margin: 0 auto;
+}
+
+/* Each leaf/page */
+#flipbook .page {
+  background: var(--white);
+  border: 2px solid var(--emerald-border);
+  border-radius: var(--card-radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width:  100%;   /* Turn.js will override to fixed pixel width */
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+}
+
+/* Cover uses background image */
+#flipbook .page.cover {
+  background-size: cover;
+  background-position: center;
+}
+
+/* Left & right halves */
+.page-left,
+.page-right {
+  width: 50%;
+  height: 100%;
+  box-sizing: border-box;
+}
+.page-left {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.page-right {
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Text placeholder styling */
+.text-page {
+  font-family: var(--font-display);
+  font-size:   1.1rem;
+  color:       #333;
+  line-height: 1.5;
+  max-height:  90%;
+  overflow-y: auto;
+  text-align: left;
+  width: 100%;
+}
+
+/* Comic image styling */
+.page-right img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  /* smaller flipbook width */
+  #flipbook {
+    width:  300px !important;
+    height: 400px !important;
+  }
+  /* adjust padding */
+  .page-left { padding: 1rem; }
+  .page-right { padding: .5rem; }
+  .text-page { font-size: 1rem; }
+}
