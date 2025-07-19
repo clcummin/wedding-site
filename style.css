@@ -175,19 +175,31 @@ html, body {
 /* Navigation */
 .main-nav {
   width: 100%;
+  /* no overflow-x here since we’re wrapping */
   display: flex;
-  justify-content: center;
+  justify-content: center;  /* centers the wrapped rows as a block */
+  flex-wrap: wrap;          /* allow multiple lines */
   margin: 16px 0 32px;
-  flex-wrap: wrap;
 }
+
 .main-nav ul {
   list-style: none;
-  display: flex;
-  gap: 2rem;
   margin: 0;
   padding: 0;
-  flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;          /* wrap onto new lines */
+  justify-content: space-evenly; /* spread items evenly on each row */
+  align-items: center;      /* vertically center link text */
+  width: 100%;
 }
+
+.main-nav li {
+  flex: 1 1 auto;           /* allow each <li> to grow/shrink equally */
+  display: flex;
+  justify-content: center;  /* center the <a> within its cell */
+  margin: .5rem 0;          /* vertical gutter between rows */
+}
+
 .main-nav a {
   color: var(--white);
   font-family: var(--font-display);
@@ -200,7 +212,8 @@ html, body {
     background var(--t-fast) var(--ease-med),
     color      var(--t-fast) var(--ease-med);
 }
-.main-nav a:hover, .main-nav a:focus {
+.main-nav a:hover,
+.main-nav a:focus {
   background: var(--white);
   color: var(--emerald-border);
 }
