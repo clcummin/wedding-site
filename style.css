@@ -1,6 +1,43 @@
+/* 1. Google Font for headings */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
 
-/* 1. Intro‑card container (fade‑in) */
+/* ======================================================
+   A. INTRO‑PAGE RULES
+   (only apply on index.html)
+   ====================================================== */
+
+/* Video background & fallback */
+.background-video {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: url('assets/video-fallback.jpg') center/cover no-repeat;
+  overflow: hidden;
+  z-index: 0;
+}
+.background-video video {
+  position: absolute;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  object-fit: cover;
+  transition: opacity var(--t-med) var(--ease-med);
+}
+
+/* Dim overlay */
+.video-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: var(--emerald-overlay);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Fade‑out helper */
+.fade-out {
+  opacity: 0 !important;
+  pointer-events: none;
+  transition: opacity var(--t-med) var(--ease-med);
+}
+
+/* Intro card container */
 .intro-card-container {
   position: fixed; inset: 0;
   display: flex; align-items: center; justify-content: center;
@@ -14,11 +51,18 @@
   pointer-events: auto;
 }
 
-/* 2. Card component */
+/* Card component inside intro */
 .card {
+  background: var(--white);
+  color: #222;
+  border-radius: var(--card-radius);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  border: 1.5px solid var(--gray-light);
   padding: 3rem 2.5rem 2.5rem;
   max-width: 460px; width: 90vw;
-  text-align: center;
+  display: flex; flex-direction: column; align-items: center;
+  text-decoration: none;
+  cursor: pointer;
   transition:
     box-shadow 0.23s,
     border 0.2s,
@@ -31,7 +75,7 @@
   transform: translateY(-2px) scale(1.02);
 }
 
-/* 3. Circle photo inside card */
+/* Photo & text in intro card */
 .circle-photo {
   width: var(--photo-size);
   height: var(--photo-size);
@@ -41,32 +85,146 @@
   box-shadow: 0 2px 10px rgba(1,68,33,0.07);
   margin-bottom: 1rem;
 }
-
-/* 4. Text inside card */
 .wedding-names {
   font-family: var(--font-display);
   font-size: 2.7rem;
   font-weight: 600;
   margin: 0 0 1rem;
-  letter-spacing: 0.07em;
+  letter-spacing: .07em;
   color: var(--emerald-border);
+  text-align: center;
 }
 .wedding-date {
   font-size: 1.18rem;
   color: var(--emerald-accent);
   margin-bottom: 2.3rem;
-  letter-spacing: 0.04em;
+  letter-spacing: .04em;
+  text-align: center;
 }
 
-/* 5. Responsive tweak */
+/* Responsive tweaks for intro */
 @media (max-width: 600px) {
   .card {
-    padding: 1.4rem 0.5rem;
+    padding: 1.4rem .5rem;
     max-width: 98vw;
   }
-  .circle-photo {
-    width: 68px; height: 68px;
-  }
+  .circle-photo { width: 68px; height: 68px; }
   .wedding-names { font-size: 2rem; }
   .wedding-date  { font-size: 1rem; }
+}
+
+/* ======================================================
+   B. HOME‑PAGE RULES
+   (only apply on home.html)
+   ====================================================== */
+
+.main-welcome {
+  background: var(--bg-emerald-dark);
+  min-height: 100vh; width: 100vw;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: flex-start;
+  padding-top: 60px;
+  animation: fadeIn var(--t-med) var(--ease-med);
+  box-sizing: border-box;
+}
+
+/* Navigation */
+.main-nav {
+  width: 100%; display: flex; justify-content: center;
+  margin: 16px 0 32px; flex-wrap: wrap;
+}
+.main-nav ul {
+  list-style: none; display: flex; gap: 2rem;
+  margin: 0; padding: 0;
+}
+.main-nav a {
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 1.1rem; font-weight: 500;
+  padding: .3rem .8rem; border-radius: 16px;
+  text-decoration: none;
+  transition: background var(--t-fast) var(--ease-med),
+              color var(--t-fast) var(--ease-med);
+}
+.main-nav a:hover, .main-nav a:focus {
+  background: var(--white);
+  color: var(--emerald-border);
+}
+
+/* Center content */
+.center-content {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 2.5rem;
+  padding: 0 1rem; max-width: 500px; width: 100%;
+}
+
+/* Hero image */
+.hero-img {
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid var(--white);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+}
+
+/* Text elements */
+.main-welcome .wedding-names {
+  font-family: var(--font-display);
+  font-size: 2.8rem; font-weight: 600;
+  margin: 0; letter-spacing: .08em;
+  color: var(--emerald-border);
+  text-align: center;
+}
+.main-welcome .wedding-date {
+  font-family: var(--font-display);
+  font-size: 1.2rem; color: var(--emerald-accent);
+  margin: 0; text-align: center;
+}
+
+/* RSVP button */
+.big-rsvp-btn {
+  display: inline-block;
+  background: var(--emerald-border);
+  color:      var(--white);
+  font-family: var(--font-display);
+  font-size:   1.2rem;
+  padding:     .8rem 2.4rem;
+  border-radius: var(--btn-radius);
+  border:        2px solid var(--emerald-border);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: .04em;
+  box-shadow: 0 2px 10px rgba(1,68,33,0.06);
+  transition: background var(--t-med) var(--ease-med),
+              color var(--t-med) var(--ease-med);
+}
+.big-rsvp-btn:hover, .big-rsvp-btn:focus {
+  background: var(--white);
+  color: var(--emerald-border);
+}
+
+/* Fade‑In keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Responsive tweaks for home */
+@media (max-width: 600px) {
+  .hero-img {
+    width: 120px; height: 120px;
+  }
+  .main-welcome .wedding-names {
+    font-size: 2rem;
+  }
+  .main-welcome .wedding-date {
+    font-size: 1rem;
+  }
+  .main-nav ul {
+    gap: 1rem;
+  }
+  .big-rsvp-btn {
+    font-size: 1rem;
+    padding: .7rem 2rem;
+  }
 }
