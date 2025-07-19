@@ -470,8 +470,25 @@ html, body {
   .page-right { padding: .5rem; }
   .text-page { font-size: 1rem; }
 }
-/* Show pointer over either half of the spread */
+
+/* Make the left/right halves cover their entire page side and be clickable */
 #flipbook .page-left,
 #flipbook .page-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  height: 100%;
   cursor: pointer;
+  z-index: 2; /* above the content so taps register */
+}
+
+/* Left half on the left side */
+#flipbook .page-left {
+  left: 0;
+}
+
+/* Right half on the right side */
+#flipbook .page-right {
+  right: 0;
 }
