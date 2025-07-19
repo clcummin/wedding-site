@@ -335,3 +335,40 @@ html, body {
   }
 }
 
+/* ======================================================
+   C. GALLERY‑PAGE RULES (only on gallery.html)
+   ====================================================== */
+
+.gallery-page {
+  background: var(--bg-emerald-dark);
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 6rem auto 2rem;   /* leave space for the banner */
+}
+
+.gallery-item {
+  background: var(--gray-light);
+  border-radius: var(--card-radius);
+  /* create a square by using padding-top = width */
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+  overflow: hidden;
+}
+
+.gallery-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #ccc;
+}
+
+
