@@ -6,6 +6,13 @@
    (only apply on index.html)
    ====================================================== */
 
+/* Scroll‑lock only when <body class="no-scroll"> */
+.no-scroll,
+.no-scroll html {
+  overflow: hidden;
+  height: 100vh;
+}
+
 /* Video background & fallback */
 .background-video {
   position: fixed;
