@@ -8,18 +8,35 @@
     content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>Coming Soon</title>
 
+  <!-- 1) theme tokens -->
   <link rel="stylesheet" href="assets/css/theme.css">
-<link rel="stylesheet" href="assets/css/style.css">
-<!-- then, only on that page: -->
-<link rel="stylesheet" href="assets/css/accomodation.css">
+  <!-- 2) shared site styles (nav, colors, reset, etc.) -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <!-- 3) page‑specific overrides -->
+  <link rel="stylesheet" href="assets/css/accommodation.css">
 
+  <!-- heading font (can stay here or be in style.css) -->
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap"
     rel="stylesheet">
 </head>
 <body>
 
-  <!-- Centered overlay banner -->
+  <!-- ── Sticky Header & Nav (same on every page!) ── -->
+  <header class="site-header">
+    <nav class="main-nav">
+      <ul>
+        <li><a href="our-story.html">Our Story</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="rsvp.html">RSVP</a></li>
+        <li><a href="faqs.html">FAQs</a></li>
+        <li><a href="accommodation.html">Accommodation</a></li>
+        <li><a href="transportation.html">Transportation</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ── Page Content ── -->
   <div class="coming-soon-banner">
     COMING SOON!
   </div>
