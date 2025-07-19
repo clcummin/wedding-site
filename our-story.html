@@ -85,51 +85,52 @@
   </div><!-- /.story-page -->
 
   <!-- jQuery & Turn.js from CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
 
-  <!-- Flip‑book init with cover click/tap -->
-  <script>
-    $(function() {
-      var $fb = $('#flipbook');
-      if (!$fb.length) return;
+<script>
+  $(function() {
+    var $fb = $('#flipbook');
+    if (!$fb.length) return;
 
-      // Responsive sizing, cap at 450px
-      var vw     = $(window).width();
-      var width  = Math.min(vw * 0.8, 450);
-      var height = width * 0.66;
+    // cap width at 450px, height at 2/3rds
+    var vw    = $(window).width();
+    var width  = Math.min(vw * 0.8, 450);
+    var height = width * 0.66;
 
-      $fb.turn({
-        width:        width,
-        height:       height,
-        display:      'double',
-        autoCenter:   true,
-        acceleration: true,
-        gradients:    true,
-        elevation:    50
-      });
-
-      // Flip helper
-      function doFlip(dir, e) {
-        e.preventDefault();
-        $fb.turn(dir);
-      }
-
-      // Cover flips forward
-      $fb.on('click touchend', '.page.cover', function(e) {
-        doFlip('next', e);
-      });
-
-      // Right half flips forward
-      $fb.on('click touchend', '.page-right', function(e) {
-        doFlip('next', e);
-      });
-
-      // Left half flips backward
-      $fb.on('click touchend', '.page-left', function(e) {
-        doFlip('previous', e);
-      });
+    $fb.turn({
+      width:        width,
+      height:       height,
+      display:      'double',
+      autoCenter:   true,
+      acceleration: true,
+      gradients:    true,
+      elevation:    50
     });
-  </script>
+
+    // debugging helper
+    function doFlip(dir, e) {
+      console.log('Flipping', dir);
+      e.preventDefault();
+      $fb.turn(dir);
+    }
+
+    // cover click/tap → next
+    $fb.on('click touchstart pointerup', '.page.cover', function(e) {
+      doFlip('next', e);
+    });
+
+    // right half → next
+    $fb.on('click touchstart pointerup', '.page-right', function(e) {
+      doFlip('next', e);
+    });
+
+    // left half → previous
+    $fb.on('click touchstart pointerup', '.page-left', function(e) {
+      doFlip('previous', e);
+    });
+  });
+</script>
+
 </body>
 </html>
