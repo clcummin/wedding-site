@@ -315,10 +315,10 @@ html, body {
 
 #flipbook {
   margin: 0 auto;
-  max-width: 600px !important;   /* up from 450px */
-  width:  80vw;                   /* responsive */
   height: calc(80vw * 0.66) !important;
   max-height: 500px !important;   /* optional cap */
+  width: 180vw !important;      /* 2 × 90 vw */
+  max-width: 1600px !important; /* optional hard cap */
 }
 
 /* each leaf/page styling */
@@ -342,7 +342,8 @@ html, body {
 #flipbook .page.cover .cover-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  background: var(--emerald-dark);
 }
 
 /* TEXT pages */
@@ -368,6 +369,7 @@ html, body {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+  background: var(--emerald-dark);
 }
 
 /* responsive shrink on small screens */
