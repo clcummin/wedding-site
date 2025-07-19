@@ -374,6 +374,17 @@ html, body {
    D. STORY-PAGE RULES (only on our-story.html)
    ====================================================== */
 
+/* Cover page image fills the entire leaf */
+.page.cover {
+  padding: 0;              /* remove any inner padding */
+}
+.page.cover .cover-img {
+  display: block;
+  width:  100%;
+  height: 100%;
+  object-fit: cover;       /* crop/scale as needed */
+}
+
 .story-page {
   background: var(--bg-emerald-dark);
   padding:   2rem 1rem;
