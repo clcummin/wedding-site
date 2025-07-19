@@ -4,8 +4,61 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Video + Button Overlay</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #111;
+      overflow: hidden;
+    }
+    .video-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .video-bg video {
+      width: 100vw; height: 100vh;
+      object-fit: cover;
+      position: absolute; top: 0; left: 0;
+      background: #111;
+      transition: opacity 0.7s ease;
+    }
+    .center-btn-container {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      transition: opacity 0.7s ease;
+    }
+    .main-btn {
+      padding: 1.2rem 2.5rem;
+      background: rgba(0,44,33,0.95);
+      color: #fff;
+      border: none;
+      border-radius: 28px;
+      font-size: 1.5rem;
+      font-family: 'Playfair Display', Georgia, serif;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.19);
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s, transform 0.19s;
+    }
+    .main-btn:hover, .main-btn:focus {
+      background: #015e3c;
+      color: #d8ffe8;
+      transform: scale(1.04);
+    }
+    .fade-out {
+      opacity: 0 !important;
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
   <div class="video-bg" id="videoBg">
@@ -17,6 +70,17 @@
   <div class="center-btn-container" id="btnContainer">
     <button class="main-btn" id="enterBtn">Enter</button>
   </div>
-  <script src="script.js"></script>
+  <script>
+    document.getElementById('enterBtn').addEventListener('click', function() {
+      // Fade out both video and button
+      document.getElementById('videoBg').classList.add('fade-out');
+      document.getElementById('btnContainer').classList.add('fade-out');
+      // Optional: Remove from DOM after fade
+      setTimeout(function() {
+        document.getElementById('videoBg').remove();
+        document.getElementById('btnContainer').remove();
+      }, 700); // Matches transition duration
+    });
+  </script>
 </body>
 </html>
