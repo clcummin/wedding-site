@@ -27,7 +27,7 @@ html, body {
 /* Video background & fallback */
 .background-video {
   position: fixed;
-  inset: 0;                              /* top:0; right:0; bottom:0; left:0 */
+  inset: 0;
   background: url('assets/video-fallback.jpg') center/cover no-repeat;
   overflow: hidden;
   z-index: 0;
@@ -83,7 +83,7 @@ html, body {
   border: 1.5px solid var(--gray-light);
   padding: 3rem 2.5rem 2.5rem;
   max-width: 460px;
-  width: 90%;                 /* now relative to container, no vw */
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -162,44 +162,43 @@ html, body {
 .main-welcome {
   background: var(--bg-emerald-dark);
   min-height: 100vh;
-  width: 100%;                /* no more 100vw */
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   padding-top: 60px;
   animation: fadeIn var(--t-med) var(--ease-med);
-  box-sizing: border-box;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 /* Navigation */
 .main-nav {
   width: 100%;
-  /* no overflow-x here since we’re wrapping */
   display: flex;
-  justify-content: center;  /* centers the wrapped rows as a block */
-  flex-wrap: wrap;          /* allow multiple lines */
+  justify-content: center;
+  flex-wrap: wrap;
   margin: 16px 0 32px;
 }
-
 .main-nav ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
-  flex-wrap: wrap;          /* wrap onto new lines */
-  justify-content: space-evenly; /* spread items evenly on each row */
-  align-items: center;      /* vertically center link text */
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
   width: 100%;
 }
-
 .main-nav li {
-  flex: 1 1 auto;           /* allow each <li> to grow/shrink equally */
+  flex: 1 1 auto;
   display: flex;
-  justify-content: center;  /* center the <a> within its cell */
-  margin: .5rem 0;          /* vertical gutter between rows */
+  justify-content: center;
+  margin: .5rem 0;
 }
-
 .main-nav a {
   color: var(--white);
   font-family: var(--font-display);
@@ -280,61 +279,6 @@ html, body {
   color: var(--emerald-border);
 }
 
-/* Fade‑In keyframes */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-/* Responsive tweaks for home */
-@media (max-width: 600px) {
-  .hero-img {
-    width: 120px;
-    height: 120px;
-  }
-  .main-welcome .wedding-names {
-    font-size: 2rem;
-  }
-  .main-welcome .wedding-date {
-    font-size: 1rem;
-  }
-  .main-nav ul {
-    gap: 1rem;
-  }
-  .big-rsvp-btn {
-    font-size: 1rem;
-    padding: .7rem 2rem;
-  }
-}
-
-/* COMING SOON banner centered in the viewport */
-.coming-soon-banner {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 999;                     /* sits on top of everything */
-  background: var(--white);
-  color:      var(--emerald-border);
-  font-family: var(--font-display);
-  font-size:   1.5rem;
-  font-weight: 600;
-  letter-spacing: .05em;
-  text-align: center;
-  padding:    1rem 2rem;
-  border:     2px solid var(--emerald-border);
-  border-radius: var(--card-radius);
-  box-shadow:    0 8px 40px rgba(0,0,0,0.12);
-}
-
-/* Slightly smaller on mobile */
-@media (max-width: 600px) {
-  .coming-soon-banner {
-    font-size: 1.2rem;
-    padding:   .8rem 1.6rem;
-  }
-}
-
 /* ======================================================
    C. GALLERY‑PAGE RULES (only on gallery.html)
    ====================================================== */
@@ -343,59 +287,36 @@ html, body {
   background: var(--bg-emerald-dark);
   padding: 2rem 1rem;
   min-height: 100vh;
-  box-sizing: border-box;
 }
-
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
   max-width: 1200px;
-  margin: 6rem auto 2rem;   /* leave space for the banner */
+  margin: 6rem auto 2rem;
 }
-
 .gallery-item {
   background: var(--gray-light);
   border-radius: var(--card-radius);
-  /* create a square by using padding-top = width */
   position: relative;
   width: 100%;
   padding-top: 100%;
-  overflow: hidden;
 }
-
 .gallery-item::before {
   content: "";
   position: absolute;
   inset: 0;
   background: #ccc;
 }
+
 /* ======================================================
-   D. STORY-PAGE RULES (only on our-story.html)
+   D. STORY‑PAGE RULES (only on our-story.html)
    ====================================================== */
 
-/* Cover page image fills the entire leaf */
-.page.cover {
-  padding: 0;              /* remove any inner padding */
-}
-.page.cover .cover-img {
-  display: block;
-  width:  100%;
-  height: 100%;
-  object-fit: cover;       /* crop/scale as needed */
-}
-
-.story-page {
-  background: var(--bg-emerald-dark);
-  padding:   2rem 1rem;
-  min-height: 100vh;
-  box-sizing: border-box;
-  overflow-x: hidden;  /* no sideways scroll */
-}
-
-/* Flipbook root */
+/* Cap the flipbook container */
 #flipbook {
   margin: 0 auto;
+  max-width: 450px !important;
 }
 
 /* Each leaf/page */
@@ -404,40 +325,47 @@ html, body {
   border: 2px solid var(--emerald-border);
   border-radius: var(--card-radius);
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  width:  100%;   /* Turn.js will override to fixed pixel width */
-  height: 100%;
   overflow: hidden;
   position: relative;
   display: flex;
 }
 
-/* Cover uses background image */
+/* Cover leaf */
 #flipbook .page.cover {
-  background-size: cover;
-  background-position: center;
+  padding: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+#flipbook .page.cover .cover-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Left & right halves */
+#flipbook .page-left,
+#flipbook .page-right {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 50%; height: 100%;
+  cursor: pointer;
+  z-index: 2;
+}
+#flipbook .page-left { left:  0; }
+#flipbook .page-right{ right: 0; }
+
+/* Inner content areas */
 .page-left,
 .page-right {
-  width: 50%;
-  height: 100%;
-  box-sizing: border-box;
-}
-.page-left {
-  padding: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.page-right {
-  padding: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+.page-left { padding: 1.5rem; }
+.page-right{ padding:   .5rem; }
 
-/* Text placeholder styling */
+/* Text styling */
 .text-page {
   font-family: var(--font-display);
   font-size:   1.1rem;
@@ -453,49 +381,17 @@ html, body {
 .page-right img {
   max-width: 100%;
   max-height: 100%;
-  display: block;
-  margin: 0 auto;
   object-fit: contain;
 }
 
-/* Responsive tweaks */
+/* Responsive tweaks for story */
 @media (max-width: 600px) {
-  /* smaller flipbook width */
+  /* cap flipbook smaller */
   #flipbook {
     width:  300px !important;
     height: 400px !important;
   }
-  /* adjust padding */
   .page-left { padding: 1rem; }
-  .page-right { padding: .5rem; }
-  .text-page { font-size: 1rem; }
+  .page-right{ padding: .5rem; }
+  .text-page{ font-size: 1rem; }
 }
-
-/* Make the left/right halves cover their entire page side and be clickable */
-#flipbook .page-left,
-#flipbook .page-right {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50%;
-  height: 100%;
-  cursor: pointer;
-  z-index: 2; /* above the content so taps register */
-}
-
-/* Left half on the left side */
-#flipbook .page-left {
-  left: 0;
-}
-
-/* Right half on the right side */
-#flipbook .page-right {
-  right: 0;
-}
-
-/* cap the flipbook container to 450px */
-#flipbook {
-  max-width: 450px !important;
-  margin: 0 auto;
-}
-
