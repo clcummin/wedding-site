@@ -1,1 +1,10 @@
+/* Gallery page (gallery.html) */
+
+.gallery-page {
+  padding:     2rem 1rem;
+  min-height:  100vh;
+  background:  var(--bg-emerald-dark);
+}
+
+/* (grid rules are in style.css) */
 
