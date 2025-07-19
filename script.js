@@ -2,7 +2,7 @@
 window.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     document.getElementById('introCard').classList.add('visible');
-  }, 1000);
+  }, 3000);
 });
 
 // when the card (<a>) is clicked…
@@ -18,3 +18,30 @@ document.querySelector('.intro-card').addEventListener('click', e => {
   // after fade completes, go to home.html
   setTimeout(() => window.location.href = url, 700);
 });
+
+// —— COUNTDOWN TICKER ——
+(function() {
+  const countdownEl = document.getElementById('countdown');
+  // Wedding date: Sept 12, 2026 at midnight
+  const target = new Date('2026-09-12T00:00:00');
+
+  function update() {
+    const now = new Date();
+    const diff = target - now;
+    if (diff <= 0) {
+      countdownEl.textContent = "It's today!";
+      clearInterval(timer);
+      return;
+    }
+    const days    = Math.floor(diff / (1000*60*60*24));
+    const hours   = Math.floor((diff / (1000*60*60)) % 24);
+    const minutes = Math.floor((diff / (1000*60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+    countdownEl.textContent =
+      `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }
+
+  update(); // initial populate
+  const timer = setInterval(update, 1000);
+})();
+
