@@ -112,6 +112,14 @@
   .wedding-names { font-size: 2rem; }
   .wedding-date  { font-size: 1rem; }
 }
+/* Countdown ticker under the date */
+.countdown {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--emerald-accent);
+  margin-top: 0.8rem;
+  letter-spacing: 0.04em;
+}
 
 /* ======================================================
    B. HOME‑PAGE RULES
