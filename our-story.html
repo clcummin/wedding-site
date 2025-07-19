@@ -87,19 +87,39 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
   <!-- Flip-book init -->
-  <script>
-    $(function() {
-      // Only init if #flipbook exists
-      if ($('#flipbook').length) {
-        $('#flipbook').turn({
-          width:  $.isNumeric($(window).width()) ? $(window).width() * 0.8 : 800,
-          height: $(window).width() * 0.6,
-          autoCenter: true,
-          display: 'double',
-          acceleration: true
-        });
-      }
-    });
-  </script>
+  <!-- jQuery & Turn.js from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
+
+<!-- Flip-book init with click handlers -->
+<script>
+  $(function() {
+    var $flipbook = $('#flipbook');
+
+    if ($flipbook.length) {
+      $flipbook.turn({
+        width:      $(window).width() * 0.8,
+        height:     $(window).width() * 0.6,
+        display:    'double',
+        autoCenter: true,
+        acceleration: true,
+        gradients:  true,
+        elevation:  50
+      });
+
+      // Forward flip on right-side click
+      $flipbook.on('click', '.page-right', function(e) {
+        e.preventDefault();
+        $flipbook.turn('next');
+      });
+
+      // Backward flip on left-side click
+      $flipbook.on('click', '.page-left', function(e) {
+        e.preventDefault();
+        $flipbook.turn('previous');
+      });
+    }
+  });
+</script>
 </body>
 </html>
