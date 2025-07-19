@@ -313,13 +313,13 @@ html, body {
    D. STORY‑PAGE RULES (only on our-story.html)
    ====================================================== */
 
-/* Cap the flipbook container */
+/* cap the flipbook width */
 #flipbook {
   margin: 0 auto;
   max-width: 450px !important;
 }
 
-/* Each leaf/page */
+/* each leaf/page styling */
 #flipbook .page {
   background: var(--white);
   border: 2px solid var(--emerald-border);
@@ -328,70 +328,53 @@ html, body {
   overflow: hidden;
   position: relative;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer; /* entire page is tappable */
 }
 
-/* Cover leaf */
+/* COVER page */
 #flipbook .page.cover {
   padding: 0;
-  cursor: pointer;
-  z-index: 2;
 }
 #flipbook .page.cover .cover-img {
-  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* Left & right halves */
-#flipbook .page-left,
-#flipbook .page-right {
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 50%; height: 100%;
-  cursor: pointer;
-  z-index: 2;
-}
-#flipbook .page-left { left:  0; }
-#flipbook .page-right{ right: 0; }
-
-/* Inner content areas */
-.page-left,
-.page-right {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.page-left { padding: 1.5rem; }
-.page-right{ padding:   .5rem; }
-
-/* Text styling */
+/* TEXT pages */
 .text-page {
+  padding: 1.5rem;
+}
+.text-page .text-content {
   font-family: var(--font-display);
   font-size:   1.1rem;
   color:       #333;
   line-height: 1.5;
+  overflow-y:  auto;
   max-height:  90%;
-  overflow-y: auto;
-  text-align: left;
-  width: 100%;
+  text-align:  left;
+  width:       100%;
 }
 
-/* Comic image styling */
-.page-right img {
+/* IMAGE pages */
+.image-page {
+  padding: 0.5rem;
+}
+.image-page .comic-img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
 }
 
-/* Responsive tweaks for story */
+/* responsive shrink on small screens */
 @media (max-width: 600px) {
-  /* cap flipbook smaller */
   #flipbook {
     width:  300px !important;
     height: 400px !important;
   }
-  .page-left { padding: 1rem; }
-  .page-right{ padding: .5rem; }
-  .text-page{ font-size: 1rem; }
+  .text-page { padding: 1rem; }
+  .image-page{ padding: 0.5rem; }
+  .text-page .text-content { font-size: 1rem; }
 }
