@@ -1,1 +1,71 @@
+/* Our Story page (our-story.html) */
+
+.story-page {
+  display:       flex;
+  justify-content:center;
+  align-items:   center;
+  padding:       100px 1rem 2rem;
+  min-height:    calc(100vh - 100px);
+  background:    var(--bg-emerald-dark);
+}
+
+/* Flip‑book container */
+#flipbook {
+  margin:         0 auto;
+  width:          80vw;
+  max-width:      800px;
+  height:         calc(80vw * 0.66) !important;
+  max-height:     550px !important;
+}
+
+/* Each leaf */
+#flipbook .page {
+  display:        flex;
+  align-items:    center;
+  justify-content:center;
+  overflow:       hidden;
+  cursor:         pointer;
+  border-radius:  var(--card-radius);
+  border:         2px solid var(--emerald-border);
+  background:     var(--white);
+}
+
+/* Cover */
+#flipbook .page.cover .cover-img {
+  width:  100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Text page (left) */
+.text-page {
+  border-radius: var(--card-radius) 0 0 var(--card-radius);
+  padding:       1.5rem;
+}
+.text-page .text-content {
+  font-family: var(--font-display);
+  color:       #333;
+  font-size:   1.1rem;
+  line-height: 1.5;
+  overflow-y:  auto;
+}
+
+/* Image page (right) */
+.image-page {
+  border-radius: 0 var(--card-radius) var(--card-radius) 0;
+  padding:       0.5rem;
+}
+.image-page .comic-img {
+  max-width:  100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Responsive shrink */
+@media (max-width: 600px) {
+  #flipbook {
+    width:  90vw !important;
+    height: calc(90vw * 0.66) !important;
+  }
+}
 
