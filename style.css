@@ -1,68 +1,52 @@
-/* ========== Base Styles ========== */
+/* — Base & Video — */
 html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Playfair Display', Georgia, serif;
-  color: #fff;
-  background: #002d1f;
-  min-height: 100vh;
-  min-height: 100dvh; /* For iOS/Android full viewport on mobile */
-  width: 100vw;
-  box-sizing: border-box;
-  /* Prevent unwanted scrolling (for intro page) */
+  background: #111;
   overflow: hidden;
+  font-family: 'Georgia', serif;
 }
 
-/* ========== Background Video ========== */
 .background-video {
   position: fixed;
   top: 0; left: 0; width: 100vw; height: 100vh;
   overflow: hidden;
   z-index: -2;
 }
-.background-video iframe {
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0; left: 0;
-  border: none;
-  pointer-events: none;
-  background: #002d1f;
-}
 .background-video video {
   width: 100vw; height: 100vh;
   object-fit: cover;
   position: absolute; top: 0; left: 0;
-  pointer-events: none;
-  background: #002d1f;
+  background: #111;
+  transition: opacity 0.7s ease;
 }
 
-
-/* ========== Optional Video Overlay (subtle for readability) ========== */
+/* — Optional Overlay — */
 .video-overlay {
-  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-  background: rgba(0,0,0,0.22); /* Subtle, helps text readability on light scenes */
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.22);
   z-index: -1;
   pointer-events: none;
 }
 
-/* ========== Fade-in Card Container ========== */
+/* — Intro Card Container & Fade‑In — */
 .intro-card-container {
   opacity: 0;
-  transition: opacity 0.8s cubic-bezier(0.42,0,0.58,1);
+  transition: opacity 0.7s ease;
   position: fixed;
   top: 0; left: 0; width: 100vw; height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
-  background: transparent;
+  z-index: 1;
 }
 .intro-card-container.visible {
   opacity: 1;
 }
 
-/* ========== Card Style ========== */
+/* — Card Styling — */
 .card {
   background: #fff;
   color: #222;
@@ -70,25 +54,22 @@ html, body {
   box-shadow: 0 8px 40px rgba(0,0,0,0.12);
   border: 2px solid #014421;
   padding: 1.3rem 1.2rem 1.1rem 1.2rem;
-  min-width: 200px;
   max-width: 320px;
   width: 90vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  transition: box-shadow 0.23s, border 0.2s, transform 0.16s;
+  transition: box-shadow 0.23s, border 0.2s, transform 0.16s, opacity 0.7s ease;
   cursor: pointer;
-  user-select: none;
 }
-.card:hover, .card:focus, .card:active {
+.card:hover, .card:focus {
   box-shadow: 0 12px 48px rgba(1,68,33,0.18);
   border: 2.5px solid #028251;
-  outline: 0;
   transform: translateY(-2px) scale(1.022);
 }
 
-/* Card photo */
+/* — Circle Photo — */
 .circle-photo {
   width: 96px;
   height: 96px;
@@ -99,9 +80,9 @@ html, body {
   margin-bottom: 1rem;
 }
 
-/* Card text */
+/* — Text — */
 .wedding-names {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Playfair Display', serif;
   font-size: 1.28rem;
   font-weight: 600;
   margin: 0 0 0.7rem 0;
@@ -109,7 +90,6 @@ html, body {
   color: #014421;
   text-align: center;
 }
-
 .wedding-date {
   font-size: 0.98rem;
   color: #00975c;
@@ -118,108 +98,16 @@ html, body {
   text-align: center;
 }
 
-/* ========== Main Welcome Page ========== */
-.main-welcome {
-  background: #013b27;
-  min-height: 100vh;
-  min-height: 100dvh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding-top: 60px;
-  box-sizing: border-box;
-}
-.center-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-}
-.hero-img {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 5px solid #fff;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.13);
-  margin-bottom: 1.3rem;
-}
-.main-welcome h1 {
-  font-size: 2.6rem;
-  margin: 0;
-  font-family: 'Playfair Display', Georgia, serif;
-  letter-spacing: 0.08em;
-  color: #014421;
-  text-align: center;
-}
-.main-welcome .wedding-date {
-  font-size: 1.2rem;
-  color: #b1ffcb;
-  margin-bottom: 1.3rem;
-}
-.big-rsvp-btn {
-  background: #014421;
-  color: #fff;
-  font-size: 1.2rem;
-  padding: 0.8rem 2.2rem;
-  border-radius: 24px;
-  text-decoration: none;
-  font-weight: bold;
-  box-shadow: 0 2px 10px rgba(1,68,33,0.06);
-  transition: background 0.2s;
-}
-.big-rsvp-btn:hover, .big-rsvp-btn:focus {
-  background: #026644;
+/* — Fade‑Out Utility — */
+.fade-out {
+  opacity: 0 !important;
+  pointer-events: none;
 }
 
-/* ========== Navigation ========== */
-.main-nav {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 40px;
-}
-.main-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 2.5rem;
-  padding: 0;
-  margin: 0;
-}
-.main-nav a {
-  color: #e5ffe4;
-  text-decoration: none;
-  font-size: 1.1rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  transition: background 0.2s, color 0.2s;
-}
-.main-nav a:hover, .main-nav a:focus {
-  background: #014421;
-  color: #fff;
-}
-
-/* ========== Accessibility Tweaks ========== */
-.card:focus-visible, .big-rsvp-btn:focus-visible, .main-nav a:focus-visible {
-  outline: 2px solid #00975c;
-  outline-offset: 2px;
-}
-
-/* ========== Prevent Card Cutoff on Smallest Devices ========== */
-@media (max-width: 340px) {
-  .card { max-width: 98vw; padding: 0.5rem 0.2rem; }
-  .circle-photo { width: 46px; height: 46px; }
-}
-
-/* ========== Mobile Adjustments ========== */
+/* — Responsive Tweaks — */
 @media (max-width: 600px) {
   .card {
-    padding: 1rem 0.3rem 1rem 0.3rem;
-    min-width: 0;
+    padding: 1rem 0.5rem;
     max-width: 98vw;
   }
   .circle-photo {
@@ -228,9 +116,5 @@ html, body {
   }
   .wedding-names {
     font-size: 1rem;
-  }
-  .hero-img {
-    width: 110px;
-    height: 110px;
   }
 }
