@@ -313,10 +313,12 @@ html, body {
    D. STORY‑PAGE RULES (only on our-story.html)
    ====================================================== */
 
-/* cap the flipbook width */
 #flipbook {
   margin: 0 auto;
-  max-width: 450px !important;
+  max-width: 600px !important;   /* up from 450px */
+  width:  80vw;                   /* responsive */
+  height: calc(80vw * 0.66) !important;
+  max-height: 500px !important;   /* optional cap */
 }
 
 /* each leaf/page styling */
@@ -377,4 +379,15 @@ html, body {
   .text-page { padding: 1rem; }
   .image-page{ padding: 0.5rem; }
   .text-page .text-content { font-size: 1rem; }
+}
+
+/* Center the story-page wrapper and give room for nav */
+.story-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 1rem 2rem; /* 100px top padding for nav height */
+  min-height: calc(100vh - 100px);
+  background: var(--bg-emerald-dark);
+  box-sizing: border-box;
 }
