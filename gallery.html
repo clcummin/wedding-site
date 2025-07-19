@@ -1,27 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>Coming Soon</title>
+    content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>Gallery — Coming Soon</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
 
-  <!-- 1. Design‑tokens & resets -->
-  <link rel="stylesheet" href="theme.css">
-  <!-- 2. Page styles (includes .coming-soon-banner) -->
-  <link rel="stylesheet" href="style.css">
+  <!-- 1. Theme tokens & reset -->
+  <link rel="stylesheet" href="theme.css" />
+  <!-- 2. Shared page styles (intro/home/gallery) -->
+  <link rel="stylesheet" href="style.css" />
   <!-- 3. Heading font -->
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap"
-    rel="stylesheet">
+    rel="stylesheet" />
 </head>
-<body>
+<body class="allow-scroll">
 
-  <!-- Centered overlay banner -->
+  <!-- COMING SOON overlay -->
   <div class="coming-soon-banner">
     COMING SOON!
+  </div>
+
+  <!-- Gallery placeholders -->
+  <div class="gallery-page">
+    <div class="gallery-grid">
+      <!-- 24 placeholders: 4 columns × 6 rows -->
+      ${Array(24).fill('<div class="gallery-item"></div>').join("")}
+    </div>
   </div>
 
 </body>
