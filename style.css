@@ -492,3 +492,10 @@ html, body {
 #flipbook .page-right {
   right: 0;
 }
+
+/* cap the flipbook container to 450px */
+#flipbook {
+  max-width: 450px !important;
+  margin: 0 auto;
+}
+
