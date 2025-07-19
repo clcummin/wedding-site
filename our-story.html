@@ -84,22 +84,21 @@
     </div><!-- /#flipbook -->
   </div><!-- /.story-page -->
 
- <!-- jQuery & Turn.js from CDN -->
+<!-- jQuery & Turn.js from CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
 
-<!-- Flip‑book init with size limits and click/tap handlers -->
 <script>
   $(function() {
     var $fb = $('#flipbook');
     if (!$fb.length) return;
 
-    // Calculate a responsive width capped at 600px,
-    // and height as a 2:3 ratio of that width
-    var vw     = $(window).width();
-    var width  = Math.min(vw * 0.8, 600);
-    var height = width * 0.66;
+    // Responsive sizing, max‐width 450px
+    var vw    = $(window).width();
+    var width = Math.min(vw * 0.8, 450);
+    var height = width * 0.6;
 
+    // Initialize two‑page view
     $fb.turn({
       width:        width,
       height:       height,
@@ -110,14 +109,13 @@
       elevation:    50
     });
 
-    // Helper to flip
+    // Flip helper
     function doFlip(dir, e) {
       e.preventDefault();
-      e.stopPropagation();
       $fb.turn(dir);
     }
 
-    // Cover click → forward
+    // Cover → forward
     $fb.on('click touchend', '.page.cover', function(e) {
       doFlip('next', e);
     });
@@ -133,5 +131,6 @@
     });
   });
 </script>
+
 </body>
 </html>
