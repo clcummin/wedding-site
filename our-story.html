@@ -106,10 +106,11 @@
     var vw     = $(window).width();
     var width  = Math.min(vw * 0.9, 800); // up to 800px or 90% viewport
     var height = width * 0.66;            // maintain ~2:3 ratio
+    var spreadW = width * 2; //double page size
 
     // Initialize with a single fixed size
     $fb.turn({
-      width:        width,
+      width:        spreadW,
       height:       height,
       display:      'double',
       autoCenter:   true,
