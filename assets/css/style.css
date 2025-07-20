@@ -66,6 +66,34 @@
   background:#ccc;
 }
 
+/* ── Sticky Header ── */
+.site-header {
+  position: sticky;
+  top:      0;
+  width:    100%;
+  background: rgba(0,0,0,0.85);
+  z-index:    1000;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  padding:    0.5rem 0;
+}
+
+/* prevent content from sliding under the header */
+body {
+  /* adjust this if your header height changes */
+  padding-top: 3.5rem;
+}
+
+/* keep using your .main-nav rules, but scoped inside .site-header */
+.site-header .main-nav a {
+  color: var(--white);
+}
+.site-header .main-nav a:hover,
+.site-header .main-nav a:focus {
+  background: var(--white);
+  color:      var(--emerald-border);
+}
+
+
 /* 3. Utility Classes */
 .hidden   { display: none; }
 .fadeable { transition: opacity var(--t-med) var(--ease); }
