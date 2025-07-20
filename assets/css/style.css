@@ -93,6 +93,31 @@ body {
   color:      var(--emerald-border);
 }
 
+/* ── Coming Soon Banner (global) ── */
+.coming-soon-banner {
+  position: fixed;
+  top:      50%;
+  left:     50%;
+  transform: translate(-50%, -50%);
+  z-index:   999;
+  background:      var(--white);
+  color:           var(--emerald-border);
+  font-family:     var(--font-display);
+  font-size:       1.5rem;
+  font-weight:     600;
+  letter-spacing:  .05em;
+  text-align:      center;
+  padding:         1rem 2rem;
+  border:          2px solid var(--emerald-border);
+  border-radius:   var(--card-radius);
+  box-shadow:      0 8px 40px rgba(0,0,0,0.12);
+}
+@media (max-width: 600px) {
+  .coming-soon-banner {
+    font-size: 1.2rem;
+    padding:   .8rem 1.6rem;
+  }
+}
 
 /* 3. Utility Classes */
 .hidden   { display: none; }
