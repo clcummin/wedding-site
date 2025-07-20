@@ -68,7 +68,7 @@
 
 /* ── Sticky Header ── */
 .site-header {
-  position: sticky;
+  position: fixed;
   top:      0;
   width:    100%;
   background: rgba(0,0,0,0.85);
