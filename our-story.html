@@ -41,7 +41,7 @@
 </section>
 
   <div class="story-page">
-    <div id="flipbook">
+    <div id="flipbook" class="preload">
       <!-- Page 0: BLANK (forces spread) 
       <div class="page"></div> -->
       <!-- Cover: TEXT -->
@@ -132,7 +132,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const pages = Array.from(document.querySelectorAll('#flipbook .page'));
   if (!pages.length) return;  // bail if no flipbook
-
+  flipbook.classList.remove('preload');
   let spread = 0;
   function showSpread(n) {
     pages.forEach((p,i) => {
