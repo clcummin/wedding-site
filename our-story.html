@@ -33,8 +33,7 @@
   </header>
 
   <div class="story-page">
-    <div id="flipbook">
-
+    <div id="flipbook" class="preload">
       <!-- Cover -->
       <div class="page cover">
         <img
@@ -132,7 +131,7 @@
         elevation:  0,
         duration: 0
       });
-
+      $fb.removeClass('preload');
       // bind our new controls
       $('#prevBtn').on('click', function(e) {
         e.preventDefault();
