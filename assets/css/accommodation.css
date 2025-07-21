@@ -1,6 +1,6 @@
 /* accommodations.css — page‑specific */
 
-/* White “card” container */
+/* Reuse the “content‑container” white card from Home/Events */
 .content-container {
   background: var(--white);
   color:      #222;
@@ -15,7 +15,7 @@
 /* Page title */
 .content-container h1 {
   font-family: var(--font-display);
-  font-size:   2.5rem;
+  font-size:   2.4rem;
   color:       var(--emerald-border);
   text-align:  center;
   margin-bottom: 1.5rem;
@@ -24,33 +24,29 @@
 /* Section headings */
 .booking-instructions h2,
 .hotel-details h2,
-.overflow-note h2,
 .airport-info h2,
 .directions h2,
 .map-section h2 {
   font-family: var(--font-display);
   font-size:   1.8rem;
   color:       var(--emerald-border);
-  margin-top:  2rem;
-  margin-bottom: 0.75rem;
-  text-align: center;
+  text-align:  center;
+  margin:      2rem 0 1rem;
 }
 
-/* Paragraphs */
+/* Paragraph text */
 .content-container p {
-  line-height: 1.6;
   margin-bottom: 1rem;
+  line-height: 1.6;
 }
 
 /* Booking steps */
 .booking-instructions ol,
 .directions ol {
   margin: 0 0 1rem 1.4rem;
-  padding: 0;
-  color: #333;
 }
-.booking-instructions ol li,
-.directions ol li {
+.booking-instructions li,
+.directions li {
   margin-bottom: 0.6rem;
 }
 
@@ -61,13 +57,7 @@
   margin-top: 0.5rem;
 }
 
-/* Overflow note */
-.overflow-note p {
-  text-align: center;
-  font-weight: 500;
-}
-
-/* Link styling */
+/* Links */
 .content-container a {
   color: var(--emerald-accent);
   text-decoration: underline;
@@ -76,14 +66,14 @@
   color: var(--emerald-border);
 }
 
-/* Responsive map container */
+/* Responsive map/embed */
 .iframe-container {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%; /* 16:9 */
+  padding-bottom: 56.25%;  /* 16:9 ratio */
   overflow: hidden;
   border-radius: var(--card-radius);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+  box-shadow:    0 4px 24px rgba(0,0,0,0.1);
   margin-top: 1rem;
 }
 .iframe-container iframe {
@@ -94,7 +84,7 @@
   border: 0;
 }
 
-/* Small screens tweaks */
+/* Mobile tweaks */
 @media (max-width: 600px) {
   .content-container {
     margin: 1rem;
