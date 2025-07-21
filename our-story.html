@@ -34,6 +34,8 @@
 
   <div class="story-page">
     <div id="flipbook" class="preload">
+      <!-- Page 0: BLANK (forces spread) -->
+      <div class="page"></div>
       <!-- Cover: TEXT -->
       <div class="page text-page">
         <div class="text-content">
@@ -137,6 +139,7 @@
         elevation:  0,
         duration: 0
       });
+      $fb.turn('page',2);
       $fb.removeClass('preload');
       // bind our new controls
       $('#prevBtn').on('click', function(e) {
