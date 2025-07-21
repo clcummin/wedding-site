@@ -3,6 +3,11 @@
    ====================================================== */
 
 #flipbook.preload { display: none; }
+/* kill any leftover page transitions */
+#flipbook .page {
+  transition: none !important;
+}
+
 
 .story-heading {
   font-size: 3rem;
