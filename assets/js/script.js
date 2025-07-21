@@ -45,3 +45,13 @@ document.querySelector('.intro-card').addEventListener('click', e => {
   const timer = setInterval(update, 1000);
 })();
 
+// assets/js/fix-nav-padding.js
+function fixContentPadding() {
+  const header = document.querySelector('.site-header');
+  const mainContent = document.querySelector('body');
+  if (header) {
+    mainContent.style.paddingTop = header.offsetHeight + 'px';
+  }
+}
+window.addEventListener('DOMContentLoaded', fixContentPadding);
+window.addEventListener('resize', fixContentPadding);
