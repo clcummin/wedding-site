@@ -1,28 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>Coming Soon</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Accommodations</title>
+  <link rel="icon" href="assets/favicon.png" type="image/png">
 
-  <!-- 1) theme tokens -->
-  <link rel="stylesheet" href="assets/css/theme.css">
-  <!-- 2) shared site styles (nav, colors, reset, etc.) -->
-  <link rel="stylesheet" href="assets/css/style.css">
-  <!-- 3) page‑specific overrides -->
-  <link rel="stylesheet" href="assets/css/accommodation.css">
+  <!-- site‑wide -->
+  <link rel="stylesheet" href="assets/css/theme.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <!-- page‑specific -->
+  <link rel="stylesheet" href="assets/css/accommodations.css" />
 
-  <!-- heading font (can stay here or be in style.css) -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap"
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" 
     rel="stylesheet">
 </head>
-<body class="allow scroll">
+<body class="allow-scroll">
 
-  <!-- ── Sticky Header & Nav (same on every page!) ── -->
+  <!-- ── Sticky Header & Nav ── -->
   <header class="site-header">
     <nav class="main-nav">
       <ul>
@@ -30,17 +26,105 @@
         <li><a href="events.html">Events</a></li>
         <li><a href="rsvp.html">RSVP</a></li>
         <li><a href="faqs.html">FAQs</a></li>
-        <li><a href="accommodation.html">Accommodation</a></li>
+        <li><a href="accommodation.html" class="active">Accommodation</a></li>
         <li><a href="transportation.html">Transportation</a></li>
         <li><a href="gallery.html">Gallery</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- ── Page Content ── -->
-  <div class="coming-soon-banner">
-    COMING SOON!
-  </div>
-<script src="assets/js/script.js"></script>
+  <main class="content-container">
+    <h1>Accommodations</h1>
+
+    <p>
+      We are thrilled to invite you to join us for our wedding weekend at the beautiful 
+      Chalet View Lodge, a premier boutique resort nestled in the scenic town of Portola, CA. 
+      Just a 45‑minute drive north of Truckee and 50 miles from the Reno‑Tahoe International Airport. 
+      Chalet View Lodge provides the comfort of a relaxed, no‑curfew environment. It's the essence 
+      of mountain luxury, inviting guests to immerse themselves in the natural world, and provides 
+      a peaceful sanctuary amid the wilderness. It also serves as the perfect launchpad for 
+      adventures, from trekking through forest trails to enjoying the myriad of activities onsite.
+    </p>
+
+    <section class="booking-instructions">
+      <h2>How to Book</h2>
+      <ol>
+        <li>
+          Click <a href="https://www.chaletview.com/booking" target="_blank" rel="noopener">
+          HERE</a> to visit our custom booking page
+        </li>
+        <li>Select your arrival and departure dates from the calendar</li>
+        <li>Press “Check Availability”</li>
+        <li>Select the room type most suitable for your party, and press “View Rates”</li>
+        <li>Under Available Offers, press “Reserve”</li>
+        <li>Confirm your reservation by filling out the form on the next page</li>
+      </ol>
+      <p class="note">
+        Please do not call the hotel to reserve your room(s) for your stay—the Front Desk will 
+        be unable to assist you. If you need help, email 
+        <a href="mailto:help@chaletview.com">help@chaletview.com</a>.
+      </p>
+    </section>
+
+    <section class="hotel-details">
+      <h2>Hotel Details</h2>
+      <p>
+        To ensure an intimate and exclusive experience, we have reserved all 52 uniquely styled 
+        rooms at the property. These rooms will be held for our wedding party until 60 days prior 
+        to our event. We encourage you to book as soon as possible to secure your preferred room type.
+      </p>
+      <p>
+        Check‑in time is 4:00 PM and check‑out time is 11:00 AM. Chalet View Lodge is a small boutique 
+        hotel and cannot accommodate early check‑ins or late check‑outs. Please plan accordingly.
+      </p>
+    </section>
+
+    <section class="overflow-note">
+      <h2>Overflow Accommodations</h2>
+      <p>
+        Unfortunately, not all of our guests will be able to stay at the lodge, so please make your 
+        reservations early to get the room you love! Once our block fills, we will post recommended 
+        nearby hotels here.
+      </p>
+    </section>
+
+    <section class="airport-info">
+      <h2>Airport & Car Rentals</h2>
+      <p>
+        The easiest airport to fly into is Reno‑Tahoe International Airport, about a 50‑minute drive. 
+        We recommend renting a car for the weekend; consider coordinating with friends to share 
+        a vehicle. See <a 
+          href="http://www.renoairport.com/tofrom-airport/rental-cars" 
+          target="_blank" rel="noopener">
+          Rental Car Options
+        </a>.
+      </p>
+    </section>
+
+    <section class="directions">
+      <h2>Directions from Reno‑Tahoe Airport</h2>
+      <ol>
+        <li>Head west, take the left ramp onto I‑580 North.</li>
+        <li>Keep right to merge onto US‑395 North toward Susanville.</li>
+        <li>After ~25 miles, take exit 8 at Hallelujah Junction for CA‑70 toward Portola/Quincy.</li>
+        <li>Turn left at the stop sign onto CA‑70 West and continue 27 miles.</li>
+        <li>Chalet View Lodge will be on your left past Portola, CA.</li>
+      </ol>
+    </section>
+
+    <section class="map-section">
+      <h2>Venue Map</h2>
+      <div class="iframe-container">
+        <!-- Replace src with your own map embed or image -->
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!...YOUR_MAP_EMBED..."
+          allowfullscreen
+        ></iframe>
+      </div>
+    </section>
+  </main>
+
+  <!-- site‑wide behaviors -->
+  <script src="assets/js/script.js"></script>
 </body>
 </html>
