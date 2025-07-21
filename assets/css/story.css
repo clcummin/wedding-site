@@ -104,3 +104,10 @@
   font-size:      1rem;
 }
 
+/* remove any leftover Turn.js shadows/curls */
+#flipbook .turn-page .shadow,
+#flipbook .page .shadow,
+#flipbook .page .curl {
+  display: none !important;
+}
+
