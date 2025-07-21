@@ -76,8 +76,8 @@
 .story-page {
   display:        flex;
   flex-direction: column;
-  align-items:    center;
-  justify-content: flex-start;
+  align-items:    center;      /* center children horizontally */
+  justify-content:flex-start;
   padding:        100px 1rem 2rem;
   min-height:     calc(100vh - 100px);
   background:     var(--bg-emerald-dark);
@@ -109,5 +109,9 @@
 #flipbook .page .shadow,
 #flipbook .page .curl {
   display: none !important;
+}
+
+#flipbook {
+  margin: 0 auto !important;   /* force horizontal centering */
 }
 
