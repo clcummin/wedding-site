@@ -2,6 +2,8 @@
    D. STORY‑PAGE RULES (only on our-story.html)
    ====================================================== */
 
+#flipbook.preload .page:not(.cover) { display: none; }
+
 #flipbook {
   margin: 0 auto;
   height: calc(80vw * 0.66) !important;
