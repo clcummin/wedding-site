@@ -6,12 +6,16 @@
   margin: 0 auto;
   height: calc(80vw * 0.66) !important;
   max-height: 500px !important;   /* optional cap */
-  width: 180vw !important;      /* 2 × 90 vw */
-  max-width: 1600px !important; /* optional hard cap */
+  width: 90vw;      /* 2 × 90 vw */
+  max-width: 1200px; /* optional hard cap */
+  min-width: 320px;
+  display: flex;
 }
 
 /* each leaf/page styling */
 #flipbook .page {
+  flex: 1 1 0;
+  min-width: 0;
   background: var(--white);
   border: 2px solid var(--emerald-border);
   border-radius: var(--card-radius);
@@ -61,10 +65,16 @@
 }
 
 /* responsive shrink on small screens */
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   #flipbook {
-    width:  300px !important;
-    height: 400px !important;
+    width:  98vw;
+    max-width: 100vw;
+    flex-direction: column;
+    height: auto;
+  }
+  #flipbook .page{
+     border-radius: var(--card-radius);
+     margin-bottom: 1rem;
   }
   .text-page { padding: 1rem; }
   .image-page{ padding: 0.5rem; }
