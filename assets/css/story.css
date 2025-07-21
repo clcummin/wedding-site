@@ -1,7 +1,6 @@
 /* ======================================================
    D. STORY‑PAGE RULES (only on our-story.html)
    ====================================================== */
-
 #flipbook.preload { display: none; }
 /* kill any leftover page transitions */
 #flipbook .page {
