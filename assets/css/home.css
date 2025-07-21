@@ -23,7 +23,7 @@
 .countdown-ticker {
   font-size: 3rem;
   font-weight: bold;
-  color: var(--emerald-border); /* matches your green theme */
+  color: white;
   margin-bottom: 40px;
   text-align: center;
   letter-spacing: 2px;
