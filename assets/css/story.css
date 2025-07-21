@@ -91,3 +91,16 @@
 #flipbook .image-page {
   border-radius: 0 var(--card-radius) var(--card-radius) 0;
 }
+
+/* ── Flip controls styling ── */
+.flip-controls {
+  display:        flex;
+  justify-content:center;
+  gap:            1rem;
+  margin-top:     1.5rem;
+}
+.flip-controls .main-btn {
+  padding:        0.6rem 1.6rem;
+  font-size:      1rem;
+}
+
