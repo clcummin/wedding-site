@@ -1,0 +1,27 @@
+/* Responsive iframe wrapper */
+.iframe-container {
+  position: relative;
+  width: 100%;
+  /* adjust a 4:3 ratio, or pick your own: */
+  padding-bottom: 75%;  /* 3/4 of the width */
+  height: 0;
+  overflow: hidden;
+}
+
+/* Full‑cover iframe */
+.iframe-container iframe {
+  position: absolute;
+  top:    0;
+  left:   0;
+  width:  100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Optional: give some breathing room under your nav */
+.rsvp-embed {
+  margin: 2rem 1rem;
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
