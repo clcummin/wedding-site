@@ -2,7 +2,7 @@
    D. STORY‑PAGE RULES (only on our-story.html)
    ====================================================== */
 
-#flipbook.preload .page:not(.cover) { display: none; }
+#flipbook.preload { display: none; }
 
 #flipbook {
   margin: 0 auto;
