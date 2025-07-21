@@ -1,0 +1,125 @@
+/* events.css — page‑specific overrides */
+
+/* Main white “card” container */
+.content-container {
+  background: var(--white);
+  color: #222;
+  max-width: 800px;
+  margin: 2rem auto 4rem;
+  padding: 2rem 1.5rem;
+  border-radius: var(--card-radius);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+  font-family: var(--font-serif);
+}
+
+/* Page title */
+.content-container h1 {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--emerald-border);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Event list layout */
+.event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Individual event card */
+.event-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+
+/* Icon on the left */
+.event-card .icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+}
+
+/* Icon images or inline SVGs fill the box */
+.event-card .icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Event details */
+.event-card .details {
+  flex: 1;
+}
+.event-card .time {
+  font-weight: 600;
+  color: var(--emerald-accent);
+  margin-bottom: 0.3rem;
+  font-size: 1.1rem;
+}
+.event-card .title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  margin: 0 0 0.5rem;
+  color: var(--emerald-border);
+}
+.event-card .description {
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Map section */
+.map-section {
+  margin-top: 3rem;
+}
+.map-section h2 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--emerald-border);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.map-section .description {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Responsive iframe container for map */
+.iframe-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  overflow: hidden;
+  border-radius: var(--card-radius);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+}
+.iframe-container iframe {
+  position: absolute;
+  top:    0; left: 0;
+  width:  100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Mobile tweaks */
+@media (max-width: 600px) {
+  .content-container {
+    margin: 1rem;
+    padding: 1.5rem 1rem;
+  }
+  .event-card {
+    gap: 0.8rem;
+  }
+  .event-card .icon {
+    width: 32px;
+    height: 32px;
+  }
+  .event-card .title {
+    font-size: 1.2rem;
+  }
+  .map-section .description {
+    font-size: 0.95rem;
+  }
+}
