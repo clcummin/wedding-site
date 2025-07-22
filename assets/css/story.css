@@ -70,6 +70,22 @@
   height:      auto;
 }
 
+/* in your story.css (or page‑specific CSS), after the other .page rules */
+
+/* Stack heading + text in a column on text spreads */
+#flipbook .page.text-page {
+  flex-direction: column;
+  text-align: center;    /* center both children */
+  padding: 1.5rem;       /* keep your existing padding */
+}
+
+/* ensure the text block stays full‑width under the heading */
+#flipbook .page.text-page .text-content {
+  width: 100%;
+  /* you can keep your existing centering/flex inside here, or switch to block */
+  display: block;
+}
+
 /* IMAGE pages */
 .image-page {
   padding: 0.5rem;
