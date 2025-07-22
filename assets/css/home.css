@@ -41,3 +41,13 @@
   text-align: center;
   font-size: 1.25rem;
 }
+
+/* signature graphic above the update text */
+.signature {
+  display: block;
+  max-width: 200px;          /* adjust as needed */
+  width: 100%;               /* scales down on mobile */
+  height: auto;
+  margin: 0 auto 1rem;       /* center and space below */
+}
+
