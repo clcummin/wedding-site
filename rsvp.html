@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>RSVP</title>
+  <link rel="icon" href="assets/favicon.png" type="image/png">
 
+  <!-- site-wide -->
   <link rel="stylesheet" href="assets/css/theme.css">
-<link rel="stylesheet" href="assets/css/style.css">
-<!-- then, only on that page: -->
-<link rel="stylesheet" href="assets/css/rsvp.css">
-  <!-- 3. Heading font -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap"
+  <link rel="stylesheet" href="assets/css/style.css">
+  <!-- page-specific -->
+  <link rel="stylesheet" href="assets/css/rsvp.css">
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" 
     rel="stylesheet">
 </head>
-<body>
-<!-- ── Sticky Header & Nav (same on every page!) ── -->
+<body class="allow-scroll">
+
+  <!-- ── Sticky Header & Nav ── -->
   <header class="site-header">
     <nav class="main-nav">
       <ul>
@@ -34,16 +33,22 @@
       </ul>
     </nav>
   </header>
-  <!-- RSVP Embed -->
-<section class="rsvp-embed">
-  <div class="iframe-container">
-    <iframe
-      src="https://www.aisleplanner.com/app/v2/our-wedding/lcwedding/rsvp"
-      frameborder="0"
-      allowfullscreen>
-    </iframe>
-  </div>
-</section>
 
+  <!-- ── Content Card ── -->
+  <main class="content-container">
+    <h1>RSVP</h1>
+    <p>Please use the form below to let us know you’re coming. We can’t wait to celebrate with you!</p>
+
+    <div class="iframe-container">
+      <iframe
+        src="https://www.aisleplanner.com/app/v2/our-wedding/lcwedding/rsvp"
+        frameborder="0"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </main>
+
+  <!-- site-wide behaviors -->
+  <script src="assets/js/script.js"></script>
 </body>
 </html>
