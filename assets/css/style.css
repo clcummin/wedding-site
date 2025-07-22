@@ -41,6 +41,12 @@
 .main-nav a:focus {
   background: var(--white);
   color:      var(--emerald-border);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-style: normal;
+  /* bonus: make it stand out even more */
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* highlight the current page link */
