@@ -117,8 +117,16 @@
 #flipbook .image-page {
   border-radius: 0 var(--card-radius) var(--card-radius) 0;
 }
+/* heading inside each text-page spread */
+.text-page-heading {
+  font-family: var(--font-display);
+  font-size:   1.5rem;
+  color:       var(--emerald-border);
+  text-align:  center;
+  margin:      0 1rem 1rem;  /* small gutter below */
+}
 
-/* ── Flip controls styling ── */
+/* ── Flip controls styling ── 
 .flip-controls {
   display:        flex;
   justify-content:center;
@@ -132,5 +140,5 @@
 
 #flipbook {
   margin: 0 auto !important;   /* force horizontal centering */
-}
+}*/
 
