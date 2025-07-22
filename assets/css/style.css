@@ -145,6 +145,15 @@ body {
   line-height: 1.6;
 }
 
+/* Links */
+.content-container a {
+  color: var(--emerald-accent);
+  text-decoration: underline;
+}
+.content-container a:hover {
+  color: var(--emerald-border);
+}
+
 @media (max-width: 600px) {
   .coming-soon-banner {
     font-size: 1.2rem;
