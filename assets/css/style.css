@@ -49,20 +49,6 @@
   letter-spacing: 0.05em;
 }
 
-/* Active link: white background, green text */
-.main-nav a.active,
-.main-nav a.active:focus {
-  background: var(--white);
-  color: var(--emerald-border);
-}
-
-/*Keep the text green even on hover 
-.main-nav a.active:hover,
-.main-nav a.active:focus:hover {
-  background: var(--white);
-  color: var(--emerald-border);
-}
-*/
 /* 2. Gallery Grid (page‑agnostic) */
 .gallery-grid {
   display:            grid;
