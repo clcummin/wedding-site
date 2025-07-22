@@ -43,6 +43,13 @@
   color:      var(--emerald-border);
 }
 
+/* highlight the current page link */
+.main-nav a.active,
+.main-nav a.active:focus {
+  background: var(--white);
+  color: var(--emerald-border);
+}
+
 /* 2. Gallery Grid (page‑agnostic) */
 .gallery-grid {
   display:            grid;
