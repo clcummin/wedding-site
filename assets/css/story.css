@@ -124,9 +124,10 @@
   color:       var(--emerald-border);
   text-align:  center;
   margin:      0 1rem 1rem;  /* small gutter below */
+  line-height: 1.2;
 }
 
-/* ── Flip controls styling ── 
+/* ── Flip controls styling ── */
 .flip-controls {
   display:        flex;
   justify-content:center;
@@ -140,5 +141,5 @@
 
 #flipbook {
   margin: 0 auto !important;   /* force horizontal centering */
-}*/
+}
 
