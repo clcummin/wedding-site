@@ -64,7 +64,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 999;
+  /* ensure the overlay appears above the sticky header */
+  z-index: 1100;
 }
 .modal-overlay.hidden {
   display: none;
