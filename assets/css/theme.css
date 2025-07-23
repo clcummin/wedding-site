@@ -10,9 +10,9 @@
   --white: #fff;
   --gray-light: #e4e4e4;
   /* fonts */
-  --font-body: 'Great Vibes', cursive;
-  --font-heading: 'Great Vibes', cursive;
-  --font-nav: 'Great Vibes', cursive;
+  --font-body: 'Raleway', sans-serif;
+  --font-heading: 'Allura', cursive;
+  --font-nav: 'Allura', cursive;
   /* sizing */
   --card-radius: 20px;
   --photo-size: 96px;
