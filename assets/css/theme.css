@@ -84,9 +84,6 @@ html, body {
   pointer-events: none;
 }
 
-/* (optional) allow vertical scroll when needed */
-/*
 body.allow-scroll {
   overflow-y: auto;
 }
-*/
