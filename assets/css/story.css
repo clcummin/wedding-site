@@ -58,7 +58,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-size:   1.1rem;
   color:       var(--emerald-border);
   line-height: 1.5;
@@ -136,7 +136,7 @@
 }
 /* heading inside each text-page spread */
 .text-page-heading {
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-size:   1.5rem;
   color:       var(--emerald-border);
   text-align:  center;
