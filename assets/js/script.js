@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createDigit() {
       const d = document.createElement('div');
       d.className = 'flip-digit';
-      d.innerHTML = '<span class="top">0</span><span class="bottom">0</span>';
+      d.textContent = '0';
       return d;
     }
 
@@ -64,26 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function flipTo(digitEl, newNumber) {
-      const top = digitEl.querySelector('.top');
-      const bottom = digitEl.querySelector('.bottom');
-      if (top.textContent === newNumber) return;
-
-      const topFlip = document.createElement('span');
-      topFlip.className = 'top-flip';
-      topFlip.textContent = top.textContent;
-
-      const bottomFlip = document.createElement('span');
-      bottomFlip.className = 'bottom-flip';
-      bottomFlip.textContent = newNumber;
-
-      digitEl.appendChild(topFlip);
-      digitEl.appendChild(bottomFlip);
-
-      top.textContent = newNumber;
-      bottom.textContent = newNumber;
-
-      topFlip.addEventListener('animationend', () => topFlip.remove());
-      bottomFlip.addEventListener('animationend', () => bottomFlip.remove());
+      if (digitEl.textContent === newNumber) return;
+      digitEl.textContent = newNumber;
     }
 
     function updateClock() {
