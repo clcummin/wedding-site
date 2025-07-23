@@ -1,7 +1,7 @@
 // assets/js/script.js
 
 document.addEventListener('DOMContentLoaded', () => {
-  // ── 1) Reserve space for fixed header & shrink on scroll ──
+  // ── 1) Reserve space for fixed header & toggle "scrolled" on scroll ──
   const header = document.querySelector('.site-header');
   if (header) {
     const updateBodyPadding = () => {
