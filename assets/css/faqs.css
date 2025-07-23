@@ -1,0 +1,25 @@
+/* faqs.css — page-specific styles */
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.faq-item h2 {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  color: var(--emerald-border);
+  margin-bottom: 0.5rem;
+}
+
+.faq-item p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .faq-item h2 {
+    font-size: 1.4rem;
+  }
+}
