@@ -1,7 +1,7 @@
 /* rsvp.css — page-specific */
 
 .content-container h1 {
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-size:   2.5rem;
   color:       var(--emerald-border);
   text-align:  center;

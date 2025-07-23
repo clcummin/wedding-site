@@ -2,7 +2,7 @@
 
 /* Page title */
 .content-container h1 {
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-size: 2.5rem;
   color: var(--emerald-border);
   text-align: center;
@@ -48,7 +48,7 @@
   font-size: 1.1rem;
 }
 .event-card .title {
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-size: 1.4rem;
   margin: 0 0 0.5rem;
   color: var(--emerald-border);
@@ -63,7 +63,7 @@
   margin-top: 3rem;
 }
 .map-section h2 {
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-size: 1.8rem;
   color: var(--emerald-border);
   text-align: center;
