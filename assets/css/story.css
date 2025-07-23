@@ -102,12 +102,13 @@
   #flipbook {
     width:  98vw;
     max-width: 100vw;
-    flex-direction: column;
-    height: auto;
+    /* keep pages side-by-side on small screens */
+    flex-direction: row;
+    height: calc(98vw * 0.66);
   }
   #flipbook .page{
      border-radius: var(--card-radius);
-     margin-bottom: 1rem;
+     margin-bottom: 0;
   }
   .text-page { padding: 1rem; }
   .image-page{ padding: 0.5rem; }
