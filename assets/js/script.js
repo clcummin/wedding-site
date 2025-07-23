@@ -49,18 +49,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setupClock() {
       countdownEl.classList.add('flip-clock');
-      const total = 3 + 2 + 2 + 2; // days, hours, minutes, seconds
-      for (let i = 0; i < total; i++) {
-        const digit = createDigit();
-        digits.push(digit);
-        countdownEl.appendChild(digit);
-        if (i === 2 || i === 4 || i === 6) {
+      const groups = [
+        { size: 3, label: 'Days' },
+        { size: 2, label: 'Hours' },
+        { size: 2, label: 'Minutes' },
+        { size: 2, label: 'Seconds' },
+      ];
+
+      groups.forEach((grp, idx) => {
+        const groupEl = document.createElement('div');
+        groupEl.className = 'flip-group';
+
+        const row = document.createElement('div');
+        row.className = 'digit-row';
+        for (let i = 0; i < grp.size; i++) {
+          const digit = createDigit();
+          digits.push(digit);
+          row.appendChild(digit);
+        }
+        groupEl.appendChild(row);
+
+        const labelEl = document.createElement('div');
+        labelEl.className = 'flip-label';
+        labelEl.textContent = grp.label;
+        groupEl.appendChild(labelEl);
+
+        countdownEl.appendChild(groupEl);
+
+        if (idx < groups.length - 1) {
           const sep = document.createElement('span');
           sep.className = 'separator';
           sep.textContent = ':';
           countdownEl.appendChild(sep);
         }
-      }
+      });
     }
 
     function flipTo(digitEl, newNumber) {
