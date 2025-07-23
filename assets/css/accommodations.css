@@ -1,17 +1,5 @@
 /* accommodations.css — page‑specific */
 
-/* Reuse the “content‑container” white card from Home/Events */
-.content-container {
-  background: var(--white);
-  color:      #222;
-  max-width:  800px;
-  margin:     2rem auto 4rem;
-  padding:    2rem 1.5rem;
-  border-radius: var(--card-radius);
-  box-shadow:    0 8px 40px rgba(0,0,0,0.06);
-  font-family:   var(--font-serif);
-}
-
 /* Page title */
 .content-container h1 {
   font-family: var(--font-display);
@@ -34,11 +22,6 @@
   margin:      2rem 0 1rem;
 }
 
-/* Paragraph text */
-.content-container p {
-  margin-bottom: 1rem;
-  line-height: 1.6;
-}
 
 /* Booking steps */
 .booking-instructions ol,
@@ -57,14 +40,6 @@
   margin-top: 0.5rem;
 }
 
-/* Links */
-.content-container a {
-  color: var(--emerald-accent);
-  text-decoration: underline;
-}
-.content-container a:hover {
-  color: var(--emerald-border);
-}
 
 /* Responsive map/embed */
 .iframe-container {
@@ -86,10 +61,6 @@
 
 /* Mobile tweaks */
 @media (max-width: 600px) {
-  .content-container {
-    margin: 1rem;
-    padding: 1.5rem 1rem;
-  }
   .content-container h1 {
     font-size: 2rem;
   }

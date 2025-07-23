@@ -1,17 +1,5 @@
 /* events.css — page‑specific overrides */
 
-/* Main white “card” container */
-.content-container {
-  background: var(--white);
-  color: #222;
-  max-width: 800px;
-  margin: 2rem auto 4rem;
-  padding: 2rem 1.5rem;
-  border-radius: var(--card-radius);
-  box-shadow: 0 8px 40px rgba(0,0,0,0.06);
-  font-family: var(--font-serif);
-}
-
 /* Page title */
 .content-container h1 {
   font-family: var(--font-display);
@@ -105,10 +93,6 @@
 
 /* Mobile tweaks */
 @media (max-width: 600px) {
-  .content-container {
-    margin: 1rem;
-    padding: 1.5rem 1rem;
-  }
   .event-card {
     gap: 0.8rem;
   }

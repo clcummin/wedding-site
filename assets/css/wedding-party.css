@@ -2,14 +2,7 @@
 
 /* White card container */
 .content-container {
-  background: var(--white);
-  color: #222;
   max-width: 960px;
-  margin: 2rem auto 4rem;
-  padding: 2rem 1.5rem;
-  border-radius: var(--card-radius);
-  box-shadow: 0 8px 40px rgba(0,0,0,0.06);
-  font-family: var(--font-serif);
 }
 .content-container h1 {
   font-family: var(--font-display);

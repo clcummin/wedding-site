@@ -160,6 +160,12 @@ body {
     padding:   .8rem 1.6rem;
   }
 
+  /* Shared mobile spacing for content containers */
+  .content-container {
+    margin: 1rem;
+    padding: 1.5rem 1rem;
+  }
+
   /* Shrink sticky navigation and keep items on a single line */
   .site-header {
     padding: 0.25rem 0;
