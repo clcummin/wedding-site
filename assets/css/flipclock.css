@@ -2,7 +2,7 @@
 .flip-clock {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
 }
 
@@ -30,6 +30,23 @@
   color: var(--emerald-border);
 }
 
+.flip-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.digit-row {
+  display: flex;
+}
+
+.flip-label {
+  margin-top: 4px;
+  color: var(--emerald-border);
+  font-family: var(--font-heading);
+  letter-spacing: 0.05em;
+}
+
 
 /* Size modifiers */
 .flip-clock.flip-small .flip-digit {
@@ -43,6 +60,10 @@
   line-height: 48px;
 }
 
+.flip-clock.flip-small .flip-label {
+  font-size: 0.7rem;
+}
+
 .flip-clock.flip-large .flip-digit {
   width: 60px;
   height: 90px;
@@ -52,4 +73,8 @@
 .flip-clock.flip-large .separator {
   font-size: 3.2rem;
   line-height: 90px;
+}
+
+.flip-clock.flip-large .flip-label {
+  font-size: 1rem;
 }
