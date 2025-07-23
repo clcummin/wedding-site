@@ -33,27 +33,84 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ── 3) Countdown ticker (wherever #countdown exists) ──
+  // ── 3) Countdown ticker (flip clock) ──
   const countdownEl = document.getElementById('countdown');
   if (countdownEl) {
     const target = new Date('2026-09-12T00:00:00');
-    let timer; // declared here so clearInterval(timer) works
+    const digits = [];
+    let timer;
 
-    function updateCountdown() {
-      const diff = target - Date.now();
-      if (diff <= 0) {
-        countdownEl.textContent = "It's today!";
-        clearInterval(timer);
-        return;
-      }
-      const days    = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours   = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-      countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    function createDigit() {
+      const d = document.createElement('div');
+      d.className = 'flip-digit';
+      d.innerHTML = '<span class="top">0</span><span class="bottom">0</span>';
+      return d;
     }
 
-    updateCountdown();
-    timer = setInterval(updateCountdown, 1000);
+    function setupClock() {
+      countdownEl.classList.add('flip-clock');
+      const total = 3 + 2 + 2 + 2; // days, hours, minutes, seconds
+      for (let i = 0; i < total; i++) {
+        const digit = createDigit();
+        digits.push(digit);
+        countdownEl.appendChild(digit);
+        if (i === 2 || i === 4 || i === 6) {
+          const sep = document.createElement('span');
+          sep.className = 'separator';
+          sep.textContent = ':';
+          countdownEl.appendChild(sep);
+        }
+      }
+    }
+
+    function flipTo(digitEl, newNumber) {
+      const top = digitEl.querySelector('.top');
+      const bottom = digitEl.querySelector('.bottom');
+      if (top.textContent === newNumber) return;
+
+      const topFlip = document.createElement('span');
+      topFlip.className = 'top-flip';
+      topFlip.textContent = top.textContent;
+
+      const bottomFlip = document.createElement('span');
+      bottomFlip.className = 'bottom-flip';
+      bottomFlip.textContent = newNumber;
+
+      digitEl.appendChild(topFlip);
+      digitEl.appendChild(bottomFlip);
+
+      top.textContent = newNumber;
+      bottom.textContent = newNumber;
+
+      topFlip.addEventListener('animationend', () => topFlip.remove());
+      bottomFlip.addEventListener('animationend', () => bottomFlip.remove());
+    }
+
+    function updateClock() {
+      const diff = target - Date.now();
+      if (diff <= 0) {
+        clearInterval(timer);
+        countdownEl.innerHTML = "It's today!";
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      const str =
+        days.toString().padStart(3, '0') +
+        hours.toString().padStart(2, '0') +
+        minutes.toString().padStart(2, '0') +
+        seconds.toString().padStart(2, '0');
+
+      str.split('').forEach((num, idx) => {
+        flipTo(digits[idx], num);
+      });
+    }
+
+    setupClock();
+    updateClock();
+    timer = setInterval(updateClock, 1000);
   }
 });
