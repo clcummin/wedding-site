@@ -25,7 +25,7 @@
 .main-nav a {
   color:           var(--white);
   font-family:     var(--font-nav);
-  font-size:       1rem;
+  font-size:       1.1rem; /* Slightly larger for improved legibility */
   font-weight:     500;
   padding:         0.25rem 0.5rem;
   border-radius:   16px;
@@ -179,7 +179,7 @@ body {
     margin: 0;
   }
   .site-header .main-nav a {
-    font-size: 1rem;
+    font-size: 1.1rem; /* match default nav size */
     padding: 0.25rem 0.5rem;
   }
 }
