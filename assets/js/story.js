@@ -12,16 +12,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 4) Show two‑page spreads (0→ pages[0]&pages[1], 1→ pages[2]&pages[3], etc.)
   let spread = 0;
+  const prev = document.getElementById('prevBtn');
+  const next = document.getElementById('nextBtn');
+
   function showSpread(n) {
     pages.forEach((p, i) => {
       p.style.display = (i === n*2 || i === n*2 + 1) ? 'flex' : 'none';
     });
+    if (prev) prev.style.display = n === 0 ? 'none' : '';
+    if (next) next.style.display = (n + 1) * 2 >= pages.length ? 'none' : '';
   }
-  showSpread(spread);
-
-  // 5) Wire up the Prev/Next buttons
-  const prev = document.getElementById('prevBtn');
-  const next = document.getElementById('nextBtn');
   if (prev) prev.addEventListener('click', e => {
     e.preventDefault();
     if (spread > 0) showSpread(--spread);
@@ -30,4 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     if ((spread + 1)*2 < pages.length) showSpread(++spread);
   });
+
+  showSpread(spread);
 });
