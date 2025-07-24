@@ -139,7 +139,7 @@
 /* heading inside each text-page spread */
 .text-page-heading {
   font-family: var(--font-heading);
-  font-size:   1.5rem;
+  font-size:   1.7rem; /* Slightly larger for better readability */
   color:       var(--emerald-border);
   text-align:  center;
   margin:      0 1rem 1rem;  /* small gutter below */
