@@ -6,7 +6,7 @@
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <title>Gallery — Coming Soon</title>
+  <title>Gallery</title>
   <link rel="icon" type="image/png" href="assets/images/favicon.png">
 
   <link rel="stylesheet" href="assets/css/theme.css">
@@ -32,42 +32,23 @@
       </ul>
     </nav>
   </header>
-  
-  <!-- COMING SOON overlay -->
-  <div class="coming-soon-banner">
-    COMING SOON!
+
+  <!-- Gallery -->
+  <div class="gallery-page">
+    <div class="gallery-grid"></div>
   </div>
 
-  <!-- Gallery placeholders -->
-  <div class="gallery-page">
-    <div class="gallery-grid">
-      <!-- 24 placeholders: 4 columns × 6 rows -->
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
-      <div class="gallery-item"></div>
+  <!-- Lightbox overlay -->
+  <div id="lightbox" class="lightbox hidden">
+    <div class="lightbox-content">
+      <button class="prev" aria-label="Previous image">&#10094;</button>
+      <img src="" alt="Gallery image">
+      <button class="next" aria-label="Next image">&#10095;</button>
+      <div class="lightbox-dots"></div>
+      <button class="close" aria-label="Close">&times;</button>
     </div>
   </div>
 <script src="assets/js/script.js"></script>
+<script src="assets/js/gallery.js"></script>
 </body>
 </html>
