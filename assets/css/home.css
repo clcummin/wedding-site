@@ -21,6 +21,25 @@
   .big-rsvp-btn { font-size:1rem; padding:.7rem 2rem; }
 }
 
+/* Centered button rows on home page */
+.text-page-buttons {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.text-page-buttons .home-btn {
+  display: inline-block;
+  padding: 0.75rem 2.5rem;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 600px) {
+  .text-page-buttons .home-btn {
+    font-size: 1rem;
+    padding: .7rem 2rem;
+  }
+}
+
 
 .home-update-box {
   background: #fff;
