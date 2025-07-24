@@ -48,25 +48,20 @@
 
 /* 2. Gallery Grid (page‑agnostic) */
 .gallery-grid {
-  display:            grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap:                1rem;
-  max-width:          1200px;
-  margin:             6rem auto 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 6rem auto 2rem;
 }
-.gallery-item {
-  background:         var(--gray-light);
-  border-radius:      var(--card-radius);
-  position:           relative;
-  width:              100%;
-  padding-top:        100%;  /* square */
-  overflow:           hidden;
-}
-.gallery-item::before {
-  content: "";
-  position: absolute;
-  inset:    0;
-  background:#ccc;
+
+.gallery-grid img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: var(--card-radius);
+  cursor: pointer;
 }
 
 /* ── Sticky Header ── */
