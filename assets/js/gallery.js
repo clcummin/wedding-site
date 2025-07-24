@@ -7,14 +7,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let images = [];
 
-  // Try to fetch list of images from assets/gallery directory
-  async function fetchDirectory() {
+  // Try to fetch list of images from assets/photos.json
+  async function fetchPhotos() {
     try {
-      const res = await fetch('assets/gallery/');
+      const res = await fetch('assets/photos.json');
       if (!res.ok) return [];
-      const text = await res.text();
-      const matches = Array.from(text.matchAll(/href="([^"?]+\.(?:jpe?g|png|gif))/gi));
-      return matches.map(m => 'assets/gallery/' + m[1]);
+      const data = await res.json();
+      if (Array.isArray(data)) {
+        return data;
+      }
+      if (Array.isArray(data.photos)) {
+        return data.photos;
+      }
+      return [];
     } catch (err) {
       return [];
     }
@@ -26,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   );
 
   async function init() {
-    const files = await fetchDirectory();
+    const files = await fetchPhotos();
     images = files.length ? files : placeholders;
     renderGrid();
     setupLightbox();
