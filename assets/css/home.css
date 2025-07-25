@@ -63,3 +63,22 @@
   margin: 0 auto 1rem;       /* center and space below */
 }
 
+/* Ensure countdown fits on small screens */
+@media (max-width: 600px) {
+  #countdown.flip-clock {
+    gap: 2px;
+  }
+  #countdown.flip-clock.flip-large .flip-digit {
+    width: 20px;
+    height: 30px;
+    font-size: 1.2rem;
+  }
+  #countdown.flip-clock.flip-large .separator {
+    font-size: 1.4rem;
+    line-height: 30px;
+  }
+  #countdown.flip-clock.flip-large .flip-label {
+    font-size: 0.7rem;
+  }
+}
+
