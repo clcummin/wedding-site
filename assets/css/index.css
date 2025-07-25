@@ -129,5 +129,21 @@
   .wedding-date {
     font-size: 1rem;
   }
+  /* Ensure countdown fits within the intro card */
+  #countdown.flip-clock {
+    gap: 2px;
+  }
+  #countdown.flip-clock.flip-small .flip-digit {
+    width: 20px;
+    height: 30px;
+    font-size: 1.2rem;
+  }
+  #countdown.flip-clock.flip-small .separator {
+    font-size: 1.4rem;
+    line-height: 30px;
+  }
+  #countdown.flip-clock.flip-small .flip-label {
+    font-size: 0.7rem;
+  }
 }
 
