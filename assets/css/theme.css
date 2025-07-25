@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Allura&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Spectral:wght@400;700&display=swap');
 
 :root {
   /* colors */
@@ -11,9 +11,9 @@
   --white: #fff;
   --gray-light: #e4e4e4;
   /* fonts */
-  --font-body: 'Raleway', sans-serif;
-  --font-heading: 'Allura', cursive;
-  --font-nav: 'Allura', cursive;
+  --font-body: 'Spectral', serif;
+  --font-heading: 'Cinzel Decorative', cursive;
+  --font-nav: 'Cinzel Decorative', cursive;
   /* sizing */
   --card-radius: 20px;
   --photo-size: 96px;
