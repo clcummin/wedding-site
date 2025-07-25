@@ -82,8 +82,19 @@
 /* Keep clocks contained on small screens */
 @media (max-width: 600px) {
   .flip-clock {
-    transform: scale(0.8);
-    transform-origin: center;
     margin: 0 auto;
+  }
+  /* Reduce the large clock size for mobile */
+  .flip-clock.flip-large .flip-digit {
+    width: 45px;
+    height: 70px;
+    font-size: 2.2rem;
+  }
+  .flip-clock.flip-large .separator {
+    font-size: 2.4rem;
+    line-height: 70px;
+  }
+  .flip-clock.flip-large .flip-label {
+    font-size: 0.9rem;
   }
 }
