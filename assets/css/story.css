@@ -102,19 +102,19 @@
 /* responsive shrink on small screens */
 @media (max-width: 700px) {
   #flipbook {
-    width:  98vw;
+    width: 95vw;
     max-width: 100vw;
-    /* keep pages side-by-side on small screens */
-    flex-direction: row;
-    height: calc(98vw * 0.66);
+    flex-direction: column;       /* show one page at a time */
+    height: auto;
   }
-  #flipbook .page{
-     border-radius: var(--card-radius);
-     margin-bottom: 0;
+  #flipbook .page {
+    flex: 0 0 100%;
+    border-radius: var(--card-radius);
+    margin-bottom: 0;
   }
   .text-page { padding: 1rem; }
-  .image-page{ padding: 0.5rem; }
-  .text-page .text-content { font-size: 1rem; }
+  .image-page { padding: 0.5rem; }
+  .text-page .text-content { font-size: 0.9rem; }
 }
 
 /* Center the story-page wrapper and give room for nav */
