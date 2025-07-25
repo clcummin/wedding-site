@@ -79,35 +79,3 @@
   font-size: 1rem;
 }
 
-/* Keep clocks contained on small screens */
-@media (max-width: 600px) {
-  .flip-clock {
-    margin: 0 auto;
-  }
-  /* Reduce the large clock size for mobile */
-  .flip-clock.flip-large .flip-digit {
-    width: 45px;
-    height: 70px;
-    font-size: 2.2rem;
-  }
-  .flip-clock.flip-large .separator {
-    font-size: 2.4rem;
-    line-height: 70px;
-  }
-  .flip-clock.flip-large .flip-label {
-    font-size: 0.9rem;
-  }
-  /* Reduce the small clock size for mobile */
-  .flip-clock.flip-small .flip-digit {
-    width: 26px;
-    height: 40px;
-    font-size: 1.3rem;
-  }
-  .flip-clock.flip-small .separator {
-    font-size: 1.5rem;
-    line-height: 40px;
-  }
-  .flip-clock.flip-small .flip-label {
-    font-size: 0.75rem;
-  }
-}
