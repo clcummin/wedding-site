@@ -19,6 +19,7 @@
 @media (max-width: 600px) {
   .hero-img { width:120px; height:120px; }
   .big-rsvp-btn { font-size:1rem; padding:.7rem 2rem; }
+  #countdown { margin: 0 auto; }
 }
 
 /* Centered button rows on home page */

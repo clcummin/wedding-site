@@ -10,26 +10,40 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3) Remove the preload class so pages can become visible
   flipbook.classList.remove('preload');
 
-  // 4) Show two‑page spreads (0→ pages[0]&pages[1], 1→ pages[2]&pages[3], etc.)
-  let spread = 0;
+  // 4) Determine if we should show single pages on small screens
+  const singlePage = window.matchMedia('(max-width: 700px)').matches;
+  let index = 0; // page index or spread index
   const prev = document.getElementById('prevBtn');
   const next = document.getElementById('nextBtn');
 
-  function showSpread(n) {
+  function show(n) {
     pages.forEach((p, i) => {
-      p.style.display = (i === n*2 || i === n*2 + 1) ? 'flex' : 'none';
+      if (singlePage) {
+        p.style.display = i === n ? 'flex' : 'none';
+      } else {
+        p.style.display = (i === n*2 || i === n*2 + 1) ? 'flex' : 'none';
+      }
     });
     if (prev) prev.style.display = n === 0 ? 'none' : '';
-    if (next) next.style.display = (n + 1) * 2 >= pages.length ? 'none' : '';
+    if (next) {
+      const atEnd = singlePage ? n >= pages.length - 1 : (n + 1) * 2 >= pages.length;
+      next.style.display = atEnd ? 'none' : '';
+    }
   }
+
   if (prev) prev.addEventListener('click', e => {
     e.preventDefault();
-    if (spread > 0) showSpread(--spread);
-  });
-  if (next) next.addEventListener('click', e => {
-    e.preventDefault();
-    if ((spread + 1)*2 < pages.length) showSpread(++spread);
+    if (index > 0) show(--index);
   });
 
-  showSpread(spread);
+  if (next) next.addEventListener('click', e => {
+    e.preventDefault();
+    if (singlePage) {
+      if (index < pages.length - 1) show(++index);
+    } else if ((index + 1) * 2 < pages.length) {
+      show(++index);
+    }
+  });
+
+  show(index);
 });
