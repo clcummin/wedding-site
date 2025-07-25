@@ -69,16 +69,16 @@
     gap: 2px;
   }
   #countdown.flip-clock.flip-large .flip-digit {
-    width: 20px;
-    height: 30px;
-    font-size: 1.2rem;
+    width: 18px;
+    height: 28px;
+    font-size: 1rem;
   }
   #countdown.flip-clock.flip-large .separator {
-    font-size: 1.4rem;
-    line-height: 30px;
+    font-size: 1.2rem;
+    line-height: 28px;
   }
   #countdown.flip-clock.flip-large .flip-label {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
   }
 }
 
