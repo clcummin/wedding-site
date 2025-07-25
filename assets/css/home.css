@@ -12,6 +12,12 @@
   padding-top:   60px;
   animation:     fadeIn var(--t-med) var(--ease);
 }
+.flip-label {
+  color: white;
+}
+.separator{
+  color: white;
+}
 
 @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
 
