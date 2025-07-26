@@ -40,7 +40,17 @@ document.addEventListener('DOMContentLoaded', () => {
   flipbook.classList.remove('preload');
 
   // 4) Determine if we should show single pages on small screens
-  const singlePage = window.matchMedia('(max-width: 700px)').matches;
+  let singlePage = window.matchMedia('(max-width: 700px)').matches;
+
+  function handleResize() {
+    const nowSingle = window.matchMedia('(max-width: 700px)').matches;
+    if (nowSingle !== singlePage) {
+      window.location.reload();
+    }
+  }
+
+  window.addEventListener('orientationchange', handleResize);
+  window.addEventListener('resize', handleResize);
   let index = 0; // page index or spread index
   const prev = document.getElementById('prevBtn');
   const next = document.getElementById('nextBtn');
