@@ -2,11 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // ── Orientation hint for mobile portrait ──
   const orientationOverlay = document.getElementById('orientationOverlay');
   const orientationClose = document.getElementById('orientationClose');
+  let orientationDismissed = false;
 
   function checkOrientation() {
     if (!orientationOverlay) return;
     const isMobile = window.matchMedia('(max-width: 700px)').matches;
     const isPortrait = window.matchMedia('(orientation: portrait)').matches;
+    if (orientationDismissed) return;
     if (isMobile && isPortrait) {
       orientationOverlay.classList.remove('hidden');
     } else {
@@ -17,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (orientationClose) {
     orientationClose.addEventListener('click', () => {
       orientationOverlay.classList.add('hidden');
-    });
+      orientationDismissed = true;
+  });
   }
 
   window.addEventListener('orientationchange', checkOrientation);
