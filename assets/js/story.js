@@ -1,4 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // ── Orientation hint for mobile portrait ──
+  const orientationOverlay = document.getElementById('orientationOverlay');
+  const orientationClose = document.getElementById('orientationClose');
+
+  function checkOrientation() {
+    if (!orientationOverlay) return;
+    const isMobile = window.matchMedia('(max-width: 700px)').matches;
+    const isPortrait = window.matchMedia('(orientation: portrait)').matches;
+    if (isMobile && isPortrait) {
+      orientationOverlay.classList.remove('hidden');
+    } else {
+      orientationOverlay.classList.add('hidden');
+    }
+  }
+
+  if (orientationClose) {
+    orientationClose.addEventListener('click', () => {
+      orientationOverlay.classList.add('hidden');
+    });
+  }
+
+  window.addEventListener('orientationchange', checkOrientation);
+  window.addEventListener('resize', checkOrientation);
+  checkOrientation();
+
+  // ── Flipbook setup ──
   // 1) Grab the flipbook container
   const flipbook = document.getElementById('flipbook');
   if (!flipbook) return;         // nothing to do if it's not on this page

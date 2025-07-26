@@ -162,3 +162,30 @@
   margin: 0 auto !important;   /* force horizontal centering */
 }
 
+/* ── Mobile orientation notice ── */
+.orientation-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+  padding: 1rem;
+}
+.orientation-overlay.hidden { display: none; }
+.orientation-content {
+  background: var(--white);
+  color: var(--emerald-border);
+  border-radius: var(--card-radius);
+  max-width: 400px;
+  width: 90%;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+}
+.orientation-content p {
+  margin-bottom: 1rem;
+  font-family: var(--font-body);
+}
+
