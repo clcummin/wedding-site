@@ -65,11 +65,29 @@ html, body {
   pointer-events: none;
 }
 
-/* card & button base */
-.card, .main-btn {
+/* base card styling */
+.card {
   background: var(--white);
   color: #222;
   border-radius: var(--card-radius);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  border: 2px solid var(--emerald-border);
+  font-family: var(--font-heading);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background var(--t-fast) var(--ease-med),
+    color var(--t-fast) var(--ease-med),
+    transform var(--t-fast) var(--ease-med),
+    opacity var(--t-med) var(--ease-med);
+}
+
+/* buttons share the same structure as cards but use the
+   site background color for their fill */
+.main-btn {
+  background: var(--bg-emerald-dark);
+  color: var(--white);
+  border-radius: var(--btn-radius);
   box-shadow: 0 8px 40px rgba(0,0,0,0.12);
   border: 2px solid var(--emerald-border);
   font-family: var(--font-heading);
