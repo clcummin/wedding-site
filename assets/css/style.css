@@ -242,27 +242,29 @@ body {
   .site-header .main-nav::before,
   .site-header .main-nav::after {
     position: absolute;
-    top: 0;
-    bottom: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.6rem;
+    height: 1.6rem;
     display: flex;
     align-items: center;
+    justify-content: center;
     pointer-events: none;
-    font-size: 1.8rem; /* larger arrow indicator */
-    color: var(--white);
+    font-size: 1rem;
+    color: var(--emerald-border);
+    background: var(--white);
+    border-radius: 50%;
+    box-shadow: 0 0 2px rgba(0,0,0,0.3);
     opacity: 0;
     transition: opacity var(--t-fast) var(--ease-med);
   }
   .site-header .main-nav::before {
     content: '‹';
-    left: 0;
-    padding-left: 0.75rem;
-    background: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,0.85));
+    left: 0.25rem;
   }
   .site-header .main-nav::after {
     content: '›';
-    right: 0;
-    padding-right: 0.75rem;
-    background: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.85));
+    right: 0.25rem;
   }
   .site-header .main-nav.show-left::before {
     opacity: 1;
