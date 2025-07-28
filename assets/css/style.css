@@ -281,4 +281,52 @@ body {
 .hidden   { display: none; }
 .fadeable { transition: opacity var(--t-med) var(--ease); }
 
+/* Prevent background scroll when overlays are open */
+.no-scroll,
+.no-scroll html {
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* Clickable cover for iframe maps */
+.map-trigger {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+}
+
+/* Fullscreen PDF overlay */
+.pdf-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.9);
+  padding: 1rem;
+  z-index: 2000;
+}
+.pdf-overlay.hidden { display: none; }
+.pdf-overlay .pdf-content {
+  position: relative;
+  max-width: 90%;
+  width: 90%;
+}
+.pdf-overlay iframe {
+  width: 100%;
+  height: 80vh;
+  border: 0;
+  border-radius: var(--card-radius);
+}
+.pdf-overlay .close {
+  position: absolute;
+  top: -2rem;
+  right: 0;
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 2rem;
+  cursor: pointer;
+}
+
 /* (Leave all page‑specific rules to their own CSS files) */

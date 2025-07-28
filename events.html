@@ -88,6 +88,7 @@
           title="Venue Map"
           frameborder="0"
         ></iframe>
+        <div class="map-trigger" aria-label="Open map"></div>
       </div>
       <p class="description">
         Valet parking is available at the main entrance off Oak Avenue. For GPS, enter 123 Country Lane.
@@ -95,6 +96,13 @@
       </p>
     </section>
   </main>
+
+  <div id="mapOverlay" class="pdf-overlay hidden">
+    <div class="pdf-content">
+      <button class="close" aria-label="Close">&times;</button>
+      <iframe src="assets/images/venue_map.pdf" title="Venue Map"></iframe>
+    </div>
+  </div>
 
   <!-- Site‑wide behaviors -->
   <script src="assets/js/script.js"></script>

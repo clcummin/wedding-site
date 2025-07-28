@@ -140,4 +140,24 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', updateNavScroll);
     updateNavScroll();
   }
+
+  // ── 5) Expandable venue map ──
+  const mapTrigger = document.querySelector('.map-section .map-trigger');
+  const mapOverlay = document.getElementById('mapOverlay');
+  if (mapTrigger && mapOverlay) {
+    const closeBtn = mapOverlay.querySelector('.close');
+    const dismiss = () => {
+      mapOverlay.classList.add('hidden');
+      document.body.classList.remove('no-scroll');
+    };
+    mapTrigger.addEventListener('click', e => {
+      e.preventDefault();
+      mapOverlay.classList.remove('hidden');
+      document.body.classList.add('no-scroll');
+    });
+    closeBtn?.addEventListener('click', dismiss);
+    mapOverlay.addEventListener('click', e => {
+      if (e.target === mapOverlay) dismiss();
+    });
+  }
 });
