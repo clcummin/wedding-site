@@ -1,22 +1,8 @@
 /* attire.css — page-specific styles */
 
-.content-container h1 {
-  font-family: var(--font-heading);
-  font-size: 2.5rem;
-  color: var(--emerald-border);
-  text-align: center;
-  margin-bottom: 2rem;
-}
 
-.dress-guide h2,
-.dos-donts h2,
-.donts h2 {
-  font-family: var(--font-heading);
-  font-size: 1.8rem;
-  color: var(--emerald-border);
-  margin: 2rem 0 1rem;
-  text-align: center;
-}
+
+/* Section headings use global styles */
 
 .attire-list {
   display: flex;

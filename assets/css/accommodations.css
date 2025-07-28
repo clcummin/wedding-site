@@ -1,20 +1,5 @@
-/* accommodations.css — page‑specific */
-
-/* Section styles now shared via .info-section in style.css */
-
-
 /* Responsive map/embed */
 .iframe-container {
   padding-bottom: 56.25%;  /* 16:9 ratio */
   margin-top: 1rem;
-}
-
-/* Mobile tweaks */
-@media (max-width: 600px) {
-  .content-container h1 {
-    font-size: 2rem;
-  }
-  .info-section h2 {
-    font-size: 1.4rem;
-  }
 }
