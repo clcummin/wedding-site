@@ -161,6 +161,42 @@ body {
   color: var(--emerald-border);
 }
 
+/* Standard section formatting used across pages */
+.info-section h2 {
+  font-family: var(--font-heading);
+  font-size:   1.8rem;
+  color:       var(--emerald-border);
+  text-align:  center;
+  margin:      2rem 0 1rem;
+}
+.info-section ol {
+  margin: 0 0 1rem 1.4rem;
+}
+.info-section li {
+  margin-bottom: 0.6rem;
+}
+.info-section .note {
+  font-style: italic;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* Generic responsive iframe wrapper */
+.iframe-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--card-radius);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+}
+.iframe-container iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 @media (max-width: 600px) {
   .coming-soon-banner {
     font-size: 1.2rem;
@@ -198,6 +234,24 @@ body {
   .site-header .main-nav a {
     font-size: 1.1rem; /* match default nav size */
     padding: 0.25rem 0.5rem;
+  }
+  /* Visual cue that nav can scroll */
+  .site-header .main-nav {
+    position: relative;
+  }
+  .site-header .main-nav::after {
+    content: '›';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    padding-right: 0.5rem;
+    color: var(--white);
+    font-size: 1.3rem;
+    pointer-events: none;
+    background: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.85));
   }
 }
 
