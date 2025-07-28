@@ -117,4 +117,27 @@ document.addEventListener('DOMContentLoaded', () => {
     updateClock();
     timer = setInterval(updateClock, 1000);
   }
+
+  // ── 4) Mobile nav scroll indicators ──
+  const mainNav = document.querySelector('.site-header .main-nav');
+  const navList = mainNav?.querySelector('ul');
+  if (mainNav && navList) {
+    const updateNavScroll = () => {
+      const maxScroll = navList.scrollWidth - navList.clientWidth;
+      const cur = navList.scrollLeft;
+      if (cur > 0) {
+        mainNav.classList.add('show-left');
+      } else {
+        mainNav.classList.remove('show-left');
+      }
+      if (cur < maxScroll) {
+        mainNav.classList.add('show-right');
+      } else {
+        mainNav.classList.remove('show-right');
+      }
+    };
+    navList.addEventListener('scroll', updateNavScroll);
+    window.addEventListener('resize', updateNavScroll);
+    updateNavScroll();
+  }
 });
