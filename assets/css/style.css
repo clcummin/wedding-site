@@ -235,6 +235,12 @@ body {
     font-size: 1.1rem; /* match default nav size */
     padding: 0.25rem 0.5rem;
   }
+  /* Highlight the active page in the sticky nav */
+  .site-header .main-nav a.active {
+    background: var(--white);
+    color: var(--emerald-border);
+    border-radius: 16px;
+  }
   /* Visual cue that nav can scroll */
   .site-header .main-nav {
     position: relative;
@@ -251,12 +257,13 @@ body {
     justify-content: center;
     pointer-events: none;
     font-size: 1rem;
-    color: var(--emerald-border);
-    background: var(--white);
+    color: var(--white);
+    background: var(--emerald-border);
     border-radius: 50%;
     box-shadow: 0 0 2px rgba(0,0,0,0.3);
-    opacity: 0;
-    transition: opacity var(--t-fast) var(--ease-med);
+    opacity: 1;
+    transition: background var(--t-fast) var(--ease-med),
+                color var(--t-fast) var(--ease-med);
   }
   .site-header .main-nav::before {
     content: '‹';
@@ -267,10 +274,12 @@ body {
     right: 0.25rem;
   }
   .site-header .main-nav.show-left::before {
-    opacity: 1;
+    background: var(--white);
+    color: var(--emerald-border);
   }
   .site-header .main-nav.show-right::after {
-    opacity: 1;
+    background: var(--white);
+    color: var(--emerald-border);
   }
 }
 
