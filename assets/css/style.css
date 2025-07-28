@@ -235,12 +235,6 @@ body {
     font-size: 1.1rem; /* match default nav size */
     padding: 0.25rem 0.5rem;
   }
-  /* Highlight the active page in the sticky nav */
-  .site-header .main-nav a.active {
-    background: var(--white);
-    color: var(--emerald-border);
-    border-radius: 16px;
-  }
   /* Visual cue that nav can scroll */
   .site-header .main-nav {
     position: relative;
