@@ -1,17 +1,6 @@
 /* accommodations.css — page‑specific */
 
-/* Section headings */
-.booking-instructions h2,
-.hotel-details h2,
-.airport-info h2,
-.directions h2,
-.map-section h2 {
-  font-family: var(--font-heading);
-  font-size:   1.8rem;
-  color:       var(--emerald-border);
-  text-align:  center;
-  margin:      2rem 0 1rem;
-}
+/* Section headings - use global styles */
 
 
 /* Booking steps */
@@ -50,13 +39,4 @@
   border: 0;
 }
 
-/* Mobile tweaks */
-@media (max-width: 600px) {
-  .content-container h1 {
-    font-size: 2rem;
-  }
-  .booking-instructions h2,
-  .directions h2 {
-    font-size: 1.4rem;
-  }
-}
+/* Mobile tweaks - headings inherit global responsive sizes */
