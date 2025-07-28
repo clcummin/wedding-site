@@ -152,6 +152,42 @@ body {
   color: var(--emerald-border);
 }
 
+/* Standard section formatting used across pages */
+.info-section h2 {
+  font-family: var(--font-heading);
+  font-size:   1.8rem;
+  color:       var(--emerald-border);
+  text-align:  center;
+  margin:      2rem 0 1rem;
+}
+.info-section ol {
+  margin: 0 0 1rem 1.4rem;
+}
+.info-section li {
+  margin-bottom: 0.6rem;
+}
+.info-section .note {
+  font-style: italic;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* Generic responsive iframe wrapper */
+.iframe-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--card-radius);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+}
+.iframe-container iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 @media (max-width: 600px) {
   .coming-soon-banner {
     font-size: 1.2rem;
