@@ -30,11 +30,22 @@
   margin-bottom: 0.5rem;
 }
 
-.attire-section ul,
+.attire-section ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  line-height: 1.6;
+}
+
+.donts {
+  text-align: center;
+}
+
 .donts ul {
   margin: 0;
   padding-left: 1.2rem;
   line-height: 1.6;
+  display: inline-block;
+  text-align: left;
 }
 
 .color-palette {
