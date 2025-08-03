@@ -37,10 +37,12 @@
 }
 
  .donts {
-   background: var(--bg-emerald-dark);
-   color: var(--white);
+   background: var(--white);
+   border: 3px solid var(--emerald-accent);
+   color: inherit;
    padding: 2rem 1.5rem;
    margin-top: 2rem;
+   border-radius: var(--card-radius);
  }
 
  .donts h2 {
@@ -48,7 +50,6 @@
    font-size: 1.8rem;
    text-align: center;
    margin: 0 0 1rem;
-   color: var(--white);
  }
 
  .donts ul {
