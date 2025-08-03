@@ -96,17 +96,14 @@
 .color-circle.black {
   background: #000;
 }
-.color-circle.gold {
-  background: #d4af37;
+.color-circle.gray {
+  background: #A9A9A9;
 }
 .color-circle.brown {
   background: #8b4513;
 }
 .color-circle.tan {
   background: #d2b48c;
-}
-.color-circle.creme {
-  background: #fffdd0;
 }
 
 @media (max-width: 600px) {
