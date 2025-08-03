@@ -4,11 +4,24 @@
 
 /* Section headings use global styles */
 
-.attire-list {
+.attire-flex {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 2rem;
   justify-content: center;
+  margin-top: 2rem;
+}
+
+.attire-image {
+  width: 300px;
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.attire-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .attire-section h3 {
@@ -50,7 +63,7 @@
 .color-circle.creme { background: #fffdd0; }
 
 @media (max-width: 600px) {
-  .attire-list {
+  .attire-flex {
     flex-direction: column;
   }
 }
