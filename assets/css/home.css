@@ -67,6 +67,11 @@
   }
 }
 
+/* Adjust spacing for subheading */
+.content-container h1 + h2 {
+  margin-top: 0.5rem;
+}
+
 .home-update-box {
   background: #fff;
   color: #333;
