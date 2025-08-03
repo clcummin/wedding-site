@@ -1,8 +1,8 @@
 // assets/js/gallery.js
 // Simple gallery with lightbox and navigation
 
-document.addEventListener('DOMContentLoaded', () => {
-  const grid = document.querySelector('.gallery-grid');
+document.addEventListener("DOMContentLoaded", () => {
+  const grid = document.querySelector(".gallery-grid");
   if (!grid) return;
 
   let images = [];
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Try to fetch list of images from assets/photos.json
   async function fetchPhotos() {
     try {
-      const res = await fetch('assets/photos.json');
+      const res = await fetch("assets/photos.json");
       if (!res.ok) return [];
       const data = await res.json();
       if (Array.isArray(data)) {
@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Default placeholders
-  const placeholders = Array.from({ length: 12 }).map((_, i) =>
-    `https://via.placeholder.com/600x400?text=Photo+${i + 1}`
+  const placeholders = Array.from({ length: 12 }).map(
+    (_, i) => `https://via.placeholder.com/600x400?text=Photo+${i + 1}`,
   );
 
   async function init() {
@@ -38,9 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderGrid() {
-    grid.innerHTML = '';
+    grid.innerHTML = "";
     images.forEach((src, idx) => {
-      const img = document.createElement('img');
+      const img = document.createElement("img");
       img.src = src;
       img.alt = `Photo ${idx + 1}`;
       img.dataset.index = idx;
@@ -50,19 +50,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── Lightbox ──
   let current = 0;
-  const lightbox = document.getElementById('lightbox');
-  const lightImg = lightbox.querySelector('img');
-  const prevBtn = lightbox.querySelector('.prev');
-  const nextBtn = lightbox.querySelector('.next');
-  const closeBtn = lightbox.querySelector('.close');
-  const dotsContainer = lightbox.querySelector('.lightbox-dots');
+  const lightbox = document.getElementById("lightbox");
+  const lightImg = lightbox.querySelector("img");
+  const prevBtn = lightbox.querySelector(".prev");
+  const nextBtn = lightbox.querySelector(".next");
+  const closeBtn = lightbox.querySelector(".close");
+  const dotsContainer = lightbox.querySelector(".lightbox-dots");
 
   function updateDots() {
-    dotsContainer.innerHTML = '';
+    dotsContainer.innerHTML = "";
     images.forEach((_, i) => {
-      const dot = document.createElement('span');
-      dot.className = 'dot' + (i === current ? ' active' : '');
-      dot.addEventListener('click', () => open(i));
+      const dot = document.createElement("span");
+      dot.className = "dot" + (i === current ? " active" : "");
+      dot.addEventListener("click", () => open(i));
       dotsContainer.appendChild(dot);
     });
   }
@@ -75,13 +75,13 @@ document.addEventListener('DOMContentLoaded', () => {
   function open(i) {
     current = i;
     show();
-    lightbox.classList.remove('hidden');
-    document.body.classList.add('no-scroll');
+    lightbox.classList.remove("hidden");
+    document.body.classList.add("no-scroll");
   }
 
   function close() {
-    lightbox.classList.add('hidden');
-    document.body.classList.remove('no-scroll');
+    lightbox.classList.add("hidden");
+    document.body.classList.remove("no-scroll");
   }
 
   function next() {
@@ -95,15 +95,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function setupLightbox() {
-    grid.querySelectorAll('img').forEach(img => {
-      img.addEventListener('click', e => {
+    grid.querySelectorAll("img").forEach((img) => {
+      img.addEventListener("click", (e) => {
         open(parseInt(img.dataset.index));
       });
     });
-    nextBtn.addEventListener('click', next);
-    prevBtn.addEventListener('click', prev);
-    closeBtn.addEventListener('click', close);
-    lightbox.addEventListener('click', e => {
+    nextBtn.addEventListener("click", next);
+    prevBtn.addEventListener("click", prev);
+    closeBtn.addEventListener("click", close);
+    lightbox.addEventListener("click", (e) => {
       if (e.target === lightbox) close();
     });
   }

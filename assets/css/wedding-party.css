@@ -15,15 +15,17 @@
 .party-card {
   background: var(--white);
   border-radius: var(--card-radius);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   text-align: center;
   padding: 1rem;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 .party-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 .party-card img {
   width: 100%;
@@ -47,7 +49,7 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.75);
+  background: rgba(0, 0, 0, 0.75);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,7 +69,7 @@
   padding: 1.5rem;
   position: relative;
   text-align: center;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
 }
 .modal-content img {
   width: 100%;
@@ -93,7 +95,8 @@
 /* Close button */
 .modal-close {
   position: absolute;
-  top: 0.5rem; right: 0.75rem;
+  top: 0.5rem;
+  right: 0.75rem;
   background: none;
   border: none;
   font-size: 1.8rem;

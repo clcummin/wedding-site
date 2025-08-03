@@ -1,9 +1,9 @@
 /* Gallery page (gallery.html) */
 
 .gallery-page {
-  padding:     2rem 1rem;
-  min-height:  100vh;
-  background:  var(--bg-emerald-dark);
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  background: var(--bg-emerald-dark);
 }
 
 /* (grid rules are in style.css) */
@@ -47,9 +47,17 @@
   cursor: pointer;
 }
 
-.lightbox-content .prev { left: -3rem; }
-.lightbox-content .next { right: -3rem; }
-.lightbox-content .close { top: -3rem; right: 0; transform: none; }
+.lightbox-content .prev {
+  left: -3rem;
+}
+.lightbox-content .next {
+  right: -3rem;
+}
+.lightbox-content .close {
+  top: -3rem;
+  right: 0;
+  transform: none;
+}
 
 .lightbox-dots {
   text-align: center;
@@ -69,4 +77,3 @@
 .lightbox-dots .dot.active {
   background: var(--white);
 }
-
