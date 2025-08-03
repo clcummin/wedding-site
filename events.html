@@ -1,110 +1,113 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Our Events</title>
-  <link rel="icon" href="assets/images/favicon.png" type="image/png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Events</title>
+    <link rel="icon" href="assets/images/favicon.png" type="image/png" />
 
-  <!-- site‑wide -->
-  <link rel="stylesheet" href="assets/css/theme.css" />
-  <link rel="stylesheet" href="assets/css/style.css" />
-  <!-- page‑specific -->
-  <link rel="stylesheet" href="assets/css/events.css" />
-</head>
-<body class="allow-scroll">
+    <!-- site‑wide -->
+    <link rel="stylesheet" href="assets/css/theme.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- page‑specific -->
+    <link rel="stylesheet" href="assets/css/events.css" />
+  </head>
+  <body class="allow-scroll">
+    <!-- ── Sticky Header & Nav ── -->
+    <header class="site-header">
+      <nav class="main-nav">
+        <ul>
+          <li><a href="our-story.html">Our Story</a></li>
+          <li><a href="events.html" class="active">Events</a></li>
+          <li><a href="attire.html">Attire</a></li>
+          <li><a href="wedding-party.html">Wedding Party</a></li>
+          <li><a href="registry.html">Registry</a></li>
+          <li><a href="travel.html">Travel</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="faqs.html">FAQs</a></li>
+        </ul>
+      </nav>
+    </header>
 
-  <!-- ── Sticky Header & Nav ── -->
-  <header class="site-header">
-    <nav class="main-nav">
-      <ul>
-        <li><a href="our-story.html">Our Story</a></li>
-        <li><a href="events.html" class="active">Events</a></li>
-        <li><a href="attire.html">Attire</a></li>
-        <li><a href="wedding-party.html">Wedding Party</a></li>
-        <li><a href="registry.html">Registry</a></li>
-        <li><a href="travel.html">Travel</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="faqs.html">FAQs</a></li>
-      </ul>
-    </nav>
-  </header>
+    <!-- ── Main Events Container ── -->
+    <main class="content-container">
+      <h1>Schedule of Events</h1>
 
-  <!-- ── Main Events Container ── -->
-  <main class="content-container">
-    <h1>Schedule of Events</h1>
+      <div class="event-list">
+        <!-- Ceremony -->
+        <article class="event-card">
+          <div class="icon">
+            <img src="assets/icons/ceremony.svg" alt="Ceremony Icon" />
+          </div>
+          <div class="details">
+            <div class="time">4:00 PM</div>
+            <h2 class="title">Wedding Ceremony</h2>
+            <p class="description">
+              Join us beneath the willow tree in the Rose Garden for the
+              ceremony.
+            </p>
+          </div>
+        </article>
 
-    <div class="event-list">
-      <!-- Ceremony -->
-      <article class="event-card">
-        <div class="icon">
-          <img src="assets/icons/ceremony.svg" alt="Ceremony Icon">
-        </div>
-        <div class="details">
-          <div class="time">4:00 PM</div>
-          <h2 class="title">Wedding Ceremony</h2>
-          <p class="description">
-            Join us beneath the willow tree in the Rose Garden for the ceremony.
-          </p>
-        </div>
-      </article>
+        <!-- Reception -->
+        <article class="event-card">
+          <div class="icon">
+            <img src="assets/icons/reception.svg" alt="Reception Icon" />
+          </div>
+          <div class="details">
+            <div class="time">6:00 PM</div>
+            <h2 class="title">Cocktail Reception</h2>
+            <p class="description">
+              Hors d’oeuvres & champagne on the Terrace Deck overlooking the
+              vineyards.
+            </p>
+          </div>
+        </article>
 
-      <!-- Reception -->
-      <article class="event-card">
-        <div class="icon">
-          <img src="assets/icons/reception.svg" alt="Reception Icon">
-        </div>
-        <div class="details">
-          <div class="time">6:00 PM</div>
-          <h2 class="title">Cocktail Reception</h2>
-          <p class="description">
-            Hors d’oeuvres & champagne on the Terrace Deck overlooking the vineyards.
-          </p>
-        </div>
-      </article>
-
-      <!-- Dinner -->
-      <article class="event-card">
-        <div class="icon">
-          <img src="assets/icons/dinner.svg" alt="Dinner Icon">
-        </div>
-        <div class="details">
-          <div class="time">7:30 PM</div>
-          <h2 class="title">Dinner & Toasts</h2>
-          <p class="description">
-            Family‑style dinner in the Barn Hall, followed by toasts and dancing.
-          </p>
-        </div>
-      </article>
-    </div>
-
-    <!-- Map & Directions -->
-    <section class="map-section">
-      <h2>Venue Map & Directions</h2>
-      <div class="iframe-container">
-        <iframe
-          src="assets/images/venue_map.pdf"
-          aria-label="Venue Map"
-          title="Venue Map"
-          frameborder="0"
-        ></iframe>
-        <div class="map-trigger" aria-label="Open map"></div>
+        <!-- Dinner -->
+        <article class="event-card">
+          <div class="icon">
+            <img src="assets/icons/dinner.svg" alt="Dinner Icon" />
+          </div>
+          <div class="details">
+            <div class="time">7:30 PM</div>
+            <h2 class="title">Dinner & Toasts</h2>
+            <p class="description">
+              Family‑style dinner in the Barn Hall, followed by toasts and
+              dancing.
+            </p>
+          </div>
+        </article>
       </div>
-      <p class="description">
-        Valet parking is available at the main entrance off Oak Avenue. For GPS, enter 123 Country Lane.
-        Consult the PDF map below for detailed directions.
-      </p>
-    </section>
-  </main>
 
-  <div id="mapOverlay" class="pdf-overlay hidden">
-    <div class="pdf-content">
-      <button class="close" aria-label="Close">&times;</button>
-      <iframe src="assets/images/venue_map.pdf" title="Venue Map"></iframe>
+      <!-- Map & Directions -->
+      <section class="map-section">
+        <h2>Venue Map & Directions</h2>
+        <div class="iframe-container">
+          <iframe
+            src="assets/images/venue_map.pdf"
+            aria-label="Venue Map"
+            title="Venue Map"
+            frameborder="0"
+          ></iframe>
+          <div class="map-trigger" aria-label="Open map"></div>
+        </div>
+        <p class="description">
+          Valet parking is available at the main entrance off Oak Avenue. For
+          GPS, enter 123 Country Lane. Consult the PDF map below for detailed
+          directions.
+        </p>
+      </section>
+    </main>
+
+    <div id="mapOverlay" class="pdf-overlay hidden">
+      <div class="pdf-content">
+        <button class="close" aria-label="Close">&times;</button>
+        <iframe src="assets/images/venue_map.pdf" title="Venue Map"></iframe>
+      </div>
     </div>
-  </div>
 
-  <!-- Site‑wide behaviors -->
-  <script src="assets/js/script.js"></script>
-</body>
+    <!-- Site‑wide behaviors -->
+    <script src="assets/js/script.js"></script>
+  </body>
 </html>

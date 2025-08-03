@@ -1,67 +1,69 @@
 // assets/js/script.js
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   // ── 1) Reserve space for fixed header & toggle "scrolled" on scroll ──
-  const header = document.querySelector('.site-header');
+  const header = document.querySelector(".site-header");
   if (header) {
     const updateBodyPadding = () => {
-      document.body.style.paddingTop = header.offsetHeight + 'px';
+      document.body.style.paddingTop = header.offsetHeight + "px";
     };
     updateBodyPadding();
-    window.addEventListener('resize', updateBodyPadding);
-    window.addEventListener('scroll', () => {
-      header.classList.toggle('scrolled', window.scrollY > 50);
+    window.addEventListener("resize", updateBodyPadding);
+    window.addEventListener("scroll", () => {
+      header.classList.toggle("scrolled", window.scrollY > 50);
     });
   }
 
   // ── 2) Intro‑card fade‑in + click (only on index.html) ──
-  const introCard = document.getElementById('introCard');
+  const introCard = document.getElementById("introCard");
   if (introCard) {
     // fade in after 3s
-    setTimeout(() => introCard.classList.add('visible'), 3000);
+    setTimeout(() => introCard.classList.add("visible"), 3000);
 
-    const introLink = introCard.querySelector('a.intro-card');
+    const introLink = introCard.querySelector("a.intro-card");
     if (introLink) {
-      introLink.addEventListener('click', e => {
+      introLink.addEventListener("click", (e) => {
         e.preventDefault();
-        const url = introLink.getAttribute('href');
-        document.querySelector('.background-video video')?.classList.add('fade-out');
-        document.querySelector('.video-overlay')?.classList.add('fade-out');
-        introCard.classList.add('fade-out');
-        setTimeout(() => window.location.href = url, 700);
+        const url = introLink.getAttribute("href");
+        document
+          .querySelector(".background-video video")
+          ?.classList.add("fade-out");
+        document.querySelector(".video-overlay")?.classList.add("fade-out");
+        introCard.classList.add("fade-out");
+        setTimeout(() => (window.location.href = url), 700);
       });
     }
   }
 
   // ── 3) Countdown ticker (flip clock) ──
-  const countdownEl = document.getElementById('countdown');
+  const countdownEl = document.getElementById("countdown");
   if (countdownEl) {
-    const target = new Date('2026-09-12T00:00:00');
+    const target = new Date("2026-09-12T00:00:00");
     const digits = [];
     let timer;
 
     function createDigit() {
-      const d = document.createElement('div');
-      d.className = 'flip-digit';
-      d.textContent = '0';
+      const d = document.createElement("div");
+      d.className = "flip-digit";
+      d.textContent = "0";
       return d;
     }
 
     function setupClock() {
-      countdownEl.classList.add('flip-clock');
+      countdownEl.classList.add("flip-clock");
       const groups = [
-        { size: 3, label: 'Days' },
-        { size: 2, label: 'Hours' },
-        { size: 2, label: 'Minutes' },
-        { size: 2, label: 'Seconds' },
+        { size: 3, label: "Days" },
+        { size: 2, label: "Hours" },
+        { size: 2, label: "Minutes" },
+        { size: 2, label: "Seconds" },
       ];
 
       groups.forEach((grp, idx) => {
-        const groupEl = document.createElement('div');
-        groupEl.className = 'flip-group';
+        const groupEl = document.createElement("div");
+        groupEl.className = "flip-group";
 
-        const row = document.createElement('div');
-        row.className = 'digit-row';
+        const row = document.createElement("div");
+        row.className = "digit-row";
         for (let i = 0; i < grp.size; i++) {
           const digit = createDigit();
           digits.push(digit);
@@ -69,17 +71,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         groupEl.appendChild(row);
 
-        const labelEl = document.createElement('div');
-        labelEl.className = 'flip-label';
+        const labelEl = document.createElement("div");
+        labelEl.className = "flip-label";
         labelEl.textContent = grp.label;
         groupEl.appendChild(labelEl);
 
         countdownEl.appendChild(groupEl);
 
         if (idx < groups.length - 1) {
-          const sep = document.createElement('span');
-          sep.className = 'separator';
-          sep.textContent = ':';
+          const sep = document.createElement("span");
+          sep.className = "separator";
+          sep.textContent = ":";
           countdownEl.appendChild(sep);
         }
       });
@@ -103,12 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const seconds = Math.floor((diff / 1000) % 60);
 
       const str =
-        days.toString().padStart(3, '0') +
-        hours.toString().padStart(2, '0') +
-        minutes.toString().padStart(2, '0') +
-        seconds.toString().padStart(2, '0');
+        days.toString().padStart(3, "0") +
+        hours.toString().padStart(2, "0") +
+        minutes.toString().padStart(2, "0") +
+        seconds.toString().padStart(2, "0");
 
-      str.split('').forEach((num, idx) => {
+      str.split("").forEach((num, idx) => {
         flipTo(digits[idx], num);
       });
     }
@@ -119,44 +121,44 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ── 4) Mobile nav scroll indicators ──
-  const mainNav = document.querySelector('.site-header .main-nav');
-  const navList = mainNav?.querySelector('ul');
+  const mainNav = document.querySelector(".site-header .main-nav");
+  const navList = mainNav?.querySelector("ul");
   if (mainNav && navList) {
     const updateNavScroll = () => {
       const maxScroll = navList.scrollWidth - navList.clientWidth;
       const cur = navList.scrollLeft;
       if (cur > 0) {
-        mainNav.classList.add('show-left');
+        mainNav.classList.add("show-left");
       } else {
-        mainNav.classList.remove('show-left');
+        mainNav.classList.remove("show-left");
       }
       if (cur < maxScroll) {
-        mainNav.classList.add('show-right');
+        mainNav.classList.add("show-right");
       } else {
-        mainNav.classList.remove('show-right');
+        mainNav.classList.remove("show-right");
       }
     };
-    navList.addEventListener('scroll', updateNavScroll);
-    window.addEventListener('resize', updateNavScroll);
+    navList.addEventListener("scroll", updateNavScroll);
+    window.addEventListener("resize", updateNavScroll);
     updateNavScroll();
   }
 
   // ── 5) Expandable venue map ──
-  const mapTrigger = document.querySelector('.map-section .map-trigger');
-  const mapOverlay = document.getElementById('mapOverlay');
+  const mapTrigger = document.querySelector(".map-section .map-trigger");
+  const mapOverlay = document.getElementById("mapOverlay");
   if (mapTrigger && mapOverlay) {
-    const closeBtn = mapOverlay.querySelector('.close');
+    const closeBtn = mapOverlay.querySelector(".close");
     const dismiss = () => {
-      mapOverlay.classList.add('hidden');
-      document.body.classList.remove('no-scroll');
+      mapOverlay.classList.add("hidden");
+      document.body.classList.remove("no-scroll");
     };
-    mapTrigger.addEventListener('click', e => {
+    mapTrigger.addEventListener("click", (e) => {
       e.preventDefault();
-      mapOverlay.classList.remove('hidden');
-      document.body.classList.add('no-scroll');
+      mapOverlay.classList.remove("hidden");
+      document.body.classList.add("no-scroll");
     });
-    closeBtn?.addEventListener('click', dismiss);
-    mapOverlay.addEventListener('click', e => {
+    closeBtn?.addEventListener("click", dismiss);
+    mapOverlay.addEventListener("click", (e) => {
       if (e.target === mapOverlay) dismiss();
     });
   }

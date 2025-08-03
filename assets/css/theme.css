@@ -1,19 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Spectral:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Spectral:wght@400;700&display=swap");
 
 :root {
   /* colors */
   --bg-emerald-dark: #002d1f;
-  --emerald-overlay: rgba(0,0,0,0.22);
+  --emerald-overlay: rgba(0, 0, 0, 0.22);
   --emerald-border: #014421;
   --emerald-hover: #015e3c;
   --emerald-accent: #00975c;
   --white: #fff;
   --gray-light: #e4e4e4;
   /* fonts */
-  --font-body: 'Spectral', serif;
-  --font-heading: 'Cinzel Decorative', cursive;
-  --font-nav: 'Cinzel Decorative', cursive;
+  --font-body: "Spectral", serif;
+  --font-heading: "Cinzel Decorative", cursive;
+  --font-nav: "Cinzel Decorative", cursive;
   /* sizing */
   --card-radius: 20px;
   --photo-size: 96px;
@@ -24,7 +24,8 @@
   --ease-med: ease;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -35,7 +36,9 @@ html, body {
   color: var(--white);
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -70,7 +73,7 @@ html, body {
   background: var(--white);
   color: #222;
   border-radius: var(--card-radius);
-  box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
   border: 2px solid var(--emerald-border);
   font-family: var(--font-heading);
   text-decoration: none;
@@ -88,7 +91,7 @@ html, body {
   background: var(--bg-emerald-dark);
   color: var(--white);
   border-radius: var(--btn-radius);
-  box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
   border: 2px solid var(--emerald-border);
   font-family: var(--font-heading);
   text-decoration: none;

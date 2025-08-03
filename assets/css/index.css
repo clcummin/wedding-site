@@ -13,7 +13,7 @@
 .background-video {
   position: fixed;
   inset: 0;
-  background: url('assets/video-fallback.jpg') center/cover no-repeat;
+  background: url("assets/video-fallback.jpg") center/cover no-repeat;
   overflow: hidden;
   z-index: 0;
 }
@@ -64,7 +64,7 @@
   background: var(--white);
   color: #222;
   border-radius: var(--card-radius);
-  box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
   border: 1.5px solid var(--gray-light);
   padding: 3rem 2.5rem 2.5rem;
   max-width: 460px;
@@ -80,8 +80,9 @@
     transform 0.16s,
     opacity var(--t-med) var(--ease-med);
 }
-.card:hover, .card:focus {
-  box-shadow: 0 12px 48px rgba(1,68,33,0.18);
+.card:hover,
+.card:focus {
+  box-shadow: 0 12px 48px rgba(1, 68, 33, 0.18);
   border: 2px solid var(--emerald-border);
   transform: translateY(-2px) scale(1.02);
 }
@@ -93,7 +94,7 @@
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid var(--white);
-  box-shadow: 0 2px 10px rgba(1,68,33,0.07);
+  box-shadow: 0 2px 10px rgba(1, 68, 33, 0.07);
   margin-bottom: 1rem;
 }
 .wedding-names {
@@ -101,7 +102,7 @@
   font-size: 2.7rem;
   font-weight: 600;
   margin: 0 0 1rem;
-  letter-spacing: .07em;
+  letter-spacing: 0.07em;
   color: var(--emerald-border);
   text-align: center;
 }
@@ -109,14 +110,14 @@
   font-size: 1.18rem;
   color: var(--emerald-accent);
   margin-bottom: 2.3rem;
-  letter-spacing: .04em;
+  letter-spacing: 0.04em;
   text-align: center;
 }
 
 /* Responsive tweaks for intro */
 @media (max-width: 600px) {
   .card {
-    padding: 1.4rem .5rem;
+    padding: 1.4rem 0.5rem;
     max-width: 98%;
   }
   .circle-photo {
@@ -146,4 +147,3 @@
     font-size: 0.7rem;
   }
 }
-

@@ -1,7 +1,5 @@
 /* attire.css — page-specific styles */
 
-
-
 /* Section headings use global styles */
 
 .attire-flex {
@@ -36,45 +34,45 @@
   line-height: 1.6;
 }
 
- .donts {
-   background: var(--white);
-   border: 3px solid var(--emerald-accent);
-   color: inherit;
-   padding: 2rem 1.5rem;
-   margin-top: 2rem;
-   border-radius: var(--card-radius);
- }
+.donts {
+  background: var(--white);
+  border: 3px solid var(--emerald-accent);
+  color: inherit;
+  padding: 2rem 1.5rem;
+  margin-top: 2rem;
+  border-radius: var(--card-radius);
+}
 
- .donts h2 {
-   font-family: var(--font-heading);
-   font-size: 1.8rem;
-   text-align: center;
-   margin: 0 0 1rem;
- }
+.donts h2 {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  text-align: center;
+  margin: 0 0 1rem;
+}
 
- .donts ul {
-   list-style: none;
-   max-width: 600px;
-   margin: 0 auto;
-   padding: 0;
- }
+.donts ul {
+  list-style: none;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0;
+}
 
- .donts li {
-   position: relative;
-   padding-left: 2rem;
-   margin-bottom: 0.75rem;
- }
+.donts li {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 0.75rem;
+}
 
- .donts li::before {
-   content: '✕';
-   position: absolute;
-   left: 0;
-   top: 0;
-   color: var(--emerald-accent);
-   font-weight: bold;
-   font-size: 1.4rem;
-   line-height: 1;
- }
+.donts li::before {
+  content: "✕";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--emerald-accent);
+  font-weight: bold;
+  font-size: 1.4rem;
+  line-height: 1;
+}
 
 .color-palette {
   text-align: center;
@@ -95,11 +93,21 @@
   border: 2px solid var(--white);
 }
 
-.color-circle.black { background: #000; }
-.color-circle.gold { background: #d4af37; }
-.color-circle.brown { background: #8b4513; }
-.color-circle.tan { background: #d2b48c; }
-.color-circle.creme { background: #fffdd0; }
+.color-circle.black {
+  background: #000;
+}
+.color-circle.gold {
+  background: #d4af37;
+}
+.color-circle.brown {
+  background: #8b4513;
+}
+.color-circle.tan {
+  background: #d2b48c;
+}
+.color-circle.creme {
+  background: #fffdd0;
+}
 
 @media (max-width: 600px) {
   .attire-flex {
