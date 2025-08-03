@@ -24,6 +24,31 @@
   line-height: 1.6;
 }
 
+.color-palette {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.palette {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.color-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--white);
+}
+
+.color-circle.black { background: #000; }
+.color-circle.gold { background: #d4af37; }
+.color-circle.brown { background: #8b4513; }
+.color-circle.tan { background: #d2b48c; }
+.color-circle.creme { background: #fffdd0; }
+
 @media (max-width: 600px) {
   .attire-list {
     flex-direction: column;
