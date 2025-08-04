@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const img = document.createElement("img");
       img.src = src;
       img.alt = `Photo ${idx + 1}`;
+      img.loading = "lazy";
       img.dataset.index = idx;
       grid.appendChild(img);
     });
