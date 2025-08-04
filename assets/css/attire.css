@@ -79,6 +79,20 @@
   margin: 2rem 0;
 }
 
+.palette-group {
+  margin-top: 1.5rem;
+}
+
+.palette-group h3 {
+  font-size: 1.2rem;
+  color: var(--emerald-accent);
+  margin-bottom: 0.5rem;
+}
+
+.palette-note {
+  margin-top: 0.5rem;
+}
+
 .palette {
   display: flex;
   justify-content: center;
