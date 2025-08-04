@@ -105,6 +105,9 @@
 .color-circle.tan {
   background: #d2b48c;
 }
+.color-circle.gold {
+  background: #D29F51;
+}
 
 @media (max-width: 600px) {
   .attire-flex {
