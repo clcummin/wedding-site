@@ -7,20 +7,24 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  align-items: center;
 }
 
 /* Individual event card */
 .event-card {
   display: flex;
-  align-items: flex-start;
-  gap: 1.2rem;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.6rem;
 }
 
-/* Icon on the left */
+/* Icon above details */
 .event-card .icon {
   flex-shrink: 0;
   width: 40px;
   height: 40px;
+  margin-bottom: 0.3rem;
 }
 
 /* Icon images or inline SVGs fill the box */
@@ -31,20 +35,23 @@
 }
 
 /* Event details */
-.event-card .details {
-  flex: 1;
-}
-.event-card .time {
-  font-weight: 600;
-  color: var(--emerald-accent);
-  margin-bottom: 0.3rem;
-  font-size: 1.1rem;
-}
 .event-card .title {
   font-family: var(--font-heading);
   font-size: 1.4rem;
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.3rem;
   color: var(--emerald-border);
+}
+.event-card .date,
+.event-card .time {
+  font-weight: 600;
+  color: var(--emerald-accent);
+  font-size: 1.1rem;
+}
+.event-card .date {
+  margin-bottom: 0.2rem;
+}
+.event-card .time {
+  margin-bottom: 0.5rem;
 }
 .event-card .description {
   margin: 0;
