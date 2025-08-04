@@ -120,10 +120,18 @@ document.addEventListener("DOMContentLoaded", () => {
     timer = setInterval(updateClock, 1000);
   }
 
-  // ── 4) Mobile nav scroll indicators ──
+  // ── 4) Mobile nav scroll indicators & hide current page link ──
   const mainNav = document.querySelector(".site-header .main-nav");
   const navList = mainNav?.querySelector("ul");
   if (mainNav && navList) {
+    // remove the current page from the navigation menu
+    const current = window.location.pathname.split("/").pop();
+    navList.querySelectorAll("a").forEach((link) => {
+      if (link.getAttribute("href") === current) {
+        link.closest("li")?.remove();
+      }
+    });
+
     const updateNavScroll = () => {
       const maxScroll = navList.scrollWidth - navList.clientWidth;
       const cur = navList.scrollLeft;
