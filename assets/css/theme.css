@@ -21,6 +21,7 @@
   /* transitions */
   --t-fast: 0.18s;
   --t-med: 0.7s;
+  --ease: ease;
   --ease-med: ease;
 }
 
