@@ -39,34 +39,6 @@
     padding: 0.7rem 2rem;
   }
 }
-
-/* Centered button rows on home page */
-.text-page-buttons {
-  text-align: center;
-  margin: 1.5rem 0;
-}
-
-.text-page-buttons .home-btn {
-  display: inline-block;
-  padding: 1rem 3rem;
-  font-size: 1.4rem;
-  background: var(--bg-emerald-dark);
-  color: var(--white);
-  border: 2px solid var(--emerald-border);
-}
-
-.text-page-buttons .home-btn:hover {
-  background: var(--emerald-hover);
-  color: var(--white);
-}
-
-@media (max-width: 600px) {
-  .text-page-buttons .home-btn {
-    font-size: 1.2rem;
-    padding: 0.9rem 2.5rem;
-  }
-}
-
 /* Adjust spacing for subheading */
 .content-container h1 + h2 {
   margin-top: 0.5rem;
