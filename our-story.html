@@ -9,29 +9,25 @@
     <title>Our Story</title>
     <link rel="icon" type="image/png" href="assets/images/favicon.png" />
 
-    <!-- theme and shared styles -->
-    <link rel="stylesheet" href="assets/css/theme.css" />
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <!-- page‑specific -->
-    <link rel="stylesheet" href="assets/css/story.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Spectral:wght@400;700&display=swap"
+      onload="this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Spectral:wght@400;700&display=swap"
+      />
+    </noscript>
+    <link rel="stylesheet" href="assets/css/main.css" />
   </head>
   <body class="allow-scroll">
     <!-- Sticky Header/Nav -->
-    <header class="site-header">
-      <a class="site-title" href="home.html">Becoming Cummings</a>
-      <nav class="main-nav">
-        <ul>
-          <li><a href="our-story.html">Our Story</a></li>
-          <li><a href="events.html">Events</a></li>
-          <li><a href="attire.html">Attire</a></li>
-          <li><a href="wedding-party.html">Wedding Party</a></li>
-          <li><a href="registry.html">Registry</a></li>
-          <li><a href="travel.html">Travel</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="faqs.html">FAQs</a></li>
-        </ul>
-      </nav>
-    </header>
+    <div id="site-header"></div>
     <main class="story-page">
       <h1 class="story-heading">Our Story</h1>
       <p class="story-description">
@@ -60,6 +56,7 @@
             src="assets/images/cover.png"
             alt="Our Story Cover"
             class="comic-img"
+            loading="lazy"
           />
         </div>
 
@@ -82,6 +79,7 @@
             src="assets/images/bare_minimum.png"
             alt="Comic panel 1"
             class="comic-img"
+            loading="lazy"
           />
         </div>
 
@@ -111,6 +109,7 @@
             src="assets/images/god_mode.png"
             alt="Comic panel 2"
             class="comic-img"
+            loading="lazy"
           />
         </div>
 
@@ -138,6 +137,7 @@
             src="assets/images/hola_espanol.png"
             alt="Comic panel 3"
             class="comic-img"
+            loading="lazy"
           />
         </div>
 
@@ -166,6 +166,7 @@
             src="assets/images/first_date.png"
             alt="Comic panel 4"
             class="comic-img"
+            loading="lazy"
           />
         </div>
 
@@ -195,6 +196,7 @@
             src="assets/images/proposal.png"
             alt="Comic panel 5"
             class="comic-img"
+            loading="lazy"
           />
         </div>
       </div>
@@ -217,6 +219,7 @@
     </div>
 
     <!-- locally hosted libs -->
+    <script src="assets/js/header.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/story.js"></script>
   </body>
