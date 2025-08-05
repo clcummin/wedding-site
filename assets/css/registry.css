@@ -1,0 +1,20 @@
+/* registry.css — page-specific */
+
+/* Center text in the intro paragraph */
+.content-container p {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+/* Responsive iframe wrapper */
+.iframe-container {
+  padding-bottom: 75%; /* 4:3 aspect ratio */
+}
+
+/* Mobile tweak */
+@media (max-width: 600px) {
+  .iframe-container {
+    padding-bottom: 100%; /* square on narrow screens */
+  }
+}
