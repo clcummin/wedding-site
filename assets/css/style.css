@@ -172,11 +172,11 @@ body {
 }
 
 /* Links */
-.content-container a {
+.content-container a:not(.main-btn) {
   color: var(--emerald-accent);
   text-decoration: underline;
 }
-.content-container a:hover {
+.content-container a:not(.main-btn):hover {
   color: var(--emerald-border);
 }
 
