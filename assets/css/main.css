@@ -824,7 +824,7 @@ body {
 }
 
 
-/* events.css — page‑specific overrides */
+/* Events page — page-specific overrides */
 
 /* Page title uses global styles */
 
@@ -932,7 +932,7 @@ body {
   background: var(--bg-emerald-dark);
 }
 
-/* (grid rules are in style.css) */
+/* Lightbox styles */
 
 .lightbox {
   position: fixed;
@@ -1005,7 +1005,7 @@ body {
 }
 
 
-/* attire.css — page-specific styles */
+/* Attire page — page-specific styles */
 
 /* Section headings use global styles */
 
@@ -1137,7 +1137,7 @@ body {
 }
 
 
-/* faqs.css — page-specific styles */
+/* FAQs page — page-specific styles */
 
 .faq-list {
   display: flex;
@@ -1153,7 +1153,7 @@ body {
 }
 
 
-/* registry.css — page-specific */
+/* Registry page — page-specific styles */
 
 /* Center text in the intro paragraph */
 .content-container p {
@@ -1245,7 +1245,7 @@ body {
   height: auto;
 }
 
-/* in your story.css (or page‑specific CSS), after the other .page rules */
+/* Story page — additional layout rules */
 
 /* Stack heading + text in a column on text spreads */
 #flipbook .page.text-page {
@@ -1371,7 +1371,7 @@ body {
 }
 
 
-/* rsvp.css — page-specific */
+/* RSVP page — page-specific styles */
 
 /* Page title uses global styles */
 .content-container p {
@@ -1393,7 +1393,7 @@ body {
 }
 
 
-/* wedding-party.css — page‑specific */
+/* Wedding Party page — page-specific styles */
 
 /* White card container */
 .content-container {
