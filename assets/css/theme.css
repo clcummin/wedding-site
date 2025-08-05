@@ -89,6 +89,9 @@ body {
 /* buttons share the same structure as cards but use the
    site background color for their fill */
 .main-btn {
+  display: inline-block;
+  padding: 1rem 3rem;
+  font-size: 1.4rem;
   background: var(--bg-emerald-dark);
   color: var(--white);
   border-radius: var(--btn-radius);
@@ -102,6 +105,23 @@ body {
     color var(--t-fast) var(--ease-med),
     transform var(--t-fast) var(--ease-med),
     opacity var(--t-med) var(--ease-med);
+}
+
+.main-btn:hover {
+  background: var(--emerald-hover);
+  color: var(--white);
+}
+
+@media (max-width: 600px) {
+  .main-btn {
+    font-size: 1.2rem;
+    padding: 0.9rem 2.5rem;
+  }
+}
+
+.text-page-buttons {
+  text-align: center;
+  margin: 1.5rem 0;
 }
 
 /* fade utility */
