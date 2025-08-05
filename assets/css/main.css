@@ -894,13 +894,13 @@ body {
   margin-top: 1rem;
 }
 
-/* Responsive iframe container for map */
-.iframe-container {
+/* Container for static map images */
+.iframe-container.img-only {
   padding-bottom: 0; /* allow natural height for images */
 }
 
 /* Ensure map images keep their aspect ratio */
-.iframe-container img {
+.iframe-container.img-only img {
   position: static;
   width: 100%;
   height: auto;
