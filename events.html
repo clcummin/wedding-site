@@ -6,29 +6,25 @@
     <title>Events</title>
     <link rel="icon" href="assets/images/favicon.png" type="image/png" />
 
-    <!-- site‑wide -->
-    <link rel="stylesheet" href="assets/css/theme.css" />
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <!-- page‑specific -->
-    <link rel="stylesheet" href="assets/css/events.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Spectral:wght@400;700&display=swap"
+      onload="this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Spectral:wght@400;700&display=swap"
+      />
+    </noscript>
+    <link rel="stylesheet" href="assets/css/main.css" />
   </head>
   <body class="allow-scroll">
     <!-- ── Sticky Header & Nav ── -->
-    <header class="site-header">
-      <a class="site-title" href="home.html">Becoming Cummings</a>
-      <nav class="main-nav">
-        <ul>
-          <li><a href="our-story.html">Our Story</a></li>
-          <li><a href="events.html">Events</a></li>
-          <li><a href="attire.html">Attire</a></li>
-          <li><a href="wedding-party.html">Wedding Party</a></li>
-          <li><a href="registry.html">Registry</a></li>
-          <li><a href="travel.html">Travel</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="faqs.html">FAQs</a></li>
-        </ul>
-      </nav>
-    </header>
+    <div id="site-header"></div>
 
     <!-- ── Main Events Container ── -->
     <main class="content-container">
@@ -38,7 +34,7 @@
         <!-- Welcome Party -->
         <article class="event-card">
           <div class="icon">
-            <img src="assets/images/icons/welcome-party.svg" alt="Welcome party icon" />
+            <img src="assets/images/icons/welcome-party.svg" alt="Welcome party icon" loading="lazy" />
           </div>
           <div class="details">
             <h2 class="title">Welcome Party</h2>
@@ -53,7 +49,7 @@
         <!-- Mimosa Brunch -->
         <article class="event-card">
           <div class="icon">
-            <img src="assets/images/icons/mimosa-brunch.svg" alt="Mimosa brunch icon" />
+            <img src="assets/images/icons/mimosa-brunch.svg" alt="Mimosa brunch icon" loading="lazy" />
           </div>
           <div class="details">
             <h2 class="title">Mimosa Brunch</h2>
@@ -68,7 +64,7 @@
         <!-- Ceremony -->
         <article class="event-card">
           <div class="icon">
-            <img src="assets/images/icons/ceremony.svg" alt="Wedding ceremony icon" />
+            <img src="assets/images/icons/ceremony.svg" alt="Wedding ceremony icon" loading="lazy" />
           </div>
           <div class="details">
             <h2 class="title">Wedding Ceremony</h2>
@@ -87,6 +83,7 @@
             <img
               src="assets/images/icons/cocktail-hour.svg"
               alt="Cocktail hour icon"
+              loading="lazy"
             />
           </div>
           <div class="details">
@@ -102,7 +99,7 @@
         <!-- Reception -->
         <article class="event-card">
           <div class="icon">
-            <img src="assets/images/icons/reception.svg" alt="Reception icon" />
+            <img src="assets/images/icons/reception.svg" alt="Reception icon" loading="lazy" />
           </div>
           <div class="details">
             <h2 class="title">Reception</h2>
@@ -115,7 +112,7 @@
         <!-- After Party -->
         <article class="event-card">
           <div class="icon">
-            <img src="assets/images/icons/after-party.svg" alt="After party icon" />
+            <img src="assets/images/icons/after-party.svg" alt="After party icon" loading="lazy" />
           </div>
           <div class="details">
             <h2 class="title">After Party</h2>
@@ -130,7 +127,7 @@
         <!-- Farewell Cookout -->
         <article class="event-card">
           <div class="icon">
-            <img src="assets/images/icons/farewell-cookout.svg" alt="Farewell cookout icon" />
+            <img src="assets/images/icons/farewell-cookout.svg" alt="Farewell cookout icon" loading="lazy" />
           </div>
           <div class="details">
             <h2 class="title">Farewell Cookout</h2>
@@ -145,7 +142,7 @@
         <!-- For Those Still Around -->
         <article class="event-card">
           <div class="icon">
-            <img src="assets/images/icons/bonus-day.svg" alt="Extra day icon" />
+            <img src="assets/images/icons/bonus-day.svg" alt="Extra day icon" loading="lazy" />
           </div>
           <div class="details">
             <h2 class="title">For Those Still Around</h2>
@@ -165,6 +162,7 @@
           <img
             src="assets/images/venue_events.png"
             alt="Venue map"
+            loading="lazy"
           />
         </div>
         <p class="description">
@@ -176,6 +174,7 @@
     </main>
 
     <!-- Site‑wide behaviors -->
+    <script src="assets/js/header.js"></script>
     <script src="assets/js/script.js"></script>
   </body>
 </html>

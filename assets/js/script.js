@@ -1,18 +1,51 @@
 // assets/js/script.js
 
-document.addEventListener("DOMContentLoaded", () => {
-  // ── 1) Reserve space for fixed header & toggle "scrolled" on scroll ──
+function initHeader() {
   const header = document.querySelector(".site-header");
-  if (header) {
-    const updateBodyPadding = () => {
-      document.body.style.paddingTop = header.offsetHeight + "px";
-    };
-    updateBodyPadding();
-    window.addEventListener("resize", updateBodyPadding);
-    window.addEventListener("scroll", () => {
-      header.classList.toggle("scrolled", window.scrollY > 50);
+  if (!header) return;
+
+  const updateBodyPadding = () => {
+    document.body.style.paddingTop = header.offsetHeight + "px";
+  };
+  updateBodyPadding();
+  window.addEventListener("resize", updateBodyPadding);
+  window.addEventListener("scroll", () => {
+    header.classList.toggle("scrolled", window.scrollY > 50);
+  });
+
+  const mainNav = header.querySelector(".main-nav");
+  const navList = mainNav?.querySelector("ul");
+  if (mainNav && navList) {
+    const current = window.location.pathname.split("/").pop();
+    navList.querySelectorAll("a").forEach((link) => {
+      if (link.getAttribute("href") === current) {
+        link.closest("li")?.remove();
+      }
     });
+
+    const updateNavScroll = () => {
+      const maxScroll = navList.scrollWidth - navList.clientWidth;
+      const cur = navList.scrollLeft;
+      if (cur > 0) {
+        mainNav.classList.add("show-left");
+      } else {
+        mainNav.classList.remove("show-left");
+      }
+      if (cur < maxScroll) {
+        mainNav.classList.add("show-right");
+      } else {
+        mainNav.classList.remove("show-right");
+      }
+    };
+    navList.addEventListener("scroll", updateNavScroll);
+    window.addEventListener("resize", updateNavScroll);
+    updateNavScroll();
   }
+}
+window.initHeader = initHeader;
+
+document.addEventListener("DOMContentLoaded", () => {
+  initHeader();
 
   // ── 2) Intro‑card fade‑in + click (only on index.html) ──
   const introCard = document.getElementById("introCard");
@@ -118,37 +151,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setupClock();
     updateClock();
     timer = setInterval(updateClock, 1000);
-  }
-
-  // ── 4) Mobile nav scroll indicators & hide current page link ──
-  const mainNav = document.querySelector(".site-header .main-nav");
-  const navList = mainNav?.querySelector("ul");
-  if (mainNav && navList) {
-    // remove the current page from the navigation menu
-    const current = window.location.pathname.split("/").pop();
-    navList.querySelectorAll("a").forEach((link) => {
-      if (link.getAttribute("href") === current) {
-        link.closest("li")?.remove();
-      }
-    });
-
-    const updateNavScroll = () => {
-      const maxScroll = navList.scrollWidth - navList.clientWidth;
-      const cur = navList.scrollLeft;
-      if (cur > 0) {
-        mainNav.classList.add("show-left");
-      } else {
-        mainNav.classList.remove("show-left");
-      }
-      if (cur < maxScroll) {
-        mainNav.classList.add("show-right");
-      } else {
-        mainNav.classList.remove("show-right");
-      }
-    };
-    navList.addEventListener("scroll", updateNavScroll);
-    window.addEventListener("resize", updateNavScroll);
-    updateNavScroll();
   }
 
   // ── 5) Expandable venue map ──
