@@ -1404,8 +1404,8 @@ body {
 /* Grid of party cards */
 .party-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
 }
 .party-card {
   background: var(--white);
@@ -1417,6 +1417,12 @@ body {
   transition:
     transform 0.2s,
     box-shadow 0.2s;
+}
+
+@media (max-width: 600px) {
+  .party-grid {
+    grid-template-columns: 1fr;
+  }
 }
 .party-card:hover {
   transform: translateY(-4px);
