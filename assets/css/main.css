@@ -1530,3 +1530,25 @@ body {
   padding-bottom: 56.25%; /* 16:9 ratio */
   margin-top: 1rem;
 }
+
+/* Attack surfaces table */
+.attack-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.attack-form input {
+  flex: 1 1 200px;
+  padding: 0.5rem;
+}
+.attack-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.attack-table th,
+.attack-table td {
+  border: 1px solid var(--emerald-border);
+  padding: 0.5rem;
+  text-align: left;
+}

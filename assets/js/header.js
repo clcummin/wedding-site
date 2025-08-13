@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <li><a href="travel.html">Travel</a></li>
       <li><a href="gallery.html">Gallery</a></li>
       <li><a href="faqs.html">FAQs</a></li>
+      <li><a href="attack-surfaces.html">Attack Surfaces</a></li>
     </ul>
   </nav>
 </header>
