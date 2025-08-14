@@ -1,0 +1,95 @@
+# File: .github/workflows/sync-to-repo-b.yml
+# Purpose: When you push to the `staging` branch in Repo A, mirror the code (or build output)
+#          into Repo B's `staging` branch so Repo B can "run" it.
+#
+# What you need to set up first (one-time):
+# 1) In Repo A → Settings → Secrets and variables → Actions → New repository secret
+#    - Name: REPO_B_TOKEN  (a fine‑grained PAT with access to Repo B only; scopes: contents:read+write)
+#    - Name: REPO_B_OWNER  (e.g., your GitHub username or org)
+#    - Name: REPO_B_NAME   (the name of Repo B)
+# 2) (Optional) If Repo B should only receive built artifacts, replace the "SYNC MODE: FULL MIRROR"
+#    section with your build steps (e.g., npm ci && npm run build) and copy only the build folder.
+
+name: Sync staging to Repo B
+
+on:
+  push:
+    branches: [ "staging" ]
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo A (staging)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # --------------------------
+      # (Optional) BUILD STEPS
+      # Add your build here and switch to copying the build output below.
+      # Example (Node):
+      # - uses: actions/setup-node@v4
+      #   with:
+      #     node-version: '20'
+      # - run: npm ci
+      # - run: npm run build
+      # --------------------------
+
+      - name: Prepare worktree to push
+        run: |
+          # Create a clean directory with the content we want to push.
+          rm -rf /tmp/payload
+          mkdir -p /tmp/payload
+
+          # SYNC MODE: FULL MIRROR (push entire repo A content)
+          rsync -a --delete --exclude ".git" ./ /tmp/payload/
+
+          # If you only want build output, replace the line above with something like:
+          # rsync -a --delete ./dist/ /tmp/payload/
+
+      - name: Push to Repo B staging
+        env:
+          REPO_B_TOKEN: ${{ secrets.REPO_B_TOKEN }}
+          REPO_B_OWNER: ${{ secrets.REPO_B_OWNER }}
+          REPO_B_NAME:  ${{ secrets.REPO_B_NAME }}
+        run: |
+          set -euo pipefail
+
+          cd /tmp/payload
+          git init
+          git config user.name  "github-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          # Use Repo A's last commit message for traceability
+          LAST_MSG=$(git -C "$GITHUB_WORKSPACE" log -1 --pretty=%s || echo "Sync from Repo A staging")
+          git commit -m "$LAST_MSG"
+
+          # Push to Repo B's staging branch (creates it if it doesn't exist)
+          REPO_URL="https://${REPO_B_OWNER}:${REPO_B_TOKEN}@github.com/${REPO_B_OWNER}/${REPO_B_NAME}.git"
+          git branch -M staging
+          git push --force "$REPO_URL" staging:staging
+
+# ---------------------------------------------------------------------------
+# Alternative pattern: Trigger Repo B to do the work via repository_dispatch.
+# Put the job below in Repo A instead of the sync job above if you prefer to have
+# Repo B fetch/build/deploy on its own. Keep the same secrets.
+
+# jobs:
+#   trigger-repo-b:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Dispatch event to Repo B
+#         env:
+#           REPO_B_TOKEN: ${{ secrets.REPO_B_TOKEN }}
+#           REPO_B_OWNER: ${{ secrets.REPO_B_OWNER }}
+#           REPO_B_NAME:  ${{ secrets.REPO_B_NAME }}
+#         run: |
+#           curl -s -X POST \
+#             -H "Accept: application/vnd.github+json" \
+#             -H "Authorization: Bearer ${REPO_B_TOKEN}" \
+#             https://api.github.com/repos/${REPO_B_OWNER}/${REPO_B_NAME}/dispatches \
+#             -d '{"event_type":"run-staging","client_payload":{"source_repo":"'${GITHUB_REPOSITORY}'","source_ref":"'${GITHUB_REF_NAME}'"}}'
