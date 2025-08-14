@@ -1,4 +1,4 @@
-name: Sync Repo A → Repo B
+name: Sync Repo A → Repo B (no workflow changes)
 
 on:
   push:
@@ -7,31 +7,54 @@ on:
 permissions:
   contents: read
 
+env:
+  TARGET_BRANCH: main
+
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repo A
+        uses: actions/checkout@v4
 
-      # If you build, do it here (e.g. npm ci && npm run build)
+      # If you build, do it here (e.g., npm ci && npm run build), then copy only the build output in "Prepare payload".
       - name: Prepare payload
         run: |
           rm -rf /tmp/payload && mkdir -p /tmp/payload
-          rsync -a --delete --exclude ".git" ./ /tmp/payload/
-          # If building, mirror only build output instead, e.g.:
-          # rsync -a --delete ./dist/ /tmp/payload/
+          # Copy your site content to payload.
+          # If you build, replace "./" with your build folder (e.g., "./dist")
+          rsync -a --delete --exclude ".git" --exclude ".github/**" ./ /tmp/payload/
 
-      - name: Push to Repo B main
+      - name: Clone Repo B
         env:
           TOKEN: ${{ secrets.REPO_B_TOKEN }}
           OWNER: ${{ secrets.REPO_B_OWNER }}
           REPO:  ${{ secrets.REPO_B_NAME }}
         run: |
           set -euo pipefail
-          cd /tmp/payload
-          git init
+          git clone "https://${OWNER}:${TOKEN}@github.com/${OWNER}/${REPO}.git" /tmp/repoB
+
+      - name: Sync files into Repo B (preserve .github)
+        run: |
+          # Keep Repo B's .github (workflows) intact even with --delete
+          rsync -a --delete \
+            --exclude ".git" \
+            --filter='P .github/**' \
+            /tmp/payload/ /tmp/repoB/
+
+      - name: Commit & push to Repo B
+        env:
+          OWNER: ${{ secrets.REPO_B_OWNER }}
+          REPO:  ${{ secrets.REPO_B_NAME }}
+        run: |
+          set -euo pipefail
+          cd /tmp/repoB
           git config user.name  "github-actions"
-          git config user.email "actions@users.noreply.github.com"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "Sync from $GITHUB_REPOSITORY@$GITHUB_SHA"
-          git push --force "https://${OWNER}:${TOKEN}@github.com/${OWNER}/${REPO}.git" HEAD:main
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Deploy from ${GITHUB_REPOSITORY}@${GITHUB_SHA}"
+          git push origin "${TARGET_BRANCH}:${TARGET_BRANCH}"
