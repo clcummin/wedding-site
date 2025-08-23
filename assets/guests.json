@@ -1,7 +1,7 @@
 [
-  {"name": "Alice Smith", "code": "48291"},
-  {"name": "Bob Johnson", "code": "17530"},
-  {"name": "Carlos Ruiz", "code": "90812"},
-  {"name": "Diana Liu", "code": "56347"},
-  {"name": "Ethan Patel", "code": "34920"}
+  {"name": "Alice Smith", "code": "48291", "partySize": 2},
+  {"name": "Bob Johnson", "code": "17530", "partySize": 1},
+  {"name": "Carlos Ruiz", "code": "90812", "partySize": 4},
+  {"name": "Diana Liu", "code": "56347", "partySize": 3},
+  {"name": "Ethan Patel", "code": "34920", "partySize": 1}
 ]
