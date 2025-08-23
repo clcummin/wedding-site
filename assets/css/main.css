@@ -1530,3 +1530,36 @@ body {
   padding-bottom: 56.25%; /* 16:9 ratio */
   margin-top: 1rem;
 }
+
+/* RSVP test layout */
+.guest {
+  margin-bottom: 1rem;
+}
+.guest .event-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: repeat(3, auto);
+  column-gap: 1rem;
+  row-gap: 0.5rem;
+}
+.guest .event-grid .event-option {
+  grid-column: 1;
+}
+.guest .event-grid .event-option:nth-of-type(1) {
+  grid-row: 1;
+}
+.guest .event-grid .event-option:nth-of-type(2) {
+  grid-row: 2;
+}
+.guest .event-grid .event-option:nth-of-type(3) {
+  grid-row: 3;
+}
+.guest .event-grid .meal-option {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: center;
+}
+#apply-all,
+#decline-all {
+  margin: 0.5rem 0;
+}

@@ -48,20 +48,37 @@ document.addEventListener('DOMContentLoaded', () => {
       personDiv.className = 'guest';
       personDiv.innerHTML = `
         <legend>Guest ${i + 1}</legend>
-        <label><input type="checkbox" name="guest${i}-ceremony"> Ceremony</label>
-        <label><input type="checkbox" name="guest${i}-reception"> Reception</label>
-        <label><input type="checkbox" name="guest${i}-farewell"> Farewell</label>
-        <label>Meal:
-          <select name="guest${i}-meal">
-            <option value="">Select</option>
-            <option>Chicken</option>
-            <option>Beef</option>
-            <option>Veg</option>
-          </select>
-        </label>
+        <div class="event-grid">
+          <label class="event-option"><input type="checkbox" name="guest${i}-ceremony"> Ceremony</label>
+          <label class="event-option"><input type="checkbox" name="guest${i}-reception"> Reception</label>
+          <label class="event-option"><input type="checkbox" name="guest${i}-farewell"> Farewell</label>
+          <div class="meal-option">
+            <label>Meal:
+              <select name="guest${i}-meal" disabled>
+                <option value="">Select</option>
+                <option>Chicken</option>
+                <option>Beef</option>
+                <option>Veg</option>
+              </select>
+            </label>
+          </div>
+        </div>
       `;
       container.appendChild(personDiv);
+
+      const reception = personDiv.querySelector(`input[name="guest${i}-reception"]`);
+      const mealSelect = personDiv.querySelector(`select[name="guest${i}-meal"]`);
+      reception.addEventListener('change', () => {
+        mealSelect.disabled = !reception.checked;
+        if (!reception.checked) mealSelect.value = '';
+      });
     }
+
+    const declineBtn = document.createElement('button');
+    declineBtn.type = 'button';
+    declineBtn.id = 'decline-all';
+    declineBtn.textContent = 'Unfortunately, we are unable to attend';
+    container.appendChild(declineBtn);
 
     info.appendChild(container);
 
@@ -79,9 +96,22 @@ document.addEventListener('DOMContentLoaded', () => {
           container.querySelector(`input[name="guest${i}-ceremony"]`).checked = ceremony;
           container.querySelector(`input[name="guest${i}-reception"]`).checked = reception;
           container.querySelector(`input[name="guest${i}-farewell"]`).checked = farewell;
-          container.querySelector(`select[name="guest${i}-meal"]`).value = meal;
+          const mealSelect = container.querySelector(`select[name="guest${i}-meal"]`);
+          mealSelect.value = meal;
+          mealSelect.disabled = !reception;
         }
       });
     }
+
+    declineBtn.addEventListener('click', () => {
+      for (let i = 0; i < size; i++) {
+        ['ceremony', 'reception', 'farewell'].forEach((ev) => {
+          container.querySelector(`input[name="guest${i}-${ev}"]`).checked = false;
+        });
+        const mealSelect = container.querySelector(`select[name="guest${i}-meal"]`);
+        mealSelect.value = '';
+        mealSelect.disabled = true;
+      }
+    });
   }
 });
