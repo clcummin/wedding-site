@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RSVP Test</title>
+    <link rel="icon" href="assets/images/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Spectral:wght@400;700&display=swap"
+      onload="this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Spectral:wght@400;700&display=swap"
+      />
+    </noscript>
+    <link rel="stylesheet" href="assets/css/main.css" />
+  </head>
+  <body class="allow-scroll">
+    <!-- ── Sticky Header & Nav ── -->
+    <div id="site-header"></div>
+
+    <!-- ── Content Card ── -->
+    <main class="content-container">
+      <h1 class="page-title">RSVP Lookup</h1>
+      <form id="lookup-form" class="rsvp-form">
+        <label for="code-input">Enter your 5-digit code:</label>
+        <input
+          type="text"
+          id="code-input"
+          pattern="\d{5}"
+          maxlength="5"
+          required
+        />
+        <button type="submit">Lookup</button>
+      </form>
+      <div id="guest-info" class="guest-info"></div>
+    </main>
+
+    <!-- site-wide behaviors -->
+    <script src="assets/js/header.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/rsvp-test.js"></script>
+  </body>
+</html>
