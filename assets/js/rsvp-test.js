@@ -17,8 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const guests = await response.json();
       const guest = guests.find((g) => g.code === code);
       if (guest) {
-        form.style.display = 'none';
-        renderPartyForm(guest);
+        renderAttendancePrompt(guest);
       } else {
         info.textContent = 'Code not found.';
       }
@@ -27,6 +26,29 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error(err);
     }
   });
+
+  function renderAttendancePrompt(guest) {
+    info.innerHTML = `<h2>Welcome, ${guest.name}!</h2><p>Will you be attending?</p>`;
+    const yes = document.createElement('button');
+    yes.type = 'button';
+    yes.id = 'attend-yes';
+    yes.textContent = 'Yes';
+    const no = document.createElement('button');
+    no.type = 'button';
+    no.id = 'attend-no';
+    no.textContent = 'No';
+    info.appendChild(yes);
+    info.appendChild(no);
+
+    yes.addEventListener('click', () => {
+      form.style.display = 'none';
+      renderPartyForm(guest);
+    });
+
+    no.addEventListener('click', () => {
+      info.innerHTML = `<h2>Welcome, ${guest.name}!</h2><p>We're sorry you can't make it.</p>`;
+    });
+  }
 
   function renderPartyForm(guest) {
     info.innerHTML = `<h2>Welcome, ${guest.name}!</h2>`;
