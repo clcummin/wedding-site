@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('lookup-form');
   const input = document.getElementById('code-input');
   const info = document.getElementById('guest-info');
+  const apiUrl = 'https://script.google.com/macros/s/AKfycbz31P8yA3Ld48aWMe35IaykC60qGq0Q46U58YTQ9R7hclOG8swRoWPlryhFifpzZ0V-nA/exec';
 
   if (!form || !input || !info) return;
 
@@ -12,128 +13,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const code = input.value.trim();
     if (!code) return;
 
+    info.textContent = 'Looking up...';
+
     try {
-      const response = await fetch('assets/guests.json');
-      const guests = await response.json();
-      const guest = guests.find((g) => g.code === code);
-      if (guest) {
-        renderAttendancePrompt(guest);
+      const response = await fetch(`${apiUrl}?code=${encodeURIComponent(code)}`);
+      if (!response.ok) throw new Error(`Request failed: ${response.status}`);
+
+      const guest = await response.json();
+
+      if (guest && Object.keys(guest).length) {
+        info.innerHTML = `
+          <h2>${guest.name || 'Guest'}</h2>
+          ${guest.partySize ? `<p>Party size: ${guest.partySize}</p>` : ''}
+        `;
       } else {
         info.textContent = 'Code not found.';
       }
     } catch (err) {
-      info.textContent = 'Unable to lookup guest.';
       console.error(err);
+      info.textContent = 'Unable to lookup guest.';
     }
   });
-
-  function renderAttendancePrompt(guest) {
-    info.innerHTML = `<h2>Welcome, ${guest.name}!</h2><p>Will you be attending?</p>`;
-    const yes = document.createElement('button');
-    yes.type = 'button';
-    yes.id = 'attend-yes';
-    yes.textContent = 'Yes';
-    const no = document.createElement('button');
-    no.type = 'button';
-    no.id = 'attend-no';
-    no.textContent = 'No';
-    info.appendChild(yes);
-    info.appendChild(no);
-
-    yes.addEventListener('click', () => {
-      form.style.display = 'none';
-      renderPartyForm(guest);
-    });
-
-    no.addEventListener('click', () => {
-      info.innerHTML = `<h2>Welcome, ${guest.name}!</h2><p>We're sorry you can't make it.</p>`;
-    });
-  }
-
-  function renderPartyForm(guest) {
-    info.innerHTML = `<h2>Welcome, ${guest.name}!</h2>`;
-
-    const container = document.createElement('div');
-    container.id = 'party-form';
-    const size = guest.partySize || 1;
-
-    if (size > 1) {
-      const applyBtn = document.createElement('button');
-      applyBtn.type = 'button';
-      applyBtn.id = 'apply-all';
-      applyBtn.textContent = 'Copy Guest 1 selections to all';
-      container.appendChild(applyBtn);
-    }
-
-    for (let i = 0; i < size; i++) {
-      const personDiv = document.createElement('fieldset');
-      personDiv.className = 'guest';
-      personDiv.innerHTML = `
-        <legend>Guest ${i + 1}</legend>
-        <div class="event-grid">
-          <label class="event-option"><input type="checkbox" name="guest${i}-ceremony"> Ceremony</label>
-          <label class="event-option"><input type="checkbox" name="guest${i}-reception"> Reception</label>
-          <label class="event-option"><input type="checkbox" name="guest${i}-farewell"> Farewell</label>
-          <div class="meal-option">
-            <label>Meal:
-              <select name="guest${i}-meal" disabled>
-                <option value="">Select</option>
-                <option>Chicken</option>
-                <option>Beef</option>
-                <option>Veg</option>
-              </select>
-            </label>
-          </div>
-        </div>
-      `;
-      container.appendChild(personDiv);
-
-      const reception = personDiv.querySelector(`input[name="guest${i}-reception"]`);
-      const mealSelect = personDiv.querySelector(`select[name="guest${i}-meal"]`);
-      reception.addEventListener('change', () => {
-        mealSelect.disabled = !reception.checked;
-        if (!reception.checked) mealSelect.value = '';
-      });
-    }
-
-    const declineBtn = document.createElement('button');
-    declineBtn.type = 'button';
-    declineBtn.id = 'decline-all';
-    declineBtn.textContent = 'Unfortunately, we are unable to attend';
-    container.appendChild(declineBtn);
-
-    info.appendChild(container);
-
-    const applyAll = container.querySelector('#apply-all');
-    if (applyAll) {
-      applyAll.addEventListener('click', () => {
-        const first = container.querySelector('.guest');
-        if (!first) return;
-        const ceremony = first.querySelector(`input[name="guest0-ceremony"]`).checked;
-        const reception = first.querySelector(`input[name="guest0-reception"]`).checked;
-        const farewell = first.querySelector(`input[name="guest0-farewell"]`).checked;
-        const meal = first.querySelector(`select[name="guest0-meal"]`).value;
-
-        for (let i = 1; i < size; i++) {
-          container.querySelector(`input[name="guest${i}-ceremony"]`).checked = ceremony;
-          container.querySelector(`input[name="guest${i}-reception"]`).checked = reception;
-          container.querySelector(`input[name="guest${i}-farewell"]`).checked = farewell;
-          const mealSelect = container.querySelector(`select[name="guest${i}-meal"]`);
-          mealSelect.value = meal;
-          mealSelect.disabled = !reception;
-        }
-      });
-    }
-
-    declineBtn.addEventListener('click', () => {
-      for (let i = 0; i < size; i++) {
-        ['ceremony', 'reception', 'farewell'].forEach((ev) => {
-          container.querySelector(`input[name="guest${i}-${ev}"]`).checked = false;
-        });
-        const mealSelect = container.querySelector(`select[name="guest${i}-meal"]`);
-        mealSelect.value = '';
-        mealSelect.disabled = true;
-      }
-    });
-  }
 });
