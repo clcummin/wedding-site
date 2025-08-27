@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('lookup-form');
   const input = document.getElementById('code-input');
   const info = document.getElementById('guest-info');
-  const apiUrl = 'https://script.google.com/macros/s/AKfycbxWH3YLiS4PGTM8wMGEqZMgrqzAT1DjvmpB6ejmDYhEP5TitSxoVP1A5rHhR-584n7XbA/exec';
+  const apiUrl =
+    'https://script.google.com/macros/s/AKfycbxWH3YLiS4PGTM8wMGEqZMgrqzAT1DjvmpB6ejmDYhEP5TitSxoVP1A5rHhR-584n7XbA/exec';
 
   if (!form || !input || !info) return;
 
@@ -17,28 +18,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       const response = await fetch(`${apiUrl}?code=${encodeURIComponent(code)}`);
+      const result = await response.json();
 
-      if (response.status === 404) {
-        info.textContent = 'Guest not found, please try again.';
+      if (!result.ok && result.status === 404) {
+        info.textContent = result.message || 'Guest not found, please try again.';
         return;
       }
 
-      if (!response.ok) throw new Error(`Request failed: ${response.status}`);
+      if (!result.ok) {
+        throw new Error(result.message || 'Request failed');
+      }
 
-      const party = await response.json();
+      const party = result.party || result;
       if (!party || !Object.keys(party).length) {
         info.textContent = 'Guest not found, please try again.';
         return;
       }
 
-      showAttendancePrompt(party);
+      showAttendancePrompt(party, code);
     } catch (err) {
       console.error(err);
       info.textContent = 'Unable to lookup guest.';
     }
   });
 
-  function showAttendancePrompt(party) {
+  function showAttendancePrompt(party, code) {
     info.innerHTML = `
       <h2>${party.name || 'Guest'}</h2>
       <p>Will your party be attending?</p>
@@ -52,13 +56,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const noBtn = document.getElementById('attend-no');
 
     noBtn.addEventListener('click', () => {
-      info.innerHTML = '<p>We\'re sorry you can\'t make it. Thank you for letting us know!</p>';
+      info.innerHTML = "<p>We're sorry you can't make it. Thank you for letting us know!</p>";
     });
 
-    yesBtn.addEventListener('click', () => showGuestForm(party));
+    yesBtn.addEventListener('click', () => showGuestForm(party, code));
   }
 
-  function showGuestForm(party) {
+  function showGuestForm(party, code) {
     const guestNames = Array.isArray(party.guests)
       ? party.guests.map((g) => g.name || g)
       : Array.from({ length: party.partySize || 1 }, (_, i) => `Guest ${i + 1}`);
@@ -90,9 +94,39 @@ document.addEventListener('DOMContentLoaded', () => {
       </form>
     `;
 
-    document.getElementById('party-form').addEventListener('submit', (ev) => {
-      ev.preventDefault();
-      info.innerHTML = '<p>Thank you for your response!</p>';
-    });
+    document
+      .getElementById('party-form')
+      .addEventListener('submit', async (ev) => {
+        ev.preventDefault();
+
+        const responses = guestNames.map((name, i) => ({
+          name,
+          attending: document.getElementById(`guest-attend-${i}`).checked,
+          meal: document.getElementById(`guest-meal-${i}`).value,
+        }));
+
+        info.textContent = 'Submitting...';
+        try {
+          const submitRes = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code, responses }),
+          });
+          const submitData = await submitRes.json();
+
+          if (!submitData.ok) {
+            info.textContent = submitData.message || 'Submission failed.';
+            return;
+          }
+
+          info.innerHTML = `
+          <p>${submitData.message || 'Thank you for your response!'}</p>
+          <pre>${JSON.stringify(submitData, null, 2)}</pre>
+        `;
+        } catch (error) {
+          console.error(error);
+          info.textContent = 'Unable to submit response.';
+        }
+      });
   }
 });
