@@ -43,8 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function showAttendancePrompt(party, code) {
+    const inviteMarkup =
+      party.inviteCard || party.invite_card || party.name || 'Guest';
+
     info.innerHTML = `
-      <h2>${party.name || 'Guest'}</h2>
+      <div class="invite-card">${inviteMarkup}</div>
       <p>Will your party be attending?</p>
       <div class="rsvp-choice">
         <button type="button" id="attend-yes">Accept</button>
@@ -63,17 +66,27 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function showGuestForm(party, code) {
-    const guestNames = Array.isArray(party.guests)
-      ? party.guests.map((g) => g.name || g)
-      : Array.from({ length: party.partySize || 1 }, (_, i) => `Guest ${i + 1}`);
+    const partySize =
+      party.partySize ||
+      party.party_size ||
+      (Array.isArray(party.guests) ? party.guests.length : 1);
+
+    const guestNames = Array.from({ length: partySize }, (_, i) => {
+      if (Array.isArray(party.guests) && party.guests[i]) {
+        const g = party.guests[i];
+        return g.name || g;
+      }
+      return `Guest ${i + 1}`;
+    });
 
     const formFields = guestNames
       .map(
         (name, i) => `
-        <div class="guest-response">
+        <div class="card guest-card">
+          <span class="guest-name">${name}</span>
           <label>
             <input type="checkbox" id="guest-attend-${i}" checked />
-            ${name}
+            Attending
           </label>
           <select id="guest-meal-${i}">
             <option value="">Food choice</option>
@@ -93,6 +106,15 @@ document.addEventListener('DOMContentLoaded', () => {
         <button type="submit">Submit</button>
       </form>
     `;
+
+    guestNames.forEach((_, i) => {
+      const attendBox = document.getElementById(`guest-attend-${i}`);
+      const mealSelect = document.getElementById(`guest-meal-${i}`);
+      attendBox.addEventListener('change', () => {
+        mealSelect.disabled = !attendBox.checked;
+        if (!attendBox.checked) mealSelect.value = '';
+      });
+    });
 
     document
       .getElementById('party-form')
