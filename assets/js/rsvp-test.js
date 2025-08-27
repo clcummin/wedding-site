@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('lookup-form');
   const input = document.getElementById('code-input');
   const info = document.getElementById('guest-info');
-  const apiUrl = 'https://script.google.com/macros/s/AKfycbz31P8yA3Ld48aWMe35IaykC60qGq0Q46U58YTQ9R7hclOG8swRoWPlryhFifpzZ0V-nA/exec';
+  const apiUrl = 'https://script.google.com/macros/s/AKfycbxalKHwfwO4gbXgw0isA2r6vt4GxQGg5ODW48McjwSa28Tiu8n-hUiLaSfA427RV8Bg8A/exec';
 
   if (!form || !input || !info) return;
 
