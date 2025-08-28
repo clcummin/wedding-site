@@ -58,8 +58,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const yesBtn = document.getElementById('attend-yes');
     const noBtn = document.getElementById('attend-no');
 
-    noBtn.addEventListener('click', () => {
-      info.innerHTML = "<p>We're sorry you can't make it. Thank you for letting us know!</p>";
+    noBtn.addEventListener('click', async () => {
+      info.textContent = 'Submitting...';
+      try {
+        const submitRes = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            code,
+            rsvped: 'no',
+            number_attending: 0,
+            chicken: 0,
+            beef: 0,
+            vegetarian: 0,
+          }),
+        });
+        const submitData = await submitRes.json();
+        if (!submitData.ok) {
+          info.textContent = submitData.message || 'Submission failed.';
+          return;
+        }
+        info.innerHTML =
+          "<p>We're sorry you can't make it. Thank you for letting us know!</p>";
+      } catch (error) {
+        console.error(error);
+        info.textContent = 'Unable to submit response.';
+      }
     });
 
     yesBtn.addEventListener('click', () => showGuestForm(party, code));
@@ -121,18 +145,36 @@ document.addEventListener('DOMContentLoaded', () => {
       .addEventListener('submit', async (ev) => {
         ev.preventDefault();
 
-        const responses = guestNames.map((name, i) => ({
-          name,
-          attending: document.getElementById(`guest-attend-${i}`).checked,
-          meal: document.getElementById(`guest-meal-${i}`).value,
-        }));
+        const counts = {
+          number_attending: 0,
+          chicken: 0,
+          beef: 0,
+          vegetarian: 0,
+        };
+
+        guestNames.forEach((_, i) => {
+          const attending = document.getElementById(
+            `guest-attend-${i}`,
+          ).checked;
+          const meal = document.getElementById(`guest-meal-${i}`).value;
+          if (attending) {
+            counts.number_attending++;
+            if (meal && counts[meal] !== undefined) counts[meal]++;
+          }
+        });
+
+        const payload = {
+          code,
+          rsvped: counts.number_attending > 0 ? 'yes' : 'no',
+          ...counts,
+        };
 
         info.textContent = 'Submitting...';
         try {
           const submitRes = await fetch(apiUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ code, responses }),
+            body: JSON.stringify(payload),
           });
           const submitData = await submitRes.json();
 
