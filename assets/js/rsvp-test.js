@@ -143,7 +143,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const input = document.getElementById('code-input');
     const code = input.value.trim();
     currentCode = code;
-    validateCode(code);
+    if (/^\d{5}$/.test(code)) {
+      codeError.classList.add('hidden');
+      validateCode(code);
+    } else {
+      codeError.classList.remove('hidden');
+    }
   });
 
   document.getElementById('party-no').addEventListener('click', () => {
