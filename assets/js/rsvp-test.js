@@ -2,18 +2,30 @@
 
 function handleUpdate(res) {
   console.log(res);
-  if (finalMessage && res && res.message) {
-    finalMessage.textContent = res.message;
+
+  // Support both flat and nested response shapes (e.g. res.data.message).
+  const ok =
+    (res && res.ok) || (res && res.data && res.data.ok);
+  const payload = res && res.data ? res.data : res;
+
+  if (finalMessage && ok && payload && payload.message) {
+    finalMessage.textContent = payload.message;
   }
 }
 
 function handleValidate(res) {
   console.log(res);
-  if (res && res.partySize) {
+
+  // Support both flat and nested response shapes (e.g. res.data.partySize).
+  const ok =
+    (res && res.ok) || (res && res.data && res.data.ok);
+  const payload = res && res.data ? res.data : res;
+
+  if (ok && payload && payload.partySize) {
     codeError.classList.add('hidden');
     stepCode.classList.add('hidden');
     stepAttending.classList.remove('hidden');
-    partySize = res.partySize;
+    partySize = payload.partySize;
   } else {
     codeError.classList.remove('hidden');
   }
