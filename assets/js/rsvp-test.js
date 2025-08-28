@@ -195,7 +195,13 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (meal === 'vegetarian') vegetarian++;
       }
     });
-    if (!valid || num === 0 || num !== chicken + beef + vegetarian) {
+    if (num === 0) {
+      mealError.textContent = 'Please select at least one guest to attend.';
+      mealError.classList.remove('hidden');
+      return;
+    }
+    if (!valid || num !== chicken + beef + vegetarian) {
+      mealError.textContent = 'Every attending guest must choose a meal.';
       mealError.classList.remove('hidden');
       return;
     }
