@@ -29,14 +29,17 @@ function handleValidate(res) {
     (res && res.ok) || (res && res.data && res.data.ok);
   const payload = res && res.data ? res.data : res;
 
-  const size = parseInt(payload && payload.partySize, 10);
+  const guests = Array.isArray(payload && payload.guests) ? payload.guests : [];
+  const size = guests.length || parseInt(payload && payload.partySize, 10);
   const name = payload && payload.partyName;
 
-  if (ok && !Number.isNaN(size) && size > 0) {
+  if (ok && size > 0) {
     codeError.classList.add('hidden');
     stepCode.classList.add('hidden');
     stepAttending.classList.remove('hidden');
     partySize = size;
+    guestsData = guests;
+    partyName = name || '';
 
     if (welcomeMessage) {
       if (name) {
@@ -58,83 +61,92 @@ function handleValidate(res) {
 const apiBase =
   'https://script.google.com/macros/s/AKfycbxWH3YLiS4PGTM8wMGEqZMgrqzAT1DjvmpB6ejmDYhEP5TitSxoVP1A5rHhR-584n7XbA/exec';
 
-function jsonpRequest(url, callbackName, onError, timeout = 5000) {
-  const script = document.createElement('script');
-  const original = window[callbackName];
+function jsonpRequest(url, callbackName, timeout = 5000) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    const original = window[callbackName];
 
-  const cleanup = () => {
-    if (script.parentNode) script.parentNode.removeChild(script);
-    window[callbackName] = original;
-  };
+    const cleanup = () => {
+      if (script.parentNode) script.parentNode.removeChild(script);
+      window[callbackName] = original;
+    };
 
-  const timer = setTimeout(() => {
-    cleanup();
-    onError();
-  }, timeout);
+    const timer = setTimeout(() => {
+      cleanup();
+      reject(new Error('timeout'));
+    }, timeout);
 
-  window[callbackName] = function (...args) {
-    clearTimeout(timer);
-    cleanup();
-    if (typeof original === 'function') original(...args);
-  };
+    window[callbackName] = function (...args) {
+      clearTimeout(timer);
+      cleanup();
+      if (typeof original === 'function') original(...args);
+      resolve(...args);
+    };
 
-  script.onerror = () => {
-    clearTimeout(timer);
-    cleanup();
-    onError();
-  };
+    script.onerror = () => {
+      clearTimeout(timer);
+      cleanup();
+      reject(new Error('error'));
+    };
 
-  script.src = url;
-  document.body.appendChild(script);
+    script.src = url;
+    document.body.appendChild(script);
+  });
 }
 
 function validateCode(code) {
   const url =
     apiBase +
     '?action=validate&code=' +
-    encodeURIComponent(code);
-  return fetch(url, { mode: 'cors' })
-    .then((res) => res.json())
-    .then((data) => handleValidate(data))
-    .catch(() => {
-      codeError.textContent = 'Request failed. Please try again.';
-      codeError.classList.remove('hidden');
-    })
-    .finally(() => {
-      if (codeStatus) codeStatus.classList.add('hidden');
-    });
+    encodeURIComponent(code) +
+    '&callback=handleValidate';
+  return jsonpRequest(url, 'handleValidate').catch(() => {
+    codeError.textContent = 'Request failed. Please try again.';
+    codeError.classList.remove('hidden');
+  }).finally(() => {
+    if (codeStatus) codeStatus.classList.add('hidden');
+  });
 }
 
 function rsvpNo(code) {
+  const guests = guestsData.map((g) => ({
+    ...g,
+    attending: 'no',
+    meal: '',
+  }));
   const url =
     apiBase +
     '?action=update&code=' +
     encodeURIComponent(code) +
     '&rsvped=no' +
+    '&partyName=' +
+    encodeURIComponent(partyName) +
+    '&partySize=' +
+    guests.length +
+    '&guests=' +
+    encodeURIComponent(JSON.stringify(guests)) +
     '&callback=handleUpdate';
-  jsonpRequest(url, 'handleUpdate', () => {
+  return jsonpRequest(url, 'handleUpdate').catch(() => {
     finalMessage.textContent =
       'There was a problem saving your RSVP. Please try again.';
     finalMessage.classList.remove('hidden');
   });
 }
 
-function rsvpYes(code, num, chicken, beef, vegetarian) {
+function rsvpYes(code, guests) {
   const url =
     apiBase +
     '?action=update&code=' +
     encodeURIComponent(code) +
     '&rsvped=yes' +
-    '&number_attending=' +
-    encodeURIComponent(num) +
-    '&chicken=' +
-    encodeURIComponent(chicken) +
-    '&beef=' +
-    encodeURIComponent(beef) +
-    '&vegetarian=' +
-    encodeURIComponent(vegetarian) +
+    '&partyName=' +
+    encodeURIComponent(partyName) +
+    '&partySize=' +
+    guests.length +
+    '&guests=' +
+    encodeURIComponent(JSON.stringify(guests)) +
     '&callback=handleUpdate';
-  jsonpRequest(url, 'handleUpdate', () => {
+  return jsonpRequest(url, 'handleUpdate').catch(() => {
     finalMessage.textContent =
       'There was a problem saving your RSVP. Please try again.';
     finalMessage.classList.remove('hidden');
@@ -153,7 +165,9 @@ let stepCode,
   welcomeMessage,
   codeSubmit,
   partySize = 0,
-  currentCode = '';
+  currentCode = '',
+  guestsData = [],
+  partyName = '';
 
 document.addEventListener('DOMContentLoaded', () => {
   stepCode = document.getElementById('step-code');
@@ -196,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('party-yes').addEventListener('click', () => {
     stepAttending.classList.add('hidden');
-    generateGuestCards(partySize);
+    generateGuestCards(guestsData);
     stepGuests.classList.remove('hidden');
   });
 
@@ -213,55 +227,58 @@ document.addEventListener('DOMContentLoaded', () => {
   stepGuests.addEventListener('submit', (e) => {
     e.preventDefault();
     const cards = guestCards.querySelectorAll('.guest-card');
-    let num = 0,
-      chicken = 0,
-      beef = 0,
-      vegetarian = 0,
-      valid = true;
-    cards.forEach((card) => {
+    const updatedGuests = [];
+    let valid = true;
+    cards.forEach((card, idx) => {
       const attending = card.querySelector('.attending').checked;
-      if (attending) {
-        num++;
-        const meal = card.querySelector('.meal').value;
-        if (!meal) valid = false;
-        if (meal === 'chicken') chicken++;
-        else if (meal === 'beef') beef++;
-        else if (meal === 'vegetarian') vegetarian++;
-      }
+      const meal = card.querySelector('.meal').value;
+      if (attending && !meal) valid = false;
+      updatedGuests.push({
+        ...guestsData[idx],
+        attending: attending ? 'yes' : 'no',
+        meal: attending ? meal : '',
+      });
     });
-    if (num === 0) {
+    const anyAttending = updatedGuests.some((g) => g.attending === 'yes');
+    if (!anyAttending) {
       mealError.textContent = 'Please select at least one guest to attend.';
       mealError.classList.remove('hidden');
       return;
     }
-    if (!valid || num !== chicken + beef + vegetarian) {
+    if (!valid) {
       mealError.textContent = 'Every attending guest must choose a meal.';
       mealError.classList.remove('hidden');
       return;
     }
     mealError.classList.add('hidden');
-    if (currentCode) rsvpYes(currentCode, num, chicken, beef, vegetarian);
+    guestsData = updatedGuests;
+    if (currentCode) rsvpYes(currentCode, guestsData);
     stepGuests.classList.add('hidden');
     finalMessage.textContent = 'Thank you for your RSVP!';
     finalMessage.classList.remove('hidden');
   });
 });
 
-function generateGuestCards(size) {
+function generateGuestCards(guests) {
   guestCards.innerHTML = '';
-  for (let i = 1; i <= size; i++) {
+  guests.forEach((guest) => {
     const card = document.createElement('div');
     card.className = 'guest-card';
+    const attending = guest.attending === 'yes';
     card.innerHTML = `
-        <label><input type="checkbox" class="attending" checked /> Guest ${i}</label>
-        <select class="meal">
+        <label><input type="checkbox" class="attending" ${
+          attending ? 'checked' : ''
+        } /> ${guest.firstName} ${guest.lastName}</label>
+        <select class="meal" ${attending ? '' : 'disabled'}>
           <option value="">Select meal</option>
-          <option value="chicken">Chicken</option>
-          <option value="beef">Beef</option>
-          <option value="vegetarian">Vegetarian</option>
+          <option value="chicken" ${
+            guest.meal === 'chicken' ? 'selected' : ''
+          }>Chicken</option>
+          <option value="beef" ${guest.meal === 'beef' ? 'selected' : ''}>Beef</option>
+          <option value="veg" ${guest.meal === 'veg' ? 'selected' : ''}>Vegetarian</option>
         </select>
       `;
     guestCards.appendChild(card);
-  }
+  });
 }
 
