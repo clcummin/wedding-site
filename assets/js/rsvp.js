@@ -38,8 +38,16 @@ function handleValidate(res) {
     stepAttending.classList.remove('hidden');
     partySize = size;
     if (name) {
-      partyNameMessage.textContent = `Is ${name} attending?`;
+      if (welcomeMessage) {
+        welcomeMessage.textContent = `We found your record. Welcome, ${name}`;
+        welcomeMessage.classList.remove('hidden');
+      }
+      partyNameMessage.textContent = 'Is your party attending?';
     } else {
+      if (welcomeMessage) {
+        welcomeMessage.textContent = 'We found your record.';
+        welcomeMessage.classList.remove('hidden');
+      }
       partyNameMessage.textContent = 'Is your party attending?';
     }
   } else {
@@ -85,12 +93,15 @@ function validateCode(code) {
     apiBase +
     '?action=validate&code=' +
     encodeURIComponent(code);
-  fetch(url, { mode: 'cors' })
+  return fetch(url, { mode: 'cors' })
     .then((res) => res.json())
     .then((data) => handleValidate(data))
     .catch(() => {
       codeError.textContent = 'Request failed. Please try again.';
       codeError.classList.remove('hidden');
+    })
+    .finally(() => {
+      if (codeStatus) codeStatus.classList.add('hidden');
     });
 }
 
@@ -135,9 +146,12 @@ let stepCode,
   stepGuests,
   guestCards,
   codeError,
+  codeStatus,
   mealError,
   finalMessage,
   partyNameMessage,
+  welcomeMessage,
+  codeSubmit,
   partySize = 0,
   currentCode = '';
 
@@ -147,17 +161,27 @@ document.addEventListener('DOMContentLoaded', () => {
   stepGuests = document.getElementById('step-guests');
   guestCards = document.getElementById('guest-cards');
   codeError = document.getElementById('code-error');
+  codeStatus = document.getElementById('code-status');
   mealError = document.getElementById('meal-error');
   finalMessage = document.getElementById('final-message');
   partyNameMessage = document.getElementById('party-name-message');
+  welcomeMessage = document.getElementById('welcome-message');
+  codeSubmit = document.getElementById('code-submit');
 
-  document.getElementById('code-submit').addEventListener('click', () => {
+  codeSubmit.addEventListener('click', () => {
     const input = document.getElementById('code-input');
     const code = input.value.trim();
     currentCode = code;
     if (/^\d{5}$/.test(code)) {
       codeError.classList.add('hidden');
-      validateCode(code);
+      codeSubmit.disabled = true;
+      if (codeStatus) {
+        codeStatus.textContent = 'Looking up record...';
+        codeStatus.classList.remove('hidden');
+      }
+      validateCode(code).finally(() => {
+        codeSubmit.disabled = false;
+      });
     } else {
       codeError.classList.remove('hidden');
     }
