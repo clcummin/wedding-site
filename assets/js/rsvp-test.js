@@ -10,16 +10,32 @@ function handleUpdate(res) {
   if (message) {
     finalMessage.textContent = message;
     finalMessage.classList.remove('hidden');
+=======
+  console.log(res);
+
+  // Support both flat and nested response shapes (e.g. res.data.message).
+  const ok =
+    (res && res.ok) || (res && res.data && res.data.ok);
+  const payload = res && res.data ? res.data : res;
+
+  if (finalMessage && ok && payload && payload.message) {
+    finalMessage.textContent = payload.message;
   }
 }
 
 function handleValidate(res) {
   console.log(res);
-  if (res && res.partySize) {
+
+  // Support both flat and nested response shapes (e.g. res.data.partySize).
+  const ok =
+    (res && res.ok) || (res && res.data && res.data.ok);
+  const payload = res && res.data ? res.data : res;
+
+  if (ok && payload && payload.partySize) {
     codeError.classList.add('hidden');
     stepCode.classList.add('hidden');
     stepAttending.classList.remove('hidden');
-    partySize = res.partySize;
+    partySize = payload.partySize;
   } else {
     codeError.classList.remove('hidden');
   }
@@ -28,15 +44,46 @@ function handleValidate(res) {
 const apiBase =
   'https://script.google.com/macros/s/AKfycbxWH3YLiS4PGTM8wMGEqZMgrqzAT1DjvmpB6ejmDYhEP5TitSxoVP1A5rHhR-584n7XbA/exec';
 
+function jsonpRequest(url, callbackName, onError, timeout = 5000) {
+  const script = document.createElement('script');
+  const original = window[callbackName];
+
+  const cleanup = () => {
+    if (script.parentNode) script.parentNode.removeChild(script);
+    window[callbackName] = original;
+  };
+
+  const timer = setTimeout(() => {
+    cleanup();
+    onError();
+  }, timeout);
+
+  window[callbackName] = function (...args) {
+    clearTimeout(timer);
+    cleanup();
+    if (typeof original === 'function') original(...args);
+  };
+
+  script.onerror = () => {
+    clearTimeout(timer);
+    cleanup();
+    onError();
+  };
+
+  script.src = url;
+  document.body.appendChild(script);
+}
+
 function validateCode(code) {
   const url =
     apiBase +
     '?action=validate&code=' +
     encodeURIComponent(code) +
     '&callback=handleValidate';
-  const s = document.createElement('script');
-  s.src = url;
-  document.body.appendChild(s);
+  jsonpRequest(url, 'handleValidate', () => {
+    codeError.textContent = 'Request failed. Please try again.';
+    codeError.classList.remove('hidden');
+  });
 }
 
 function rsvpNo(code) {
@@ -46,9 +93,11 @@ function rsvpNo(code) {
     encodeURIComponent(code) +
     '&rsvped=no' +
     '&callback=handleUpdate';
-  const s = document.createElement('script');
-  s.src = url;
-  document.body.appendChild(s);
+  jsonpRequest(url, 'handleUpdate', () => {
+    finalMessage.textContent =
+      'There was a problem saving your RSVP. Please try again.';
+    finalMessage.classList.remove('hidden');
+  });
 }
 
 function rsvpYes(code, num, chicken, beef, vegetarian) {
@@ -66,9 +115,11 @@ function rsvpYes(code, num, chicken, beef, vegetarian) {
     '&vegetarian=' +
     encodeURIComponent(vegetarian) +
     '&callback=handleUpdate';
-  const s = document.createElement('script');
-  s.src = url;
-  document.body.appendChild(s);
+  jsonpRequest(url, 'handleUpdate', () => {
+    finalMessage.textContent =
+      'There was a problem saving your RSVP. Please try again.';
+    finalMessage.classList.remove('hidden');
+  });
 }
 
 let stepCode,
