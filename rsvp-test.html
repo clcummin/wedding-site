@@ -28,17 +28,22 @@
 
     <!-- ── Content Card ── -->
     <main class="content-container">
-      <h1 class="page-title">RSVP Lookup</h1>
-      <form id="lookup-form" class="rsvp-form">
+      <h1 class="page-title">RSVP JSONP Test</h1>
+      <form id="rsvp-form" class="rsvp-form">
         <label for="code-input">Enter your 5-digit code:</label>
-        <input
-          type="text"
-          id="code-input"
-          pattern="\d{5}"
-          maxlength="5"
-          required
-        />
-        <button type="submit">Lookup</button>
+        <input type="text" id="code-input" pattern="\d{5}" maxlength="5" required />
+        <label for="num-input">Number attending:</label>
+        <input type="number" id="num-input" min="0" value="0" />
+        <label for="chicken-input">Chicken:</label>
+        <input type="number" id="chicken-input" min="0" value="0" />
+        <label for="beef-input">Beef:</label>
+        <input type="number" id="beef-input" min="0" value="0" />
+        <label for="vegetarian-input">Vegetarian:</label>
+        <input type="number" id="vegetarian-input" min="0" value="0" />
+        <div class="rsvp-choice">
+          <button type="button" id="send-no">RSVP No</button>
+          <button type="button" id="send-yes">RSVP Yes</button>
+        </div>
       </form>
       <div id="guest-info" class="guest-info"></div>
     </main>
@@ -47,5 +52,21 @@
     <script src="assets/js/header.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/rsvp-test.js"></script>
+    <script>
+      document.getElementById('send-no').addEventListener('click', () => {
+        const code = document.getElementById('code-input').value.trim();
+        if (code) rsvpNo(code);
+      });
+
+      document.getElementById('send-yes').addEventListener('click', () => {
+        const code = document.getElementById('code-input').value.trim();
+        if (!code) return;
+        const num = document.getElementById('num-input').value || 0;
+        const chicken = document.getElementById('chicken-input').value || 0;
+        const beef = document.getElementById('beef-input').value || 0;
+        const vegetarian = document.getElementById('vegetarian-input').value || 0;
+        rsvpYes(code, num, chicken, beef, vegetarian);
+      });
+    </script>
   </body>
 </html>
