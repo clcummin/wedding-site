@@ -22,17 +22,18 @@ function handleUpdate(res) {
 
 function handleValidate(res) {
   console.log(res);
-
-  // Support both flat and nested response shapes (e.g. res.data.partySize).
+  // Support both flat and nested response shapes.
   const ok =
     (res && res.ok) || (res && res.data && res.data.ok);
   const payload = res && res.data ? res.data : res;
 
-  if (ok && payload && payload.partySize) {
+  const size = Number(payload && payload.party_size);
+
+  if (ok && Number.isInteger(size) && size > 0) {
     codeError.classList.add('hidden');
     stepCode.classList.add('hidden');
     stepAttending.classList.remove('hidden');
-    partySize = payload.partySize;
+    partySize = size;
   } else {
     codeError.classList.remove('hidden');
   }
