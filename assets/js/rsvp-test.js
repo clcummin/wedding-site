@@ -1,7 +1,9 @@
 // assets/js/rsvp-test.js
 
+const DEBUG = false;
+
 function handleUpdate(res) {
-  console.log('handleUpdate response:', res);
+  if (DEBUG) console.log('handleUpdate response:', res);
   if (!finalMessage) return;
 
   // Support both flat and nested response shapes (e.g. res.data.message).
@@ -21,7 +23,7 @@ function handleUpdate(res) {
 }
 
 function handleValidate(res) {
-  console.log(res);
+  if (DEBUG) console.log(res);
   // Support both flat and nested response shapes.
   const ok =
     (res && res.ok) || (res && res.data && res.data.ok);
