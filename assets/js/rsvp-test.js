@@ -10,7 +10,6 @@ function handleUpdate(res) {
   if (message) {
     finalMessage.textContent = message;
     finalMessage.classList.remove('hidden');
-=======
   console.log(res);
 
   // Support both flat and nested response shapes (e.g. res.data.message).
