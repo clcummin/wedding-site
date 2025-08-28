@@ -1,6 +1,16 @@
 // assets/js/rsvp-test.js
 
 function handleUpdate(res) {
+  console.log('handleUpdate response:', res);
+  if (!finalMessage || !res) return;
+  let message = res.message;
+  if (res.ok && !message) {
+    message = 'RSVP submitted successfully';
+  }
+  if (message) {
+    finalMessage.textContent = message;
+    finalMessage.classList.remove('hidden');
+=======
   console.log(res);
 
   // Support both flat and nested response shapes (e.g. res.data.message).
