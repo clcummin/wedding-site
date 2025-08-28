@@ -2,23 +2,21 @@
 
 function handleUpdate(res) {
   console.log('handleUpdate response:', res);
-  if (!finalMessage || !res) return;
-  let message = res.message;
-  if (res.ok && !message) {
+  if (!finalMessage) return;
+
+  // Support both flat and nested response shapes (e.g. res.data.message).
+  const payload = res && res.data ? res.data : res;
+  const ok =
+    (res && res.ok) || (res && res.data && res.data.ok);
+
+  let message = payload && payload.message;
+  if (!message && ok) {
     message = 'RSVP submitted successfully';
   }
+
   if (message) {
     finalMessage.textContent = message;
     finalMessage.classList.remove('hidden');
-  console.log(res);
-
-  // Support both flat and nested response shapes (e.g. res.data.message).
-  const ok =
-    (res && res.ok) || (res && res.data && res.data.ok);
-  const payload = res && res.data ? res.data : res;
-
-  if (finalMessage && ok && payload && payload.message) {
-    finalMessage.textContent = payload.message;
   }
 }
 
