@@ -27,9 +27,9 @@ function handleValidate(res) {
     (res && res.ok) || (res && res.data && res.data.ok);
   const payload = res && res.data ? res.data : res;
 
-  const size = Number(payload && payload.party_size);
+  const size = parseInt(payload && payload.partySize, 10);
 
-  if (ok && Number.isInteger(size) && size > 0) {
+  if (ok && !Number.isNaN(size) && size > 0) {
     codeError.classList.add('hidden');
     stepCode.classList.add('hidden');
     stepAttending.classList.remove('hidden');
