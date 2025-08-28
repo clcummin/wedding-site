@@ -28,18 +28,45 @@
 
     <!-- ── Content Card ── -->
     <main class="content-container">
-      <div class="iframe-container">
-        <iframe
-          src="https://www.aisleplanner.com/app/v2/our-wedding/lcwedding/rsvp"
-          frameborder="0"
-          allowfullscreen
-        >
-        </iframe>
+      <h1>RSVP</h1>
+      <div class="card intro-card" id="rsvpCard">
+        <div id="step-code">
+          <label for="code-input">Enter your 5-digit code:</label>
+          <input
+            type="text"
+            id="code-input"
+            pattern="\d{5}"
+            maxlength="5"
+            required
+          />
+          <button id="code-submit">Submit</button>
+          <div id="code-error" class="error hidden">
+            Incorrect code. Please try again.
+          </div>
+        </div>
+
+        <div id="step-attending" class="hidden">
+          <p id="party-name-message">Is your party attending?</p>
+          <div class="rsvp-choice">
+            <button type="button" id="party-no">No</button>
+            <button type="button" id="party-yes">Yes</button>
+          </div>
+        </div>
+
+        <form id="step-guests" class="hidden">
+          <div id="guest-cards"></div>
+          <div id="meal-error" class="error hidden"></div>
+          <button type="submit">Submit RSVP</button>
+        </form>
+
+        <div id="final-message" class="hidden"></div>
       </div>
     </main>
 
     <!-- site-wide behaviors -->
     <script src="assets/js/header.js"></script>
     <script src="assets/js/script.js"></script>
+    <script src="assets/js/rsvp.js"></script>
   </body>
 </html>
+

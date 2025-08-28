@@ -1,4 +1,4 @@
-// assets/js/rsvp-test.js
+// assets/js/rsvp.js
 
 const DEBUG = false;
 
@@ -30,12 +30,18 @@ function handleValidate(res) {
   const payload = res && res.data ? res.data : res;
 
   const size = parseInt(payload && payload.partySize, 10);
+  const name = payload && payload.partyName;
 
   if (ok && !Number.isNaN(size) && size > 0) {
     codeError.classList.add('hidden');
     stepCode.classList.add('hidden');
     stepAttending.classList.remove('hidden');
     partySize = size;
+    if (name) {
+      partyNameMessage.textContent = `Is ${name} attending?`;
+    } else {
+      partyNameMessage.textContent = 'Is your party attending?';
+    }
   } else {
     codeError.classList.remove('hidden');
   }
@@ -131,6 +137,7 @@ let stepCode,
   codeError,
   mealError,
   finalMessage,
+  partyNameMessage,
   partySize = 0,
   currentCode = '';
 
@@ -142,6 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
   codeError = document.getElementById('code-error');
   mealError = document.getElementById('meal-error');
   finalMessage = document.getElementById('final-message');
+  partyNameMessage = document.getElementById('party-name-message');
 
   document.getElementById('code-submit').addEventListener('click', () => {
     const input = document.getElementById('code-input');
