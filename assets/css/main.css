@@ -437,8 +437,16 @@ body {
 .hidden {
   display: none;
 }
+.error {
+  color: var(--emerald-accent);
+  margin-top: 0.5rem;
+}
 .fadeable {
   transition: opacity var(--t-med) var(--ease);
+}
+
+.guest-card {
+  margin-bottom: 1rem;
 }
 
 /* Prevent background scroll when overlays are open */
