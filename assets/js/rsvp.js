@@ -37,19 +37,19 @@ function handleValidate(res) {
     stepCode.classList.add('hidden');
     stepAttending.classList.remove('hidden');
     partySize = size;
-    if (name) {
-      if (welcomeMessage) {
+
+    if (welcomeMessage) {
+      if (name) {
         welcomeMessage.textContent = `We found your record. Welcome, ${name}`;
-        welcomeMessage.classList.remove('hidden');
-      }
-      partyNameMessage.textContent = 'Is your party attending?';
-    } else {
-      if (welcomeMessage) {
+      } else {
         welcomeMessage.textContent = 'We found your record.';
-        welcomeMessage.classList.remove('hidden');
       }
-      partyNameMessage.textContent = 'Is your party attending?';
+      welcomeMessage.classList.remove('hidden');
     }
+
+    partyNameMessage.textContent = name
+      ? `Is ${name}'s party attending?`
+      : 'Is your party attending?';
   } else {
     codeError.classList.remove('hidden');
   }
