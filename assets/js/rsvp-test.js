@@ -2,18 +2,42 @@
 
 function handleUpdate(res) {
   console.log(res);
-  const info = document.getElementById('guest-info');
-  if (info) {
-    info.textContent = res.message || JSON.stringify(res);
+  if (finalMessage && res && res.message) {
+    finalMessage.textContent = res.message;
   }
 }
 
-const apiBase = 'https://script.google.com/macros/s/AKfycbxWH3YLiS4PGTM8wMGEqZMgrqzAT1DjvmpB6ejmDYhEP5TitSxoVP1A5rHhR-584n7XbA/exec';
+function handleValidate(res) {
+  console.log(res);
+  if (res && res.partySize) {
+    codeError.classList.add('hidden');
+    stepCode.classList.add('hidden');
+    stepAttending.classList.remove('hidden');
+    partySize = res.partySize;
+  } else {
+    codeError.classList.remove('hidden');
+  }
+}
+
+const apiBase =
+  'https://script.google.com/macros/s/AKfycbxWH3YLiS4PGTM8wMGEqZMgrqzAT1DjvmpB6ejmDYhEP5TitSxoVP1A5rHhR-584n7XbA/exec';
+
+function validateCode(code) {
+  const url =
+    apiBase +
+    '?action=validate&code=' +
+    encodeURIComponent(code) +
+    '&callback=handleValidate';
+  const s = document.createElement('script');
+  s.src = url;
+  document.body.appendChild(s);
+}
 
 function rsvpNo(code) {
   const url =
     apiBase +
-    '?action=update&code=' + encodeURIComponent(code) +
+    '?action=update&code=' +
+    encodeURIComponent(code) +
     '&rsvped=no' +
     '&callback=handleUpdate';
   const s = document.createElement('script');
@@ -24,14 +48,118 @@ function rsvpNo(code) {
 function rsvpYes(code, num, chicken, beef, vegetarian) {
   const url =
     apiBase +
-    '?action=update&code=' + encodeURIComponent(code) +
+    '?action=update&code=' +
+    encodeURIComponent(code) +
     '&rsvped=yes' +
-    '&number_attending=' + encodeURIComponent(num) +
-    '&chicken=' + encodeURIComponent(chicken) +
-    '&beef=' + encodeURIComponent(beef) +
-    '&vegetarian=' + encodeURIComponent(vegetarian) +
+    '&number_attending=' +
+    encodeURIComponent(num) +
+    '&chicken=' +
+    encodeURIComponent(chicken) +
+    '&beef=' +
+    encodeURIComponent(beef) +
+    '&vegetarian=' +
+    encodeURIComponent(vegetarian) +
     '&callback=handleUpdate';
   const s = document.createElement('script');
   s.src = url;
   document.body.appendChild(s);
 }
+
+let stepCode,
+  stepAttending,
+  stepGuests,
+  guestCards,
+  codeError,
+  mealError,
+  finalMessage,
+  partySize = 0,
+  currentCode = '';
+
+document.addEventListener('DOMContentLoaded', () => {
+  stepCode = document.getElementById('step-code');
+  stepAttending = document.getElementById('step-attending');
+  stepGuests = document.getElementById('step-guests');
+  guestCards = document.getElementById('guest-cards');
+  codeError = document.getElementById('code-error');
+  mealError = document.getElementById('meal-error');
+  finalMessage = document.getElementById('final-message');
+
+  document.getElementById('code-submit').addEventListener('click', () => {
+    const input = document.getElementById('code-input');
+    const code = input.value.trim();
+    currentCode = code;
+    validateCode(code);
+  });
+
+  document.getElementById('party-no').addEventListener('click', () => {
+    if (currentCode) rsvpNo(currentCode);
+    stepAttending.classList.add('hidden');
+    finalMessage.textContent = "We'll miss you!";
+    finalMessage.classList.remove('hidden');
+  });
+
+  document.getElementById('party-yes').addEventListener('click', () => {
+    stepAttending.classList.add('hidden');
+    generateGuestCards(partySize);
+    stepGuests.classList.remove('hidden');
+  });
+
+  guestCards.addEventListener('change', (e) => {
+    if (e.target.classList.contains('attending')) {
+      const mealSelect = e.target
+        .closest('.guest-card')
+        .querySelector('.meal');
+      mealSelect.disabled = !e.target.checked;
+      if (!e.target.checked) mealSelect.value = '';
+    }
+  });
+
+  stepGuests.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const cards = guestCards.querySelectorAll('.guest-card');
+    let num = 0,
+      chicken = 0,
+      beef = 0,
+      vegetarian = 0,
+      valid = true;
+    cards.forEach((card) => {
+      const attending = card.querySelector('.attending').checked;
+      if (attending) {
+        num++;
+        const meal = card.querySelector('.meal').value;
+        if (!meal) valid = false;
+        if (meal === 'chicken') chicken++;
+        else if (meal === 'beef') beef++;
+        else if (meal === 'vegetarian') vegetarian++;
+      }
+    });
+    if (!valid || num === 0 || num !== chicken + beef + vegetarian) {
+      mealError.classList.remove('hidden');
+      return;
+    }
+    mealError.classList.add('hidden');
+    if (currentCode) rsvpYes(currentCode, num, chicken, beef, vegetarian);
+    stepGuests.classList.add('hidden');
+    finalMessage.textContent = 'Thank you for your RSVP!';
+    finalMessage.classList.remove('hidden');
+  });
+});
+
+function generateGuestCards(size) {
+  guestCards.innerHTML = '';
+  for (let i = 1; i <= size; i++) {
+    const card = document.createElement('div');
+    card.className = 'guest-card';
+    card.innerHTML = `
+        <label><input type="checkbox" class="attending" checked /> Guest ${i}</label>
+        <select class="meal">
+          <option value="">Select meal</option>
+          <option value="chicken">Chicken</option>
+          <option value="beef">Beef</option>
+          <option value="vegetarian">Vegetarian</option>
+        </select>
+      `;
+    guestCards.appendChild(card);
+  }
+}
+
