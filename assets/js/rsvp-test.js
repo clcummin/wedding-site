@@ -76,12 +76,14 @@ function validateCode(code) {
   const url =
     apiBase +
     '?action=validate&code=' +
-    encodeURIComponent(code) +
-    '&callback=handleValidate';
-  jsonpRequest(url, 'handleValidate', () => {
-    codeError.textContent = 'Request failed. Please try again.';
-    codeError.classList.remove('hidden');
-  });
+    encodeURIComponent(code);
+  fetch(url, { mode: 'cors' })
+    .then((res) => res.json())
+    .then((data) => handleValidate(data))
+    .catch(() => {
+      codeError.textContent = 'Request failed. Please try again.';
+      codeError.classList.remove('hidden');
+    });
 }
 
 function rsvpNo(code) {
