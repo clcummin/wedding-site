@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <li><a href="registry.html">Registry</a></li>
       <li><a href="travel.html">Travel</a></li>
       <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="rsvp.html">RSVP</a></li>
       <li><a href="faqs.html">FAQs</a></li>
     </ul>
   </nav>
