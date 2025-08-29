@@ -1,3 +1,5 @@
+// assets/js/header.js
+// Dynamically builds the navigation header used across the site
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -41,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   container.appendChild(header);
 
+  // header markup is now in the DOM; run shared header behaviors
   if (window.initHeader) {
     window.initHeader();
   }
