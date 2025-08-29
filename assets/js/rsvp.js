@@ -186,19 +186,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const input = document.getElementById('code-input');
     const code = input.value.trim();
     currentCode = code;
-    if (/^\d{5}$/.test(code)) {
-      codeError.classList.add('hidden');
-      codeSubmit.disabled = true;
-      if (codeStatus) {
-        codeStatus.textContent = 'Looking up record...';
-        codeStatus.classList.remove('hidden');
-      }
-      validateCode(code).finally(() => {
-        codeSubmit.disabled = false;
-      });
-    } else {
-      codeError.classList.remove('hidden');
+    codeError.classList.add('hidden');
+    codeSubmit.disabled = true;
+    if (codeStatus) {
+      codeStatus.textContent = 'Looking up record...';
+      codeStatus.classList.remove('hidden');
     }
+    validateCode(code).finally(() => {
+      codeSubmit.disabled = false;
+    });
   });
 
   document.getElementById('party-no').addEventListener('click', () => {
