@@ -1,15 +1,19 @@
 // assets/js/script.js
 'use strict';
 
+// Initialize the fixed header and keep body content from hiding underneath it
 function initHeader() {
   const header = document.querySelector(".site-header");
   if (!header) return;
 
+  // Adjust the body's top padding so the fixed header doesn't overlap content
   const updateBodyPadding = () => {
     document.body.style.paddingTop = header.offsetHeight + "px";
   };
   updateBodyPadding();
   window.addEventListener("resize", updateBodyPadding);
+
+  // Toggle a shadow class once the user scrolls past the top
   window.addEventListener("scroll", () => {
     header.classList.toggle("scrolled", window.scrollY > 50);
   });
@@ -43,6 +47,8 @@ function initHeader() {
     updateNavScroll();
   }
 }
+
+// Expose the initializer so header.js can call it after injecting markup
 window.initHeader = initHeader;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -128,9 +134,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateClock() {
       const diff = target - Date.now();
+      // When the date arrives, show a friendly message and stop ticking
       if (diff <= 0) {
         clearInterval(timer);
-        countdownEl.innerHTML = "It's today!";
+        countdownEl.textContent = "It's today!";
         return;
       }
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));

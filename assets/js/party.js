@@ -1,4 +1,5 @@
 // assets/js/party.js
+// Handles modal popups for each member of the wedding party
 'use strict';
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -25,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.classList.add("hidden");
   });
 
-  // also close if clicking outside content
+  // Also close when clicking outside the modal content
   modal.addEventListener("click", (e) => {
     if (e.target === modal) modal.classList.add("hidden");
   });

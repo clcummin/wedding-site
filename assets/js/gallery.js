@@ -98,8 +98,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function setupLightbox() {
     grid.querySelectorAll("img").forEach((img) => {
-      img.addEventListener("click", (e) => {
-        open(parseInt(img.dataset.index));
+      img.addEventListener("click", () => {
+        // dataset values are strings; explicitly parse base 10
+        open(parseInt(img.dataset.index, 10));
       });
     });
     nextBtn.addEventListener("click", next);

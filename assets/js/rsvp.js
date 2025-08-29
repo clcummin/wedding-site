@@ -1,9 +1,11 @@
 // assets/js/rsvp.js
+// Handles RSVP code validation and submission via JSONP
 'use strict';
 
 let updateSuccessMessage = 'RSVP submitted successfully';
 
-function handleUpdate(res) {
+// Exposed globally so the JSONP endpoint can invoke it
+window.handleUpdate = function handleUpdate(res) {
   if (!finalMessage) return;
 
   // Support both flat and nested response shapes (e.g. res.data.message).
@@ -20,9 +22,10 @@ function handleUpdate(res) {
     finalMessage.textContent = message;
     finalMessage.classList.remove('hidden');
   }
-}
+};
 
-function handleValidate(res) {
+// Exposed globally so the JSONP endpoint can invoke it
+window.handleValidate = function handleValidate(res) {
   // Support both flat and nested response shapes.
   const ok =
     (res && res.ok) || (res && res.data && res.data.ok);
@@ -64,7 +67,7 @@ function handleValidate(res) {
   } else {
     codeError.classList.remove('hidden');
   }
-}
+};
 
 const apiBase =
   'https://script.google.com/macros/s/AKfycbxWH3YLiS4PGTM8wMGEqZMgrqzAT1DjvmpB6ejmDYhEP5TitSxoVP1A5rHhR-584n7XbA/exec';
