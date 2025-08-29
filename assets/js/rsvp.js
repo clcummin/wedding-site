@@ -12,6 +12,20 @@ window.handleUpdate = function handleUpdate(res) {
   const payload = res && res.data ? res.data : res;
   const ok =
     (res && res.ok) || (res && res.data && res.data.ok);
+  const error = payload && payload.error;
+
+  if (error) {
+    // Surface friendly messaging for known errors and default to the server text.
+    let msg;
+    if (error.startsWith('Exception')) {
+      msg = 'Something went wrong. Please try again later.';
+    } else {
+      msg = error;
+    }
+    finalMessage.textContent = msg;
+    finalMessage.classList.remove('hidden');
+    return;
+  }
 
   let message = payload && payload.message;
   if (!message && ok) {
@@ -65,6 +79,23 @@ window.handleValidate = function handleValidate(res) {
       ? `Is ${name}'s party attending?`
       : 'Is your party attending?';
   } else {
+    const error = payload && payload.error;
+    let msg = 'Incorrect code. Please try again.';
+    switch (error) {
+      case 'Missing code':
+        msg = 'Please enter your party code.';
+        break;
+      case 'Invalid code':
+        msg = 'That party code looks invalid.';
+        break;
+      case 'Not found':
+        msg = 'We couldn\u2019t find that code. Check and try again.';
+        break;
+      default:
+        if (error) msg = error;
+        break;
+    }
+    codeError.textContent = msg;
     codeError.classList.remove('hidden');
   }
 };
