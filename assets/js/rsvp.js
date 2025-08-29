@@ -36,17 +36,16 @@ function handleValidate(res) {
     codeError.classList.add('hidden');
     stepCode.classList.add('hidden');
     stepAttending.classList.remove('hidden');
-    partySize = size;
     guestsData = rawGuests.slice(0, size);
     while (guestsData.length < size) {
       guestsData.push({
         firstName: '',
         lastName: '',
+        guestCode: '',
         attending: 'no',
         meal: '',
       });
     }
-    partyName = name || '';
 
     if (welcomeMessage) {
       if (name) {
@@ -117,7 +116,7 @@ function validateCode(code) {
 
 function rsvpNo(code) {
   const guests = guestsData.map((g) => ({
-    ...g,
+    guestCode: g.guestCode,
     attending: 'no',
     meal: '',
   }));
@@ -126,10 +125,6 @@ function rsvpNo(code) {
     '?action=update&code=' +
     encodeURIComponent(code) +
     '&rsvped=no' +
-    '&partyName=' +
-    encodeURIComponent(partyName) +
-    '&partySize=' +
-    guests.length +
     '&guests=' +
     encodeURIComponent(JSON.stringify(guests)) +
     '&callback=handleUpdate';
@@ -141,17 +136,18 @@ function rsvpNo(code) {
 }
 
 function rsvpYes(code, guests) {
+  const guestPayload = guests.map((g) => ({
+    guestCode: g.guestCode,
+    attending: g.attending,
+    meal: g.meal,
+  }));
   const url =
     apiBase +
     '?action=update&code=' +
     encodeURIComponent(code) +
     '&rsvped=yes' +
-    '&partyName=' +
-    encodeURIComponent(partyName) +
-    '&partySize=' +
-    guests.length +
     '&guests=' +
-    encodeURIComponent(JSON.stringify(guests)) +
+    encodeURIComponent(JSON.stringify(guestPayload)) +
     '&callback=handleUpdate';
   return jsonpRequest(url, 'handleUpdate').catch(() => {
     finalMessage.textContent =
@@ -173,10 +169,8 @@ let stepCode,
   codeSubmit,
   codeForm,
   codeInput,
-  partySize = 0,
   currentCode = '',
-  guestsData = [],
-  partyName = '';
+  guestsData = [];
 
 document.addEventListener('DOMContentLoaded', () => {
   stepCode = document.getElementById('step-code');
