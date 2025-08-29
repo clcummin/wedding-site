@@ -1,6 +1,8 @@
 // assets/js/rsvp.js
 'use strict';
 
+let updateSuccessMessage = 'RSVP submitted successfully';
+
 function handleUpdate(res) {
   if (!finalMessage) return;
 
@@ -11,7 +13,7 @@ function handleUpdate(res) {
 
   let message = payload && payload.message;
   if (!message && ok) {
-    message = 'RSVP submitted successfully';
+    message = updateSuccessMessage;
   }
 
   if (message) {
@@ -128,11 +130,7 @@ function rsvpNo(code) {
     '&guests=' +
     encodeURIComponent(JSON.stringify(guests)) +
     '&callback=handleUpdate';
-  return jsonpRequest(url, 'handleUpdate').catch(() => {
-    finalMessage.textContent =
-      'There was a problem saving your RSVP. Please try again.';
-    finalMessage.classList.remove('hidden');
-  });
+  return jsonpRequest(url, 'handleUpdate');
 }
 
 function rsvpYes(code, guests) {
@@ -149,11 +147,7 @@ function rsvpYes(code, guests) {
     '&guests=' +
     encodeURIComponent(JSON.stringify(guestPayload)) +
     '&callback=handleUpdate';
-  return jsonpRequest(url, 'handleUpdate').catch(() => {
-    finalMessage.textContent =
-      'There was a problem saving your RSVP. Please try again.';
-    finalMessage.classList.remove('hidden');
-  });
+  return jsonpRequest(url, 'handleUpdate');
 }
 
 let stepCode,
@@ -216,10 +210,15 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('party-no').addEventListener('click', () => {
-    if (currentCode) rsvpNo(currentCode);
     stepAttending.classList.add('hidden');
-    finalMessage.textContent = "We'll miss you!";
+    updateSuccessMessage = "We'll miss you!";
+    finalMessage.textContent = 'Submitting your RSVP...';
     finalMessage.classList.remove('hidden');
+    if (currentCode)
+      rsvpNo(currentCode).catch(() => {
+        finalMessage.textContent =
+          'There was a problem saving your RSVP. Please try again.';
+      });
   });
 
   document.getElementById('party-yes').addEventListener('click', () => {
@@ -266,10 +265,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     mealError.classList.add('hidden');
     guestsData = updatedGuests;
-    if (currentCode) rsvpYes(currentCode, guestsData);
     stepGuests.classList.add('hidden');
-    finalMessage.textContent = 'Thank you for your RSVP!';
+    updateSuccessMessage = 'Thank you for your RSVP!';
+    finalMessage.textContent = 'Submitting your RSVP...';
     finalMessage.classList.remove('hidden');
+    if (currentCode)
+      rsvpYes(currentCode, guestsData).catch(() => {
+        finalMessage.textContent =
+          'There was a problem saving your RSVP. Please try again.';
+      });
   });
 });
 
