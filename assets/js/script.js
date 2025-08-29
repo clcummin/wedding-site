@@ -1,4 +1,5 @@
 // assets/js/script.js
+'use strict';
 
 function initHeader() {
   const header = document.querySelector(".site-header");

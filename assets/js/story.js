@@ -1,3 +1,6 @@
+// assets/js/story.js
+'use strict';
+
 document.addEventListener("DOMContentLoaded", () => {
   // ── Orientation hint for mobile portrait ──
   const orientationOverlay = document.getElementById("orientationOverlay");
