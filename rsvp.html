@@ -31,14 +31,21 @@
       <h1>RSVP</h1>
       <div class="card intro-card" id="rsvpCard">
         <div id="step-code">
-          <label for="code-input">Enter the "Invite Code" you received with your invitation:</label>
-          <input
-            type="text"
-            id="code-input"
-          />
-          <button id="code-submit">Submit</button>
-          <div id="code-status" class="hidden"></div>
-          <div id="code-error" class="error hidden">
+          <form id="code-form" novalidate>
+            <label for="code-input"
+              >Enter the "Invite Code" you received with your invitation:</label
+            >
+            <input
+              type="text"
+              id="code-input"
+              required
+              pattern="[A-Za-z0-9-]+"
+              autocomplete="off"
+            />
+            <button id="code-submit" type="submit">Submit</button>
+          </form>
+          <div id="code-status" class="hidden" role="status" aria-live="polite"></div>
+          <div id="code-error" class="error hidden" role="alert">
             Incorrect code. Please try again.
           </div>
         </div>
@@ -52,13 +59,13 @@
           </div>
         </div>
 
-        <form id="step-guests" class="hidden">
+        <form id="step-guests" class="hidden" novalidate>
           <div id="guest-cards"></div>
-          <div id="meal-error" class="error hidden"></div>
+          <div id="meal-error" class="error hidden" role="alert"></div>
           <button type="submit">Submit RSVP</button>
         </form>
 
-        <div id="final-message" class="hidden"></div>
+        <div id="final-message" class="hidden" role="status" aria-live="polite"></div>
       </div>
     </main>
 

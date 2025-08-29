@@ -1,10 +1,7 @@
 // assets/js/rsvp.js
 'use strict';
 
-const DEBUG = false;
-
 function handleUpdate(res) {
-  if (DEBUG) console.log('handleUpdate response:', res);
   if (!finalMessage) return;
 
   // Support both flat and nested response shapes (e.g. res.data.message).
@@ -24,7 +21,6 @@ function handleUpdate(res) {
 }
 
 function handleValidate(res) {
-  if (DEBUG) console.log(res);
   // Support both flat and nested response shapes.
   const ok =
     (res && res.ok) || (res && res.data && res.data.ok);
@@ -175,6 +171,8 @@ let stepCode,
   partyNameMessage,
   welcomeMessage,
   codeSubmit,
+  codeForm,
+  codeInput,
   partySize = 0,
   currentCode = '',
   guestsData = [],
@@ -192,12 +190,27 @@ document.addEventListener('DOMContentLoaded', () => {
   partyNameMessage = document.getElementById('party-name-message');
   welcomeMessage = document.getElementById('welcome-message');
   codeSubmit = document.getElementById('code-submit');
+  codeForm = document.getElementById('code-form');
+  codeInput = document.getElementById('code-input');
 
-  codeSubmit.addEventListener('click', () => {
-    const input = document.getElementById('code-input');
-    const code = input.value.trim();
+  codeForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const code = codeInput.value.trim();
     currentCode = code;
     codeError.classList.add('hidden');
+
+    if (!code) {
+      codeError.textContent = 'Invite code is required.';
+      codeError.classList.remove('hidden');
+      return;
+    }
+
+    if (!/^[A-Za-z0-9-]+$/.test(code)) {
+      codeError.textContent = 'Invalid code format.';
+      codeError.classList.remove('hidden');
+      return;
+    }
+
     codeSubmit.disabled = true;
     if (codeStatus) {
       codeStatus.textContent = 'Looking up record...';
@@ -267,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function generateGuestCards(guests) {
-  guestCards.innerHTML = '';
+  guestCards.textContent = '';
   guests.forEach((guest, idx) => {
     const card = document.createElement('div');
     card.className = 'guest-card';
@@ -276,19 +289,36 @@ function generateGuestCards(guests) {
       guest.firstName || guest.lastName
         ? `${guest.firstName} ${guest.lastName}`.trim()
         : `Guest ${idx + 1}`;
-    card.innerHTML = `
-        <label><input type="checkbox" class="attending" ${
-          attending ? 'checked' : ''
-        } /> ${displayName}</label>
-        <select class="meal" ${attending ? '' : 'disabled'}>
-          <option value="">Select meal</option>
-          <option value="chicken" ${
-            guest.meal === 'chicken' ? 'selected' : ''
-          }>Chicken</option>
-          <option value="beef" ${guest.meal === 'beef' ? 'selected' : ''}>Beef</option>
-          <option value="veg" ${guest.meal === 'veg' ? 'selected' : ''}>Vegetarian</option>
-        </select>
-      `;
+
+    const label = document.createElement('label');
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.className = 'attending';
+    checkbox.checked = attending;
+    label.appendChild(checkbox);
+    label.appendChild(document.createTextNode(` ${displayName}`));
+
+    const select = document.createElement('select');
+    select.className = 'meal';
+    if (!attending) select.disabled = true;
+
+    const options = [
+      { value: '', text: 'Select meal' },
+      { value: 'chicken', text: 'Chicken' },
+      { value: 'beef', text: 'Beef' },
+      { value: 'veg', text: 'Vegetarian' },
+    ];
+
+    options.forEach((opt) => {
+      const option = document.createElement('option');
+      option.value = opt.value;
+      option.textContent = opt.text;
+      if (guest.meal === opt.value) option.selected = true;
+      select.appendChild(option);
+    });
+
+    card.appendChild(label);
+    card.appendChild(select);
     guestCards.appendChild(card);
   });
 }
