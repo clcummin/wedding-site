@@ -28,9 +28,11 @@ function handleValidate(res) {
   const ok =
     (res && res.ok) || (res && res.data && res.data.ok);
   const payload = res && res.data ? res.data : res;
-
-  const guests = Array.isArray(payload && payload.guests) ? payload.guests : [];
-  const size = guests.length || parseInt(payload && payload.partySize, 10);
+  const rawGuests = Array.isArray(payload && payload.guests)
+    ? payload.guests
+    : [];
+  const size =
+    parseInt(payload && payload.partySize, 10) || rawGuests.length;
   const name = payload && payload.partyName;
 
   if (ok && size > 0) {
@@ -38,7 +40,15 @@ function handleValidate(res) {
     stepCode.classList.add('hidden');
     stepAttending.classList.remove('hidden');
     partySize = size;
-    guestsData = guests;
+    guestsData = rawGuests.slice(0, size);
+    while (guestsData.length < size) {
+      guestsData.push({
+        firstName: '',
+        lastName: '',
+        attending: 'no',
+        meal: '',
+      });
+    }
     partyName = name || '';
 
     if (welcomeMessage) {
@@ -257,14 +267,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function generateGuestCards(guests) {
   guestCards.innerHTML = '';
-  guests.forEach((guest) => {
+  guests.forEach((guest, idx) => {
     const card = document.createElement('div');
     card.className = 'guest-card';
     const attending = guest.attending === 'yes';
+    const displayName =
+      guest.firstName || guest.lastName
+        ? `${guest.firstName} ${guest.lastName}`.trim()
+        : `Guest ${idx + 1}`;
     card.innerHTML = `
         <label><input type="checkbox" class="attending" ${
           attending ? 'checked' : ''
-        } /> ${guest.firstName} ${guest.lastName}</label>
+        } /> ${displayName}</label>
         <select class="meal" ${attending ? '' : 'disabled'}>
           <option value="">Select meal</option>
           <option value="chicken" ${
