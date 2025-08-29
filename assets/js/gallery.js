@@ -1,5 +1,6 @@
 // assets/js/gallery.js
 // Simple gallery with lightbox and navigation
+'use strict';
 
 document.addEventListener("DOMContentLoaded", () => {
   const grid = document.querySelector(".gallery-grid");

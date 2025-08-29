@@ -1,27 +1,48 @@
+'use strict';
+
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('site-header');
   if (!container) return;
 
-  container.innerHTML = `
-<header class="site-header">
-  <a class="site-title" href="home.html">Becoming Cummings</a>
-  <nav class="main-nav">
-    <ul>
-      <li><a href="our-story.html">Our Story</a></li>
-      <li><a href="events.html">Events</a></li>
-      <li><a href="attire.html">Attire</a></li>
-      <li><a href="wedding-party.html">Wedding Party</a></li>
-      <li><a href="registry.html">Registry</a></li>
-      <li><a href="travel.html">Travel</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="rsvp.html">RSVP</a></li>
-      <li><a href="faqs.html">FAQs</a></li>
-    </ul>
-  </nav>
-</header>
-`;
+  const navLinks = [
+    { href: 'our-story.html', text: 'Our Story' },
+    { href: 'events.html', text: 'Events' },
+    { href: 'attire.html', text: 'Attire' },
+    { href: 'wedding-party.html', text: 'Wedding Party' },
+    { href: 'registry.html', text: 'Registry' },
+    { href: 'travel.html', text: 'Travel' },
+    { href: 'gallery.html', text: 'Gallery' },
+    { href: 'rsvp.html', text: 'RSVP' },
+    { href: 'faqs.html', text: 'FAQs' },
+  ];
+
+  const header = document.createElement('header');
+  header.className = 'site-header';
+
+  const title = document.createElement('a');
+  title.className = 'site-title';
+  title.href = 'home.html';
+  title.textContent = 'Becoming Cummings';
+  header.appendChild(title);
+
+  const nav = document.createElement('nav');
+  nav.className = 'main-nav';
+  const ul = document.createElement('ul');
+  navLinks.forEach((link) => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = link.href;
+    a.textContent = link.text;
+    li.appendChild(a);
+    ul.appendChild(li);
+  });
+  nav.appendChild(ul);
+  header.appendChild(nav);
+
+  container.appendChild(header);
 
   if (window.initHeader) {
     window.initHeader();
   }
 });
+

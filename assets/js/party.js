@@ -1,4 +1,6 @@
 // assets/js/party.js
+'use strict';
+
 document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll(".party-card");
   const modal = document.getElementById("partyModal");
