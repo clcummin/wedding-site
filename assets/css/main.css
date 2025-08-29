@@ -41,17 +41,20 @@ body {
 }
 
 /* video background */
-.background-video,
-.video-bg {
+.background-video {
   position: fixed;
   inset: 0;
   overflow: hidden;
   z-index: 0;
+  background: var(--bg-emerald-dark) url("assets/video-fallback.jpg")
+    center/cover no-repeat;
 }
-.background-video video,
-.video-bg video {
+
+.background-video video {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   transition: opacity var(--t-med) var(--ease-med);
   background: var(--bg-emerald-dark);
@@ -125,6 +128,7 @@ body {
 .fade-out {
   opacity: 0 !important;
   pointer-events: none;
+  transition: opacity var(--t-med) var(--ease-med);
 }
 
 body.allow-scroll {
@@ -602,39 +606,6 @@ body {
 .no-scroll html {
   overflow: hidden;
   height: 100vh;
-}
-
-/* Video background & fallback */
-.background-video {
-  position: fixed;
-  inset: 0;
-  background: url("assets/video-fallback.jpg") center/cover no-repeat;
-  overflow: hidden;
-  z-index: 0;
-}
-.background-video video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: opacity var(--t-med) var(--ease-med);
-}
-
-/* Dim overlay */
-.video-overlay {
-  position: fixed;
-  inset: 0;
-  background: var(--emerald-overlay);
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* Fade‑out helper */
-.fade-out {
-  opacity: 0 !important;
-  pointer-events: none;
-  transition: opacity var(--t-med) var(--ease-med);
 }
 
 /* Intro card container */

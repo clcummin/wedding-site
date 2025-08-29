@@ -1,4 +1,5 @@
 // assets/js/rsvp.js
+'use strict';
 
 const DEBUG = false;
 
