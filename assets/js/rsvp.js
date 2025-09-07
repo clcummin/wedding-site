@@ -103,7 +103,7 @@ window.handleValidate = function handleValidate(res) {
 const apiBase =
   'https://script.google.com/macros/s/AKfycbxWH3YLiS4PGTM8wMGEqZMgrqzAT1DjvmpB6ejmDYhEP5TitSxoVP1A5rHhR-584n7XbA/exec';
 
-function jsonpRequest(url, callbackName, timeout = 5000) {
+function jsonpRequest(url, callbackName, timeout = 15000) {
   return new Promise((resolve, reject) => {
     const script = document.createElement('script');
     const original = window[callbackName];
