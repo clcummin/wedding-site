@@ -729,11 +729,9 @@ body {
   padding-top: 60px;
   animation: fadeIn var(--t-med) var(--ease);
 }
-.flip-label {
-  color: white;
-}
+.flip-label,
 .separator {
-  color: white;
+  color: var(--emerald-border);
 }
 
 @keyframes fadeIn {
