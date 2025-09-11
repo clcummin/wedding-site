@@ -565,6 +565,17 @@ body {
   letter-spacing: 0.05em;
 }
 
+/* Color variants for countdown */
+.flip-clock.flip-intro .separator,
+.flip-clock.flip-intro .flip-label {
+  color: var(--emerald-border);
+}
+
+.flip-clock.flip-home .separator,
+.flip-clock.flip-home .flip-label {
+  color: var(--white);
+}
+
 /* Size modifiers */
 .flip-clock.flip-small .flip-digit {
   width: 32px;
@@ -729,11 +740,6 @@ body {
   padding-top: 60px;
   animation: fadeIn var(--t-med) var(--ease);
 }
-.flip-label,
-.separator {
-  color: var(--white);
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
