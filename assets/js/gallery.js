@@ -41,30 +41,51 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderGrid() {
     grid.innerHTML = "";
     images.forEach((src, idx) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "gallery-item";
+      button.dataset.index = idx;
+
       const img = document.createElement("img");
       img.src = src;
       img.alt = `Photo ${idx + 1}`;
       img.loading = "lazy";
-      img.dataset.index = idx;
-      grid.appendChild(img);
+
+      button.setAttribute("aria-label", img.alt);
+      button.appendChild(img);
+      grid.appendChild(button);
     });
   }
 
   // ── Lightbox ──
   let current = 0;
+  let lastFocusedElement = null;
   const lightbox = document.getElementById("lightbox");
-  const lightImg = lightbox.querySelector("img");
-  const prevBtn = lightbox.querySelector(".prev");
-  const nextBtn = lightbox.querySelector(".next");
+  const lightMedia = lightbox.querySelector(".lightbox-media");
+  const lightImg = lightMedia.querySelector("img");
+  const prevBtn = lightMedia.querySelector(".prev");
+  const nextBtn = lightMedia.querySelector(".next");
   const closeBtn = lightbox.querySelector(".close");
   const dotsContainer = lightbox.querySelector(".lightbox-dots");
+
+  lightbox.setAttribute("aria-hidden", "true");
 
   function updateDots() {
     dotsContainer.innerHTML = "";
     images.forEach((_, i) => {
       const dot = document.createElement("span");
       dot.className = "dot" + (i === current ? " active" : "");
+      dot.setAttribute("role", "tab");
+      dot.setAttribute("aria-label", `View image ${i + 1}`);
+      dot.setAttribute("aria-selected", i === current ? "true" : "false");
+      dot.tabIndex = 0;
       dot.addEventListener("click", () => open(i));
+      dot.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          open(i);
+        }
+      });
       dotsContainer.appendChild(dot);
     });
   }
@@ -79,11 +100,19 @@ document.addEventListener("DOMContentLoaded", () => {
     show();
     lightbox.classList.remove("hidden");
     document.body.classList.add("no-scroll");
+    lightbox.setAttribute("aria-hidden", "false");
+    lastFocusedElement = document.activeElement;
+    closeBtn.focus();
   }
 
   function close() {
     lightbox.classList.add("hidden");
     document.body.classList.remove("no-scroll");
+    lightbox.setAttribute("aria-hidden", "true");
+    if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+      lastFocusedElement.focus();
+    }
+    lastFocusedElement = null;
   }
 
   function next() {
@@ -97,10 +126,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function setupLightbox() {
-    grid.querySelectorAll("img").forEach((img) => {
-      img.addEventListener("click", () => {
-        // dataset values are strings; explicitly parse base 10
-        open(parseInt(img.dataset.index, 10));
+    grid.querySelectorAll(".gallery-item").forEach((item) => {
+      item.addEventListener("click", () => {
+        open(parseInt(item.dataset.index, 10));
       });
     });
     nextBtn.addEventListener("click", next);
@@ -110,6 +138,20 @@ document.addEventListener("DOMContentLoaded", () => {
       if (e.target === lightbox) close();
     });
   }
+
+  document.addEventListener("keydown", (event) => {
+    if (lightbox.classList.contains("hidden")) return;
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      next();
+    } else if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      prev();
+    } else if (event.key === "Escape") {
+      event.preventDefault();
+      close();
+    }
+  });
 
   init();
 });

@@ -184,7 +184,7 @@ body.allow-scroll {
   letter-spacing: 0.05em;
 }
 
-/* 2. Gallery Grid (page‑agnostic) */
+/* Gallery grid layout */
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -193,22 +193,46 @@ body.allow-scroll {
   margin: 6rem auto 2rem;
 }
 
-.gallery-grid img {
-  width: 100%;
-  height: auto;
+.gallery-item {
+  position: relative;
   display: block;
-  object-fit: cover;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  border: none;
   border-radius: var(--card-radius);
+  overflow: hidden;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.06);
   cursor: pointer;
+  font: inherit;
+  color: inherit;
   transition:
     transform var(--t-fast) var(--ease),
     box-shadow var(--t-fast) var(--ease);
 }
 
-.gallery-grid img:hover,
-.gallery-grid img:focus {
+.gallery-item img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-item:hover,
+.gallery-item:focus {
   transform: scale(1.03);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-item:focus {
+  outline: none;
+}
+
+.gallery-item:focus-visible {
+  outline: 3px solid var(--emerald-accent);
+  outline-offset: 4px;
 }
 
 /* ── Sticky Header ── */
@@ -932,45 +956,95 @@ body {
   display: none;
 }
 
+
 .lightbox-content {
   position: relative;
-  max-width: 90%;
+  width: min(90vw, 1000px);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
-.lightbox-content img {
-  display: block;
-  max-width: 100%;
+.lightbox-media {
+  position: relative;
+  width: 100%;
   max-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: var(--card-radius);
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.85);
 }
 
-.lightbox-content button {
+.lightbox-media img {
+  width: 100%;
+  height: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: var(--card-radius);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.lightbox-media button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   background: rgba(0, 0, 0, 0.6);
   color: var(--white);
   border: none;
-  font-size: 2rem;
-  padding: 0.5rem 0.8rem;
+  font-size: 2.2rem;
+  padding: 0.35rem 0.75rem;
   cursor: pointer;
+  border-radius: 50px;
+  transition: background var(--t-fast) var(--ease);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.lightbox-content .prev {
-  left: -3rem;
+.lightbox-media button:hover,
+.lightbox-media button:focus-visible {
+  background: rgba(0, 0, 0, 0.8);
 }
-.lightbox-content .next {
-  right: -3rem;
+
+.lightbox-media .prev {
+  left: 0.5rem;
 }
+
+.lightbox-media .next {
+  right: 0.5rem;
+}
+
 .lightbox-content .close {
-  top: -3rem;
-  right: 0;
-  transform: none;
+  position: absolute;
+  top: -0.75rem;
+  right: -0.75rem;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--white);
+  border: none;
+  font-size: 2.5rem;
+  line-height: 1;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--t-fast) var(--ease);
+}
+
+.lightbox-content .close:hover,
+.lightbox-content .close:focus-visible {
+  background: rgba(0, 0, 0, 0.9);
 }
 
 .lightbox-dots {
   text-align: center;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .lightbox-dots .dot {
@@ -985,6 +1059,11 @@ body {
 
 .lightbox-dots .dot.active {
   background: var(--white);
+}
+
+.lightbox-dots .dot:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 2px;
 }
 
 
