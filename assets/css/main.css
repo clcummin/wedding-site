@@ -185,12 +185,26 @@ body.allow-scroll {
 }
 
 /* Gallery grid layout */
+.content-container.gallery-content {
+  max-width: 1200px;
+}
+
+.gallery-content h1 {
+  margin-bottom: 1.5rem;
+}
+
+.gallery-frame {
+  border: 3px solid var(--white);
+  border-radius: calc(var(--card-radius) + 12px);
+  padding: 2rem;
+  background: rgba(0, 45, 31, 0.85);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+}
+
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
-  max-width: 1200px;
-  margin: 6rem auto 2rem;
 }
 
 .gallery-item {
@@ -398,6 +412,15 @@ body {
   .content-container {
     margin: 1rem;
     padding: 1.5rem 1rem;
+  }
+
+  .gallery-frame {
+    padding: 1.25rem;
+    border-radius: calc(var(--card-radius) + 6px);
+  }
+
+  .gallery-grid {
+    gap: 0.75rem;
   }
 
   /* Shrink sticky navigation and keep items on a single line */
