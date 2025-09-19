@@ -39,12 +39,14 @@
 
     <!-- Lightbox overlay -->
     <div id="lightbox" class="lightbox hidden">
-      <div class="lightbox-content">
-        <button class="prev" aria-label="Previous image">&#10094;</button>
-        <img src="" alt="Gallery image" loading="lazy" />
-        <button class="next" aria-label="Next image">&#10095;</button>
-        <div class="lightbox-dots"></div>
+      <div class="lightbox-content" role="dialog" aria-modal="true">
         <button class="close" aria-label="Close">&times;</button>
+        <div class="lightbox-media">
+          <button class="prev" aria-label="Previous image">&#10094;</button>
+          <img src="" alt="Gallery image" loading="lazy" />
+          <button class="next" aria-label="Next image">&#10095;</button>
+        </div>
+        <div class="lightbox-dots" role="tablist"></div>
       </div>
     </div>
     <script src="assets/js/header.js"></script>
