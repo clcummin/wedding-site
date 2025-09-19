@@ -197,7 +197,7 @@ body.allow-scroll {
   border: 3px solid var(--white);
   border-radius: calc(var(--card-radius) + 12px);
   padding: 2rem;
-  background: rgba(0, 45, 31, 0.85);
+  background: var(--white);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
 }
 
