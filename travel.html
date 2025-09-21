@@ -6,32 +6,21 @@
       name="viewport"
       content="width=device-width, initial-scale=1"
     />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://script.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://script.google.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
+    />
+    <meta name="description" content="Travel and accommodation information for Christopher & Lorraine's Wedding" />
     <title>Travel</title>
     <link rel="icon" href="assets/images/favicon.png" type="image/png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Spectral:wght@400;700&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Spectral:wght@400;700&display=swap"
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Spectral:wght@400;700&display=swap"
-      />
-    </noscript>
     <link rel="stylesheet" href="assets/css/main.css" />
   </head>
   <body class="allow-scroll">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <!-- ── Sticky Header & Nav (same on every page!) ── -->
     <div id="site-header"></div>
     <!-- ── Travel & Accommodation Content ── -->
-    <main class="content-container">
+    <main id="main-content" class="content-container">
       <h1>Travel</h1>
       <section class="airport-info info-section">
         <h2>Airport & Car Rentals</h2>
@@ -121,7 +110,7 @@
             src="assets/images/venue_map.pdf"
             aria-label="Venue Map"
             title="Venue Map"
-            frameborder="0"
+            style="border: none;"
           ></iframe>
           <div class="map-trigger" aria-label="Open map"></div>
         </div>

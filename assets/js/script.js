@@ -78,9 +78,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // ── 3) Countdown ticker (flip clock) ──
   const countdownEl = document.getElementById("countdown");
   if (countdownEl) {
-    const target = new Date("2026-09-12T00:00:00");
-    const digits = [];
-    let timer;
+    try {
+      const target = new Date("2026-09-12T00:00:00");
+      
+      // Validate date
+      if (isNaN(target.getTime())) {
+        console.error('Invalid wedding date');
+        countdownEl.textContent = 'Wedding Date: September 12, 2026';
+        return;
+      }
+      
+      const digits = [];
+      let timer;
 
     function createDigit() {
       const d = document.createElement("div");
@@ -156,9 +165,13 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    setupClock();
-    updateClock();
-    timer = setInterval(updateClock, 1000);
+      setupClock();
+      updateClock();
+      timer = setInterval(updateClock, 1000);
+    } catch (error) {
+      console.error('Error initializing countdown:', error);
+      countdownEl.textContent = 'Wedding Date: September 12, 2026';
+    }
   }
 
   // ── 5) Expandable venue map ──

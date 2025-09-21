@@ -1,3 +1,37 @@
+// Utility function to sanitize text input
+function sanitizeInput(input) {
+  if (typeof input !== 'string') return '';
+  return input.trim().replace(/[<>&"']/g, function(match) {
+    const htmlEscapes = {
+      '<': '&lt;',
+      '>': '&gt;',
+      '&': '&amp;',
+      '"': '&quot;',
+      "'": '&#39;'
+    };
+    return htmlEscapes[match];
+  });
+}
+
+// Enhanced validation function
+function validateInviteCode(code) {
+  const sanitizedCode = sanitizeInput(code);
+  
+  if (!sanitizedCode) {
+    return { valid: false, error: 'Invite code is required.' };
+  }
+  
+  if (sanitizedCode.length < 3 || sanitizedCode.length > 20) {
+    return { valid: false, error: 'Code must be between 3 and 20 characters.' };
+  }
+  
+  if (!/^[A-Za-z0-9-]+$/.test(sanitizedCode)) {
+    return { valid: false, error: 'Code can only contain letters, numbers, and hyphens.' };
+  }
+  
+  return { valid: true, code: sanitizedCode };
+}
+
 // assets/js/rsvp.js
 // Handles RSVP code validation and submission via JSONP
 'use strict';
@@ -68,15 +102,19 @@ window.handleValidate = function handleValidate(res) {
 
     if (welcomeMessage) {
       if (name) {
-        welcomeMessage.textContent = `We found your record. Welcome, ${name}`;
+        // Sanitize the name before displaying
+        const safeName = sanitizeInput(name);
+        welcomeMessage.textContent = `We found your record. Welcome, ${safeName}`;
       } else {
         welcomeMessage.textContent = 'We found your record.';
       }
       welcomeMessage.classList.remove('hidden');
     }
 
-    partyNameMessage.textContent = name
-      ? `Is ${name}'s party attending?`
+    // Sanitize party name for display
+    const safeName = name ? sanitizeInput(name) : null;
+    partyNameMessage.textContent = safeName
+      ? `Is ${safeName}'s party attending?`
       : 'Is your party attending?';
   } else {
     const error = payload && payload.error;
@@ -217,22 +255,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   codeForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const code = codeInput.value.trim();
-    currentCode = code;
+    const code = codeInput.value;
+    const validation = validateInviteCode(code);
+    
     codeError.classList.add('hidden');
 
-    if (!code) {
-      codeError.textContent = 'Invite code is required.';
+    if (!validation.valid) {
+      codeError.textContent = validation.error;
       codeError.classList.remove('hidden');
       return;
     }
 
-    if (!/^[A-Za-z0-9-]+$/.test(code)) {
-      codeError.textContent = 'Invalid code format.';
-      codeError.classList.remove('hidden');
-      return;
-    }
-
+    currentCode = validation.code;
     codeSubmit.disabled = true;
     if (codeStatus) {
       codeStatus.textContent = 'Looking up record...';

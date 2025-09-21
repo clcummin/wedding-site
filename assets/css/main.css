@@ -1,3 +1,24 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Spectral:wght@400;700&display=swap');
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--white);
+  color: var(--bg-emerald-dark);
+  padding: 8px;
+  text-decoration: none;
+  z-index: 1000;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
 :root {
   /* colors */
   --bg-emerald-dark: #002d1f;
@@ -1672,4 +1693,40 @@ body {
 
 .guest-card .guest-name {
   flex: 1;
+}
+
+/* Security and validation enhancements */
+input:invalid {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+input:valid {
+  border-color: #28a745;
+}
+
+/* Enhanced focus styles for accessibility */
+input:focus,
+button:focus,
+a:focus {
+  outline: 2px solid var(--emerald-accent);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --bg-emerald-dark: #000;
+    --white: #fff;
+    --emerald-accent: #00ff00;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -3,34 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://script.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://script.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
+    />
+    <meta name="description" content="RSVP for Christopher & Lorraine's Wedding - September 12, 2026" />
     <title>RSVP</title>
     <link rel="icon" href="assets/images/favicon.png" type="image/png" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Spectral:wght@400;700&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Spectral:wght@400;700&display=swap"
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Spectral:wght@400;700&display=swap"
-      />
-    </noscript>
     <link rel="stylesheet" href="assets/css/main.css" />
   </head>
   <body class="allow-scroll">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <!-- ── Sticky Header & Nav ── -->
     <div id="site-header"></div>
 
     <!-- ── Content Card ── -->
-    <main class="content-container">
+    <main id="main-content" class="content-container">
       <h1>RSVP</h1>
       <div class="card intro-card" id="rsvpCard">
         <div id="step-code">
@@ -42,8 +31,11 @@
               type="text"
               id="code-input"
               required
-              pattern="[A-Za-z0-9-]+"
+              pattern="[A-Za-z0-9-]{3,20}"
               autocomplete="off"
+              maxlength="20"
+              minlength="3"
+              title="Enter your invite code (3-20 characters, letters, numbers, and hyphens only)"
             />
             <button id="code-submit" type="submit">Submit</button>
           </form>
