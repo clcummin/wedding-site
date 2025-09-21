@@ -39,7 +39,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderGrid() {
-    grid.innerHTML = "";
+    // Clear existing content safely
+    while (grid.firstChild) {
+      grid.removeChild(grid.firstChild);
+    }
     images.forEach((src, idx) => {
       const button = document.createElement("button");
       button.type = "button";
@@ -71,7 +74,10 @@ document.addEventListener("DOMContentLoaded", () => {
   lightbox.setAttribute("aria-hidden", "true");
 
   function updateDots() {
-    dotsContainer.innerHTML = "";
+    // Clear existing dots safely
+    while (dotsContainer.firstChild) {
+      dotsContainer.removeChild(dotsContainer.firstChild);
+    }
     images.forEach((_, i) => {
       const dot = document.createElement("span");
       dot.className = "dot" + (i === current ? " active" : "");

@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://script.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://script.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
+    />
+    <meta name="description" content="RSVP for Christopher & Lorraine's Wedding - September 12, 2026" />
     <title>RSVP</title>
     <link rel="icon" href="assets/images/favicon.png" type="image/png" />
 
@@ -42,8 +47,11 @@
               type="text"
               id="code-input"
               required
-              pattern="[A-Za-z0-9-]+"
+              pattern="[A-Za-z0-9-]{3,20}"
               autocomplete="off"
+              maxlength="20"
+              minlength="3"
+              title="Enter your invite code (3-20 characters, letters, numbers, and hyphens only)"
             />
             <button id="code-submit" type="submit">Submit</button>
           </form>
