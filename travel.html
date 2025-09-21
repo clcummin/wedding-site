@@ -16,10 +16,11 @@
     <link rel="stylesheet" href="assets/css/main.css" />
   </head>
   <body class="allow-scroll">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <!-- ── Sticky Header & Nav (same on every page!) ── -->
     <div id="site-header"></div>
     <!-- ── Travel & Accommodation Content ── -->
-    <main class="content-container">
+    <main id="main-content" class="content-container">
       <h1>Travel</h1>
       <section class="airport-info info-section">
         <h2>Airport & Car Rentals</h2>
@@ -109,7 +110,7 @@
             src="assets/images/venue_map.pdf"
             aria-label="Venue Map"
             title="Venue Map"
-            frameborder="0"
+            style="border: none;"
           ></iframe>
           <div class="map-trigger" aria-label="Open map"></div>
         </div>
