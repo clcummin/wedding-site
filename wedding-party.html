@@ -11,23 +11,6 @@
     <title>Wedding Party</title>
     <link rel="icon" href="assets/images/favicon.png" type="image/png" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Spectral:wght@400;700&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Spectral:wght@400;700&display=swap"
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Spectral:wght@400;700&display=swap"
-      />
-    </noscript>
     <link rel="stylesheet" href="assets/css/main.css" />
   </head>
   <body class="allow-scroll">
@@ -39,9 +22,11 @@
       <h1>Wedding Party</h1>
 
       <div class="party-grid">
-        <!-- Repeat this .party-card for each member -->
+        <!-- Wedding Party Members -->
         <div
           class="party-card"
+          role="article"
+          aria-labelledby="member-1-name"
           data-name="Cherylynn Jugueta"
           data-role="Maid of Honor"
           data-bio="Bio coming soon."
@@ -49,10 +34,10 @@
         >
           <img
             src="assets/images/attire.png"
-            alt="Cherylynn Jugueta"
+            alt="Portrait of Cherylynn Jugueta, Maid of Honor"
             loading="lazy"
           />
-          <h2>Cherylynn Jugueta</h2>
+          <h2 id="member-1-name">Cherylynn Jugueta</h2>
           <p class="role">Maid of Honor</p>
         </div>
 

@@ -102,15 +102,19 @@ window.handleValidate = function handleValidate(res) {
 
     if (welcomeMessage) {
       if (name) {
-        welcomeMessage.textContent = `We found your record. Welcome, ${name}`;
+        // Sanitize the name before displaying
+        const safeName = sanitizeInput(name);
+        welcomeMessage.textContent = `We found your record. Welcome, ${safeName}`;
       } else {
         welcomeMessage.textContent = 'We found your record.';
       }
       welcomeMessage.classList.remove('hidden');
     }
 
-    partyNameMessage.textContent = name
-      ? `Is ${name}'s party attending?`
+    // Sanitize party name for display
+    const safeName = name ? sanitizeInput(name) : null;
+    partyNameMessage.textContent = safeName
+      ? `Is ${safeName}'s party attending?`
       : 'Is your party attending?';
   } else {
     const error = payload && payload.error;

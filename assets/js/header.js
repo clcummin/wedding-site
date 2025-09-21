@@ -29,12 +29,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const nav = document.createElement('nav');
   nav.className = 'main-nav';
+  nav.setAttribute('aria-label', 'Main navigation');
+  
   const ul = document.createElement('ul');
-  navLinks.forEach((link) => {
+  ul.setAttribute('role', 'menubar');
+  
+  navLinks.forEach((link, index) => {
     const li = document.createElement('li');
+    li.setAttribute('role', 'none');
+    
     const a = document.createElement('a');
     a.href = link.href;
     a.textContent = link.text;
+    a.setAttribute('role', 'menuitem');
+    a.setAttribute('tabindex', index === 0 ? '0' : '-1');
+    
     li.appendChild(a);
     ul.appendChild(li);
   });
