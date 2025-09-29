@@ -52,7 +52,9 @@ function initHeader() {
 window.initHeader = initHeader;
 
 document.addEventListener("DOMContentLoaded", () => {
-  initHeader();
+  if (document.querySelector(".site-header")) {
+    initHeader();
+  }
 
   // ── Countdown ticker (flip clock) ──
   const countdownEl = document.getElementById("countdown");
