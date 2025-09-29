@@ -30,20 +30,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const nav = document.createElement('nav');
   nav.className = 'main-nav';
   nav.setAttribute('aria-label', 'Main navigation');
-  
+
   const ul = document.createElement('ul');
   ul.setAttribute('role', 'menubar');
-  
-  navLinks.forEach((link, index) => {
+
+  navLinks.forEach((link) => {
     const li = document.createElement('li');
     li.setAttribute('role', 'none');
-    
+
     const a = document.createElement('a');
     a.href = link.href;
     a.textContent = link.text;
     a.setAttribute('role', 'menuitem');
-    a.setAttribute('tabindex', index === 0 ? '0' : '-1');
-    
+
     li.appendChild(a);
     ul.appendChild(li);
   });
@@ -51,6 +50,36 @@ document.addEventListener('DOMContentLoaded', () => {
   header.appendChild(nav);
 
   container.appendChild(header);
+
+  const navItems = Array.from(ul.querySelectorAll('a'));
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
+  navItems.forEach((link) => {
+    const linkTarget = link.getAttribute('href');
+    if (linkTarget === currentPage) {
+      link.setAttribute('aria-current', 'page');
+      link.classList.add('is-current');
+    }
+  });
+
+  // Provide roving-focus arrow key navigation for keyboard users.
+  if (navItems.length > 1) {
+    navItems.forEach((link) => {
+      link.addEventListener('keydown', (event) => {
+        if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') {
+          return;
+        }
+
+        event.preventDefault();
+        const currentIndex = navItems.indexOf(event.currentTarget);
+        if (currentIndex === -1) return;
+
+        const direction = event.key === 'ArrowRight' ? 1 : -1;
+        const nextIndex = (currentIndex + direction + navItems.length) % navItems.length;
+        navItems[nextIndex].focus();
+      });
+    });
+  }
 
   // header markup is now in the DOM; run shared header behaviors
   if (window.initHeader) {
