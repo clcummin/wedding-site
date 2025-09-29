@@ -54,28 +54,7 @@ window.initHeader = initHeader;
 document.addEventListener("DOMContentLoaded", () => {
   initHeader();
 
-  // ── 2) Intro‑card fade‑in + click (only on index.html) ──
-  const introCard = document.getElementById("introCard");
-  if (introCard) {
-    // fade in after 3s
-    setTimeout(() => introCard.classList.add("visible"), 3000);
-
-    const introLink = introCard.querySelector("a.intro-card");
-    if (introLink) {
-      introLink.addEventListener("click", (e) => {
-        e.preventDefault();
-        const url = introLink.getAttribute("href");
-        document
-          .querySelector(".background-video video")
-          ?.classList.add("fade-out");
-        document.querySelector(".video-overlay")?.classList.add("fade-out");
-        introCard.classList.add("fade-out");
-        setTimeout(() => (window.location.href = url), 700);
-      });
-    }
-  }
-
-  // ── 3) Countdown ticker (flip clock) ──
+  // ── Countdown ticker (flip clock) ──
   const countdownEl = document.getElementById("countdown");
   if (countdownEl) {
     try {
