@@ -112,13 +112,33 @@
             title="Venue Map"
             style="border: none;"
           ></iframe>
-          <div class="map-trigger" aria-label="Open map"></div>
+          <div
+            class="map-trigger"
+            role="button"
+            tabindex="0"
+            aria-label="Open map"
+            aria-haspopup="dialog"
+            aria-controls="mapOverlay"
+          >
+            <span class="visually-hidden">Open full-screen map</span>
+          </div>
         </div>
       </section>
     </main>
 
-    <div id="mapOverlay" class="pdf-overlay hidden">
+    <div
+      id="mapOverlay"
+      class="pdf-overlay hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+      aria-labelledby="mapOverlayTitle"
+      tabindex="-1"
+    >
       <div class="pdf-content">
+        <h2 id="mapOverlayTitle" class="visually-hidden">
+          Venue map full-screen view
+        </h2>
         <button class="close" aria-label="Close">&times;</button>
         <iframe src="assets/images/venue_map.pdf" title="Venue Map"></iframe>
       </div>
