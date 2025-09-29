@@ -90,9 +90,7 @@ function initCountdown() {
   const buildClockMarkup = () => {
     countdownEl.classList.add('flip-clock');
 
-    while (countdownEl.firstChild) {
-      countdownEl.removeChild(countdownEl.firstChild);
-    }
+    countdownEl.replaceChildren();
 
     digits.length = 0;
 
