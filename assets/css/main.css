@@ -908,6 +908,13 @@ body {
   letter-spacing: 0.05em;
 }
 
+/* Improve index countdown contrast */
+#countdown.flip-clock .separator,
+#countdown.flip-clock .flip-label {
+  color: var(--emerald-accent);
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.35);
+}
+
 /* Color variants for countdown */
 .flip-clock.flip-home .separator,
 .flip-clock.flip-home .flip-label {
