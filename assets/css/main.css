@@ -1,3 +1,38 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Spectral:wght@400;700&display=swap');
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  transform: translateY(-150%);
+  background: var(--white);
+  color: var(--bg-emerald-dark);
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  z-index: 1000;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: transform var(--t-fast) var(--ease);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
 :root {
   /* colors */
   --bg-emerald-dark: #002d1f;
@@ -20,6 +55,11 @@
   --t-med: 0.7s;
   --ease: ease;
   --ease-med: ease;
+  /* responsive breakpoints */
+  --mobile-max: 600px;
+  --tablet-min: 601px;
+  --tablet-max: 1024px;
+  --desktop-min: 1025px;
 }
 
 html,
@@ -40,30 +80,143 @@ body {
   box-sizing: border-box;
 }
 
-/* video background */
-.background-video,
-.video-bg {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  z-index: 0;
-}
-.background-video video,
-.video-bg video {
-  position: absolute;
-  inset: 0;
+/* Improved responsive image handling */
+img {
+  max-width: 100%;
+  height: auto;
   object-fit: cover;
-  transition: opacity var(--t-med) var(--ease-med);
-  background: var(--bg-emerald-dark);
 }
 
-/* overlay */
-.video-overlay {
-  position: fixed;
-  inset: 0;
-  background: var(--emerald-overlay);
-  z-index: 1;
-  pointer-events: none;
+/* Enhanced touch targets for better accessibility */
+button, 
+.main-btn, 
+a, 
+input, 
+select, 
+textarea {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Ensure form elements are touch-friendly */
+input, 
+select, 
+textarea {
+  font-size: 16px; /* Prevents zoom on iOS */
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--gray-light);
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color var(--t-fast) var(--ease);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--emerald-accent);
+  box-shadow: 0 0 0 3px rgba(0, 151, 92, 0.1);
+}
+
+/* Form layout improvements */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* Better button styling for forms */
+button[type="submit"],
+input[type="submit"] {
+  background: var(--emerald-accent);
+  color: var(--white);
+  border: none;
+  border-radius: var(--btn-radius);
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  font-family: var(--font-heading);
+  cursor: pointer;
+  transition: background var(--t-fast) var(--ease);
+}
+
+button[type="submit"]:hover,
+input[type="submit"]:hover {
+  background: var(--emerald-hover);
+}
+
+/* Landing layout (index.html) */
+.intro-landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.landing-photo {
+  width: 168px;
+  height: 168px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 6px 24px rgba(1, 68, 33, 0.25);
+}
+
+.landing-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.6rem, 5vw, 3.1rem);
+  letter-spacing: 0.08em;
+  margin: 0;
+  color: var(--emerald-border);
+  text-transform: uppercase;
+}
+
+.landing-date {
+  font-size: 1.3rem;
+  margin: 0;
+  letter-spacing: 0.04em;
+  color: var(--emerald-accent);
+}
+
+.landing-message {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  margin: 0;
+  max-width: 42ch;
+}
+
+.landing-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.landing-actions .main-btn {
+  min-width: 220px;
+}
+
+@media (max-width: 700px) {
+  .intro-landing {
+    max-width: 100%;
+  }
+
+  .landing-photo {
+    width: 128px;
+    height: 128px;
+  }
+
+  .landing-message {
+    font-size: 1rem;
+  }
 }
 
 /* base card styling */
@@ -73,6 +226,13 @@ body {
   border-radius: var(--card-radius);
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
   border: 2px solid var(--emerald-border);
+  padding: 3rem 2.5rem 2.5rem;
+  max-width: 460px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
   font-family: var(--font-heading);
   text-decoration: none;
   cursor: pointer;
@@ -81,6 +241,28 @@ body {
     color var(--t-fast) var(--ease-med),
     transform var(--t-fast) var(--ease-med),
     opacity var(--t-med) var(--ease-med);
+}
+
+.card > * {
+  margin: 0;
+}
+
+.card > *:last-child {
+  margin-bottom: 0;
+}
+
+.card:hover,
+.card:focus {
+  box-shadow: 0 12px 48px rgba(1, 68, 33, 0.18);
+  transform: translateY(-2px) scale(1.02);
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 1.75rem 1rem 2.1rem;
+    max-width: 100%;
+    width: 100%;
+  }
 }
 
 /* buttons share the same structure as cards but use the
@@ -122,11 +304,6 @@ body {
 }
 
 /* fade utility */
-.fade-out {
-  opacity: 0 !important;
-  pointer-events: none;
-}
-
 body.allow-scroll {
   overflow-y: auto;
 }
@@ -180,31 +357,70 @@ body.allow-scroll {
   letter-spacing: 0.05em;
 }
 
-/* 2. Gallery Grid (page‑agnostic) */
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+/* Gallery grid layout */
+.content-container.gallery-content {
   max-width: 1200px;
-  margin: 6rem auto 2rem;
 }
 
-.gallery-grid img {
-  width: 100%;
-  height: auto;
+.gallery-content h1 {
+  margin-bottom: 1.5rem;
+}
+
+.gallery-frame {
+  border: 3px solid var(--white);
+  border-radius: calc(var(--card-radius) + 12px);
+  padding: 2rem;
+  background: var(--white);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  justify-items: center;
+}
+
+.gallery-item {
+  position: relative;
   display: block;
-  object-fit: cover;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  border: none;
   border-radius: var(--card-radius);
+  overflow: hidden;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.06);
   cursor: pointer;
+  font: inherit;
+  color: inherit;
   transition:
     transform var(--t-fast) var(--ease),
     box-shadow var(--t-fast) var(--ease);
 }
 
-.gallery-grid img:hover,
-.gallery-grid img:focus {
+.gallery-item img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-item:hover,
+.gallery-item:focus {
   transform: scale(1.03);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-item:focus {
+  outline: none;
+}
+
+.gallery-item:focus-visible {
+  outline: 3px solid var(--emerald-accent);
+  outline-offset: 4px;
 }
 
 /* ── Sticky Header ── */
@@ -238,8 +454,17 @@ body {
 .site-header .main-nav a {
   color: var(--white);
 }
-.site-header .main-nav a:hover,
-.site-header .main-nav a:focus {
+.site-header .main-nav a.is-current,
+.site-header .main-nav a[aria-current='page'] {
+  background: var(--emerald-accent);
+  color: var(--white);
+}
+.site-header .main-nav a:focus-visible {
+  outline: 3px solid var(--emerald-accent);
+  outline-offset: 2px;
+}
+.site-header .main-nav a:hover:not([aria-current='page']),
+.site-header .main-nav a:focus:not([aria-current='page']) {
   background: var(--white);
   color: var(--emerald-border);
 }
@@ -352,6 +577,81 @@ body {
   border: 0;
 }
 
+/* ========== TABLET STYLES ========== */
+@media (min-width: 601px) and (max-width: 1024px) {
+  /* Typography adjustments for tablets */
+  .content-container h1 {
+    font-size: 2.2rem;
+  }
+
+  .content-container h2 {
+    font-size: 1.6rem;
+  }
+
+  /* Tablet content container spacing */
+  .content-container {
+    margin: 1.5rem auto 3rem;
+    padding: 2rem 1.75rem;
+    max-width: 700px;
+  }
+
+  /* Gallery improvements for tablets */
+  .gallery-grid {
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+
+  .gallery-frame {
+    padding: 1.5rem;
+  }
+
+  /* Wedding party grid for tablets */
+  .party-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  /* Event list improvements */
+  .event-list {
+    gap: 2rem;
+  }
+
+  /* Navigation adjustments for tablets */
+  .site-header .main-nav ul {
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .site-header .main-nav a {
+    padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+  }
+
+  /* Button sizing for tablets */
+  .main-btn {
+    font-size: 1.4rem;
+    padding: 1rem 2.5rem;
+  }
+
+  /* Flipbook adjustments for tablets */
+  #flipbook {
+    width: 85vw;
+    max-width: 900px;
+  }
+
+  .text-page-heading {
+    font-size: 1.8rem;
+  }
+
+  /* Forms optimization for tablets */
+  input, select, textarea {
+    font-size: 18px;
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* ========== MOBILE STYLES ========== */
+
 @media (max-width: 600px) {
   .coming-soon-banner {
     font-size: 1.2rem;
@@ -370,6 +670,15 @@ body {
   .content-container {
     margin: 1rem;
     padding: 1.5rem 1rem;
+  }
+
+  .gallery-frame {
+    padding: 1.25rem;
+    border-radius: calc(var(--card-radius) + 6px);
+  }
+
+  .gallery-grid {
+    gap: 0.75rem;
   }
 
   /* Shrink sticky navigation and keep items on a single line */
@@ -433,12 +742,79 @@ body {
   }
 }
 
+/* ========== MOBILE LANDSCAPE OPTIMIZATION ========== */
+@media (max-width: 812px) and (orientation: landscape) {
+  /* Optimize header for landscape */
+  .site-header {
+    padding: 0.15rem 0;
+  }
+
+  .site-header .main-nav a {
+    padding: 0.2rem 0.4rem;
+    font-size: 1rem;
+  }
+
+  /* Reduce content container padding in landscape */
+  .content-container {
+    margin: 0.5rem;
+    padding: 1rem 1rem;
+  }
+
+  .content-container h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .content-container h2 {
+    font-size: 1.3rem;
+    margin: 1.5rem 0 0.75rem;
+  }
+
+  /* Compact card spacing for landscape */
+  .card {
+    padding: 1rem 0.5rem;
+  }
+
+  /* Optimize flip clock for landscape */
+  #countdown.flip-clock.flip-small .flip-digit {
+    width: 18px;
+    height: 28px;
+    font-size: 1.1rem;
+  }
+
+  /* Gallery grid adjustments for landscape */
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.5rem;
+  }
+
+  /* Party grid in landscape */
+  .party-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  /* Button adjustments for landscape */
+  .main-btn {
+    font-size: 1.2rem;
+    padding: 0.8rem 2.5rem;
+  }
+}
+
 /* 3. Utility Classes */
 .hidden {
   display: none;
 }
+.error {
+  color: var(--emerald-accent);
+  margin-top: 0.5rem;
+}
 .fadeable {
   transition: opacity var(--t-med) var(--ease);
+}
+
+.guest-card {
+  margin-bottom: 1rem;
 }
 
 /* Prevent background scroll when overlays are open */
@@ -453,6 +829,12 @@ body {
   position: absolute;
   inset: 0;
   cursor: pointer;
+  border-radius: inherit;
+}
+
+.map-trigger:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.75);
+  outline-offset: 2px;
 }
 
 /* Fullscreen PDF overlay */
@@ -500,6 +882,12 @@ body {
   color: var(--white);
   font-size: 2rem;
   cursor: pointer;
+  line-height: 1;
+}
+
+.pdf-overlay .close:focus-visible {
+  outline: 3px solid var(--emerald-accent);
+  border-radius: 50%;
 }
 
 /* (Leave all page‑specific rules to their own CSS files) */
@@ -533,7 +921,7 @@ body {
   font-family: var(--font-heading);
   font-size: 2.2rem;
   line-height: 60px;
-  color: var(--emerald-border);
+  color: var(--white);
 }
 
 .flip-group {
@@ -548,9 +936,22 @@ body {
 
 .flip-label {
   margin-top: 4px;
-  color: var(--emerald-border);
+  color: var(--white);
   font-family: var(--font-heading);
   letter-spacing: 0.05em;
+}
+
+/* Improve index countdown contrast */
+#countdown.flip-clock .separator,
+#countdown.flip-clock .flip-label {
+  color: var(--emerald-accent);
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.35);
+}
+
+/* Color variants for countdown */
+.flip-clock.flip-home .separator,
+.flip-clock.flip-home .flip-label {
+  color: var(--white);
 }
 
 /* Size modifiers */
@@ -585,157 +986,6 @@ body {
 }
 
 
-/* ======================================================
-   A. INTRO‑PAGE RULES (only on index.html)
-   ====================================================== */
-
-/* Scroll‑lock only when <body class="no-scroll"> */
-.no-scroll,
-.no-scroll html {
-  overflow: hidden;
-  height: 100vh;
-}
-
-/* Video background & fallback */
-.background-video {
-  position: fixed;
-  inset: 0;
-  background: url("assets/video-fallback.jpg") center/cover no-repeat;
-  overflow: hidden;
-  z-index: 0;
-}
-.background-video video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: opacity var(--t-med) var(--ease-med);
-}
-
-/* Dim overlay */
-.video-overlay {
-  position: fixed;
-  inset: 0;
-  background: var(--emerald-overlay);
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* Fade‑out helper */
-.fade-out {
-  opacity: 0 !important;
-  pointer-events: none;
-  transition: opacity var(--t-med) var(--ease-med);
-}
-
-/* Intro card container */
-.intro-card-container {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  opacity: 0;
-  transition: opacity var(--t-med) var(--ease-med);
-  pointer-events: none;
-}
-.intro-card-container.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* Card component inside intro */
-.card {
-  background: var(--white);
-  color: #222;
-  border-radius: var(--card-radius);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
-  border: 1.5px solid var(--gray-light);
-  padding: 3rem 2.5rem 2.5rem;
-  max-width: 460px;
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-decoration: none;
-  cursor: pointer;
-  transition:
-    box-shadow 0.23s,
-    border 0.2s,
-    transform 0.16s,
-    opacity var(--t-med) var(--ease-med);
-}
-.card:hover,
-.card:focus {
-  box-shadow: 0 12px 48px rgba(1, 68, 33, 0.18);
-  border: 2px solid var(--emerald-border);
-  transform: translateY(-2px) scale(1.02);
-}
-
-/* Photo & text in intro card */
-.circle-photo {
-  width: var(--photo-size);
-  height: var(--photo-size);
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid var(--white);
-  box-shadow: 0 2px 10px rgba(1, 68, 33, 0.07);
-  margin-bottom: 1rem;
-}
-.wedding-names {
-  font-family: var(--font-heading);
-  font-size: 2.7rem;
-  font-weight: 600;
-  margin: 0 0 1rem;
-  letter-spacing: 0.07em;
-  color: var(--emerald-border);
-  text-align: center;
-}
-.wedding-date {
-  font-size: 1.18rem;
-  color: var(--emerald-accent);
-  margin-bottom: 2.3rem;
-  letter-spacing: 0.04em;
-  text-align: center;
-}
-
-/* Responsive tweaks for intro */
-@media (max-width: 600px) {
-  .card {
-    padding: 1.4rem 0.5rem;
-    max-width: 98%;
-  }
-  .circle-photo {
-    width: 68px;
-    height: 68px;
-  }
-  .wedding-names {
-    font-size: 2rem;
-  }
-  .wedding-date {
-    font-size: 1rem;
-  }
-  /* Ensure countdown fits within the intro card */
-  #countdown.flip-clock {
-    gap: 2px;
-  }
-  #countdown.flip-clock.flip-small .flip-digit {
-    width: 20px;
-    height: 30px;
-    font-size: 1.2rem;
-  }
-  #countdown.flip-clock.flip-small .separator {
-    font-size: 1.4rem;
-    line-height: 30px;
-  }
-  #countdown.flip-clock.flip-small .flip-label {
-    font-size: 0.7rem;
-  }
-}
-
-
 /* Home page (home.html) */
 
 /* Page wrapper */
@@ -750,13 +1000,6 @@ body {
   padding-top: 60px;
   animation: fadeIn var(--t-med) var(--ease);
 }
-.flip-label {
-  color: white;
-}
-.separator {
-  color: white;
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -949,45 +1192,95 @@ body {
   display: none;
 }
 
+
 .lightbox-content {
   position: relative;
-  max-width: 90%;
+  width: min(90vw, 1000px);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
-.lightbox-content img {
-  display: block;
-  max-width: 100%;
+.lightbox-media {
+  position: relative;
+  width: 100%;
   max-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: var(--card-radius);
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.85);
 }
 
-.lightbox-content button {
+.lightbox-media img {
+  width: 100%;
+  height: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: var(--card-radius);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.lightbox-media button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   background: rgba(0, 0, 0, 0.6);
   color: var(--white);
   border: none;
-  font-size: 2rem;
-  padding: 0.5rem 0.8rem;
+  font-size: 2.2rem;
+  padding: 0.35rem 0.75rem;
   cursor: pointer;
+  border-radius: 50px;
+  transition: background var(--t-fast) var(--ease);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.lightbox-content .prev {
-  left: -3rem;
+.lightbox-media button:hover,
+.lightbox-media button:focus-visible {
+  background: rgba(0, 0, 0, 0.8);
 }
-.lightbox-content .next {
-  right: -3rem;
+
+.lightbox-media .prev {
+  left: 0.5rem;
 }
+
+.lightbox-media .next {
+  right: 0.5rem;
+}
+
 .lightbox-content .close {
-  top: -3rem;
-  right: 0;
-  transform: none;
+  position: absolute;
+  top: -0.75rem;
+  right: -0.75rem;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--white);
+  border: none;
+  font-size: 2.5rem;
+  line-height: 1;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--t-fast) var(--ease);
+}
+
+.lightbox-content .close:hover,
+.lightbox-content .close:focus-visible {
+  background: rgba(0, 0, 0, 0.9);
 }
 
 .lightbox-dots {
   text-align: center;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .lightbox-dots .dot {
@@ -1002,6 +1295,11 @@ body {
 
 .lightbox-dots .dot.active {
   background: var(--white);
+}
+
+.lightbox-dots .dot:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 2px;
 }
 
 
@@ -1372,24 +1670,57 @@ body {
 
 
 /* RSVP page — page-specific styles */
-
-/* Page title uses global styles */
-.content-container p {
+#rsvpCard {
+  font-family: var(--font-body);
   text-align: center;
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
+  cursor: default;
+  transition: none;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
-/* Responsive iframe wrapper */
-.iframe-container {
-  padding-bottom: 75%; /* 4:3 aspect ratio */
+#rsvpCard:hover,
+#rsvpCard:focus {
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+  border: 2px solid var(--emerald-border);
+  transform: none;
 }
 
-/* Mobile tweak */
-@media (max-width: 600px) {
-  .iframe-container {
-    padding-bottom: 100%; /* square on narrow screens */
-  }
+#rsvpCard label,
+#rsvpCard p {
+  color: #222;
+}
+
+#rsvpCard input,
+#rsvpCard select,
+#rsvpCard button {
+  font-family: var(--font-body);
+  margin: 0.5rem auto;
+  display: block;
+}
+
+#rsvpCard .rsvp-choice {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+#rsvpCard #guest-cards {
+  text-align: left;
+}
+
+#rsvpCard button {
+  background: var(--bg-emerald-dark);
+  color: var(--white);
+  border-radius: var(--btn-radius);
+  border: 2px solid var(--emerald-border);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+#rsvpCard button:hover {
+  background: var(--emerald-hover);
 }
 
 
@@ -1529,4 +1860,144 @@ body {
 .iframe-container {
   padding-bottom: 56.25%; /* 16:9 ratio */
   margin-top: 1rem;
+}
+
+/* RSVP guest cards */
+.guest-card {
+  padding: 1rem;
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.guest-card label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+}
+
+.guest-card select {
+  margin-left: 1rem;
+}
+
+.guest-card .guest-name {
+  flex: 1;
+}
+
+/* Security and validation enhancements */
+input:invalid {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+input:valid {
+  border-color: #28a745;
+}
+
+/* Enhanced focus styles for accessibility */
+input:focus,
+button:focus,
+a:focus {
+  outline: 2px solid var(--emerald-accent);
+  outline-offset: 2px;
+}
+
+/* ========== PRINT STYLES ========== */
+@media print {
+  /* Hide non-essential elements when printing */
+  .site-header,
+  .main-nav,
+  button:not(.main-btn),
+  .modal-overlay,
+  .lightbox,
+  .flip-controls {
+    display: none !important;
+  }
+
+  /* Optimize layout for print */
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+
+  .content-container {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 20pt !important;
+    max-width: none !important;
+    border-radius: 0 !important;
+  }
+
+  .content-container h1,
+  .content-container h2 {
+    color: black !important;
+    page-break-after: avoid;
+  }
+
+  .content-container h1 {
+    font-size: 18pt;
+  }
+
+  .content-container h2 {
+    font-size: 14pt;
+  }
+
+  /* Ensure links show URLs when printed */
+  a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: 10pt;
+    color: #666;
+  }
+
+  /* Hide URL for internal links */
+  a[href^="#"]:after,
+  a[href^="/"]:after {
+    content: "";
+  }
+
+  /* Page break control */
+  .gallery-item,
+  .party-card,
+  .event-card,
+  .faq-item {
+    page-break-inside: avoid;
+    margin-bottom: 15pt;
+  }
+
+  /* Optimize images for print */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Print-specific margins */
+  @page {
+    margin: 1in;
+    size: letter;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --bg-emerald-dark: #000;
+    --white: #fff;
+    --emerald-accent: #00ff00;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
