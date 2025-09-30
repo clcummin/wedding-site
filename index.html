@@ -2,32 +2,43 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Coming Soon</title>
-    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Spectral:wght@400;700&display=swap"
-      onload="this.rel='stylesheet'"
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
     />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Spectral:wght@400;700&display=swap"
-      />
-    </noscript>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://script.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://script.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
+    />
+    <meta name="description" content="Christopher & Lorraine's Wedding - September 12, 2026 in Portola, CA" />
+    <title>Welcome</title>
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
     <link rel="stylesheet" href="assets/css/main.css" />
   </head>
   <body class="allow-scroll">
-    <div id="site-header"></div>
-    <main class="content-container">
-      <h1>Coming Soon</h1>
-      <p>We're busy putting the finishing touches on our wedding site. Check back soon for all the details!</p>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <main id="main-content">
+      <div class="content-container intro-landing">
+        <img
+          src="assets/images/index.jpg"
+          alt="Christopher & Lorraine"
+          class="landing-photo"
+          style="object-position: center 20%;"
+          loading="lazy"
+        />
+        <h1 class="landing-title">Lorraine &amp; Christopher</h1>
+        <p class="landing-date">
+          <span class="landing-date__date">September 12, 2026</span><br />
+          <span class="landing-date__location">Portola, CA</span>
+        </p>
+        <div id="countdown" class="flip-clock flip-small" aria-live="polite"></div>
+        <div class="landing-actions">
+          <a href="home.html" class="main-btn">Enter the Site</a>
+        </div>
+      </div>
     </main>
-    <script src="assets/js/header.js"></script>
+
     <script src="assets/js/script.js"></script>
   </body>
 </html>
