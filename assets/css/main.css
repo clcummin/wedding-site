@@ -749,6 +749,58 @@ body {
     padding: 0.15rem 0;
   }
 
+  /* Keep navigation on a single scrollable row */
+  .site-header .main-nav {
+    position: relative;
+  }
+  .site-header .main-nav ul {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+  }
+  .site-header .main-nav li {
+    flex: 0 0 auto;
+    margin: 0;
+  }
+  .site-header .main-nav::before,
+  .site-header .main-nav::after {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.6rem;
+    height: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    font-size: 1rem;
+    color: var(--white);
+    background: var(--emerald-border);
+    border-radius: 50%;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+    opacity: 1;
+    transition:
+      background var(--t-fast) var(--ease-med),
+      color var(--t-fast) var(--ease-med);
+  }
+  .site-header .main-nav::before {
+    content: "‹";
+    left: 0.25rem;
+  }
+  .site-header .main-nav::after {
+    content: "›";
+    right: 0.25rem;
+  }
+  .site-header .main-nav.show-left::before {
+    background: var(--white);
+    color: var(--emerald-border);
+  }
+  .site-header .main-nav.show-right::after {
+    background: var(--white);
+    color: var(--emerald-border);
+  }
+
   .site-header .main-nav a {
     padding: 0.2rem 0.4rem;
     font-size: 1rem;
