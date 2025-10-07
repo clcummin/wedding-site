@@ -384,7 +384,6 @@ function updateNameEditControls() {
     const label = isEditingNames ? 'Save name edits' : 'Edit names';
     nameEditToggle.textContent = label;
     nameEditToggle.setAttribute('aria-pressed', isEditingNames ? 'true' : 'false');
-    nameEditToggle.setAttribute('aria-expanded', isEditingNames ? 'true' : 'false');
     nameEditToggle.disabled = !guestsData.length;
   }
   if (nameEditNote) {
