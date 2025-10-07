@@ -13,10 +13,8 @@ function sanitizeInput(input) {
 }
 
 function sanitizeNameValue(value) {
-  if (typeof value !== 'string') return '';
-  return value.trim().replace(/[<>]/g, '');
+  return sanitizeInput(value);
 }
-
 // Enhanced validation function
 function validateInviteCode(code) {
   const sanitizedCode = sanitizeInput(code);
