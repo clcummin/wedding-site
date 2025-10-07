@@ -12,33 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const close = modal.querySelector(".modal-close");
 
   cards.forEach((card) => {
-    const imgEl = card.querySelector("img");
-    const bioText = card.dataset.bio;
-    let cardBioEl = card.querySelector(".bio");
-
-    if (bioText && !cardBioEl) {
-      cardBioEl = document.createElement("p");
-      cardBioEl.className = "bio";
-      cardBioEl.hidden = true;
-      card.appendChild(cardBioEl);
-    }
-
-    if (imgEl && cardBioEl) {
-      imgEl.addEventListener("click", (event) => {
-        event.stopPropagation();
-        if (cardBioEl.hidden) {
-          cardBioEl.textContent = bioText;
-          cardBioEl.hidden = false;
-        } else {
-          cardBioEl.hidden = true;
-        }
-      });
-    }
-
-    card.addEventListener("click", (event) => {
-      if (event.target === imgEl && cardBioEl) {
-        return;
-      }
+    card.addEventListener("click", () => {
       img.src = card.dataset.img;
       img.alt = card.dataset.name;
       nameEl.textContent = card.dataset.name;
