@@ -13,11 +13,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   cards.forEach((card) => {
     card.addEventListener("click", () => {
-      img.src = card.dataset.img;
-      img.alt = card.dataset.name;
-      nameEl.textContent = card.dataset.name;
-      roleEl.textContent = card.dataset.role;
-      bioEl.textContent = card.dataset.bio;
+      const imgSrc = card.dataset.img || "assets/images/attire.png";
+      const name = card.dataset.name || "Wedding Party Member";
+      const role = card.dataset.role || "Celebrating with us";
+      const bio = card.dataset.bio || "More details about this member will be shared soon.";
+
+      img.src = imgSrc;
+      img.alt = name;
+      nameEl.textContent = name;
+      roleEl.textContent = role;
+      bioEl.textContent = bio;
       modal.classList.remove("hidden");
     });
   });
