@@ -1,11 +1,10 @@
 // Utility function to sanitize text input
 function sanitizeInput(input) {
   if (typeof input !== 'string') return '';
-  return input.trim().replace(/[<>&"']/g, function(match) {
+  return input.trim().replace(/[<>"']/g, function(match) {
     const htmlEscapes = {
       '<': '&lt;',
       '>': '&gt;',
-      '&': '&amp;',
       '"': '&quot;',
       "'": '&#39;'
     };
