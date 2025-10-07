@@ -116,24 +116,25 @@ window.handleValidate = function handleValidate(res) {
       ? `Is ${safeName}'s party attending?`
       : 'Is your party attending?';
   } else {
-    const error = payload && payload.error;
-    let msg = 'Incorrect code. Please try again.';
-    switch (error) {
-      case 'Missing code':
-        msg = 'Please enter your party code.';
-        break;
-      case 'Invalid code':
-        msg = 'That party code looks invalid.';
-        break;
-      case 'Not found':
-        msg = 'We couldn\u2019t find that code. Check and try again.';
-        break;
-      default:
-        if (error) msg = error;
-        break;
-    }
-    codeError.textContent = msg;
-    codeError.classList.remove('hidden');
+    // Server validation failed but error message is suppressed
+    // const error = payload && payload.error;
+    // let msg = 'Incorrect code. Please try again.';
+    // switch (error) {
+    //   case 'Missing code':
+    //     msg = 'Please enter your party code.';
+    //     break;
+    //   case 'Invalid code':
+    //     msg = 'That party code looks invalid.';
+    //     break;
+    //   case 'Not found':
+    //     msg = 'We couldn\u2019't find that code. Check and try again.';
+    //     break;
+    //   default:
+    //     if (error) msg = error;
+    //     break;
+    // }
+    // codeError.textContent = msg;
+    // codeError.classList.remove('hidden');
   }
 };
 
@@ -180,8 +181,9 @@ function validateCode(code) {
     encodeURIComponent(code) +
     '&callback=handleValidate';
   return jsonpRequest(url, 'handleValidate').catch(() => {
-    codeError.textContent = 'Request failed. Please try again.';
-    codeError.classList.remove('hidden');
+    // Request failed but error message is suppressed
+    // codeError.textContent = 'Request failed. Please try again.';
+    // codeError.classList.remove('hidden');
   }).finally(() => {
     if (codeStatus) codeStatus.classList.add('hidden');
   });
@@ -260,8 +262,9 @@ document.addEventListener('DOMContentLoaded', () => {
     codeError.classList.add('hidden');
 
     if (!validation.valid) {
-      codeError.textContent = validation.error;
-      codeError.classList.remove('hidden');
+      // Validation logic runs but error message is suppressed
+      // codeError.textContent = validation.error;
+      // codeError.classList.remove('hidden');
       return;
     }
 
