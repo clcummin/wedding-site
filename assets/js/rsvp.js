@@ -12,6 +12,9 @@ function sanitizeInput(input) {
   });
 }
 
+function sanitizeNameValue(value) {
+  return sanitizeInput(value);
+}
 // Enhanced validation function
 function validateInviteCode(code) {
   const sanitizedCode = sanitizeInput(code);
@@ -98,6 +101,9 @@ window.handleValidate = function handleValidate(res) {
         meal: '',
       });
     }
+    isEditingNames = false;
+    namesEdited = false;
+    updateNameEditControls();
 
     if (welcomeMessage) {
       if (name) {
@@ -205,11 +211,18 @@ function rsvpNo(code) {
 }
 
 function rsvpYes(code, guests) {
-  const guestPayload = guests.map((g) => ({
-    guestCode: g.guestCode,
-    attending: g.attending,
-    meal: g.meal,
-  }));
+  const guestPayload = guests.map((g) => {
+    const payload = {
+      guestCode: g.guestCode,
+      attending: g.attending,
+      meal: g.meal,
+    };
+    if (namesEdited) {
+      payload.firstName = g.firstName || '';
+      payload.lastName = g.lastName || '';
+    }
+    return payload;
+  });
   const url =
     apiBase +
     '?action=update&code=' +
@@ -234,8 +247,12 @@ let stepCode,
   codeSubmit,
   codeForm,
   codeInput,
+  nameEditToggle,
+  nameEditNote,
   currentCode = '',
-  guestsData = [];
+  guestsData = [],
+  isEditingNames = false,
+  namesEdited = false;
 
 document.addEventListener('DOMContentLoaded', () => {
   stepCode = document.getElementById('step-code');
@@ -251,6 +268,16 @@ document.addEventListener('DOMContentLoaded', () => {
   codeSubmit = document.getElementById('code-submit');
   codeForm = document.getElementById('code-form');
   codeInput = document.getElementById('code-input');
+  nameEditToggle = document.getElementById('name-edit-toggle');
+  nameEditNote = document.getElementById('name-edit-note');
+
+  updateNameEditControls();
+
+  if (nameEditToggle) {
+    nameEditToggle.addEventListener('click', () => {
+      toggleNameEditing();
+    });
+  }
 
   codeForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -290,6 +317,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('party-yes').addEventListener('click', () => {
     stepAttending.classList.add('hidden');
+    isEditingNames = false;
+    namesEdited = false;
+    updateNameEditControls();
     generateGuestCards(guestsData);
     stepGuests.classList.remove('hidden');
   });
@@ -306,6 +336,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   stepGuests.addEventListener('submit', (e) => {
     e.preventDefault();
+    if (isEditingNames) {
+      saveEditedNames();
+    }
     const cards = guestCards.querySelectorAll('.guest-card');
     const updatedGuests = [];
     let valid = true;
@@ -333,6 +366,8 @@ document.addEventListener('DOMContentLoaded', () => {
     mealError.classList.add('hidden');
     guestsData = updatedGuests;
     stepGuests.classList.add('hidden');
+    isEditingNames = false;
+    updateNameEditControls();
     updateSuccessMessage = 'Thank you for your RSVP!';
     finalMessage.textContent = 'Submitting your RSVP...';
     finalMessage.classList.remove('hidden');
@@ -344,7 +379,72 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-function generateGuestCards(guests) {
+function updateNameEditControls() {
+  if (nameEditToggle) {
+    const label = isEditingNames ? 'Save name edits' : 'Edit names';
+    nameEditToggle.textContent = label;
+    nameEditToggle.setAttribute('aria-pressed', isEditingNames ? 'true' : 'false');
+    nameEditToggle.disabled = !guestsData.length;
+  }
+  if (nameEditNote) {
+    if (isEditingNames && guestsData.length) {
+      nameEditNote.classList.remove('hidden');
+    } else {
+      nameEditNote.classList.add('hidden');
+    }
+  }
+}
+
+function saveEditedNames() {
+  if (!guestCards) return false;
+  const cards = guestCards.querySelectorAll('.guest-card');
+  let hasChanges = false;
+  cards.forEach((card, idx) => {
+    const firstInput = card.querySelector('.name-first');
+    const lastInput = card.querySelector('.name-last');
+    if (!firstInput || !lastInput || !guestsData[idx]) return;
+    const sanitizedFirst = sanitizeNameValue(firstInput.value);
+    const sanitizedLast = sanitizeNameValue(lastInput.value);
+    if ((guestsData[idx].firstName || '') !== sanitizedFirst) {
+      hasChanges = true;
+    }
+    if ((guestsData[idx].lastName || '') !== sanitizedLast) {
+      hasChanges = true;
+    }
+    guestsData[idx] = {
+      ...guestsData[idx],
+      firstName: sanitizedFirst,
+      lastName: sanitizedLast,
+    };
+    firstInput.value = sanitizedFirst;
+    lastInput.value = sanitizedLast;
+  });
+  if (hasChanges) {
+    namesEdited = true;
+  }
+  return hasChanges;
+}
+
+function toggleNameEditing() {
+  if (!guestsData.length) return;
+  if (!isEditingNames) {
+    isEditingNames = true;
+    updateNameEditControls();
+    generateGuestCards(guestsData);
+    const firstInput = guestCards && guestCards.querySelector('.name-first');
+    if (firstInput) firstInput.focus();
+    return;
+  }
+
+  saveEditedNames();
+  isEditingNames = false;
+  updateNameEditControls();
+  generateGuestCards(guestsData);
+  if (nameEditToggle) nameEditToggle.focus();
+}
+
+function generateGuestCards(guests, editing = isEditingNames) {
+  if (!guestCards) return;
   guestCards.textContent = '';
   guests.forEach((guest, idx) => {
     const card = document.createElement('div');
@@ -352,10 +452,56 @@ function generateGuestCards(guests) {
     const attending = guest.attending === 'yes';
     const displayName =
       guest.firstName || guest.lastName
-        ? `${guest.firstName} ${guest.lastName}`.trim()
+        ? `${guest.firstName || ''} ${guest.lastName || ''}`.trim()
         : `Guest ${idx + 1}`;
 
+    if (editing) {
+      const nameFields = document.createElement('div');
+      nameFields.className = 'name-edit-fields';
+
+      const firstWrapper = document.createElement('div');
+      firstWrapper.className = 'name-field';
+      const firstId = `guest-${idx}-first`;
+      const firstLabel = document.createElement('label');
+      firstLabel.setAttribute('for', firstId);
+      firstLabel.textContent = 'First name';
+      const firstInput = document.createElement('input');
+      firstInput.type = 'text';
+      firstInput.id = firstId;
+      firstInput.className = 'name-first';
+      firstInput.value = guest.firstName || '';
+      firstInput.setAttribute('autocomplete', 'off');
+      if (nameEditNote) {
+        firstInput.setAttribute('aria-describedby', 'name-edit-note');
+      }
+      firstWrapper.appendChild(firstLabel);
+      firstWrapper.appendChild(firstInput);
+
+      const lastWrapper = document.createElement('div');
+      lastWrapper.className = 'name-field';
+      const lastId = `guest-${idx}-last`;
+      const lastLabel = document.createElement('label');
+      lastLabel.setAttribute('for', lastId);
+      lastLabel.textContent = 'Last name';
+      const lastInput = document.createElement('input');
+      lastInput.type = 'text';
+      lastInput.id = lastId;
+      lastInput.className = 'name-last';
+      lastInput.value = guest.lastName || '';
+      lastInput.setAttribute('autocomplete', 'off');
+      if (nameEditNote) {
+        lastInput.setAttribute('aria-describedby', 'name-edit-note');
+      }
+      lastWrapper.appendChild(lastLabel);
+      lastWrapper.appendChild(lastInput);
+
+      nameFields.appendChild(firstWrapper);
+      nameFields.appendChild(lastWrapper);
+      card.appendChild(nameFields);
+    }
+
     const label = document.createElement('label');
+    label.className = 'guest-attendance';
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.className = 'attending';
