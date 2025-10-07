@@ -1,15 +1,12 @@
 // Utility function to sanitize text input
+// Strips control characters and trims whitespace so it can be safely
+// inserted into the DOM via textContent without mutating visible characters
+// such as ampersands.
 function sanitizeInput(input) {
   if (typeof input !== 'string') return '';
-  return input.trim().replace(/[<>"']/g, function(match) {
-    const htmlEscapes = {
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#39;'
-    };
-    return htmlEscapes[match];
-  });
+  return input
+    .replace(/[\u0000-\u001F\u007F]/g, '')
+    .trim();
 }
 
 // Enhanced validation function
