@@ -1811,10 +1811,13 @@ body {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 .party-card img {
-  width: 100%;
+  width: 70%;
+  max-width: 220px;
+  margin: 0 auto 0.75rem;
+  display: block;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 0.75rem;
+  cursor: pointer;
 }
 .party-card h2 {
   margin: 0.5rem 0 0.2rem;
@@ -1826,6 +1829,12 @@ body {
   margin: 0;
   font-size: 1rem;
   color: var(--emerald-accent);
+}
+.party-card .bio {
+  margin: 0.75rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #333;
 }
 
 /* Modal overlay */
