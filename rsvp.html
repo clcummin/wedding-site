@@ -39,14 +39,20 @@
             />
             <button id="code-submit" type="submit">Submit</button>
           </form>
-          <div id="code-status" class="hidden" role="status" aria-live="polite"></div>
-          <div id="code-error" class="error hidden" role="alert">
+          <div
+            id="code-status"
+            class="hidden"
+            role="status"
+            aria-live="polite"
+            hidden
+          ></div>
+          <div id="code-error" class="error hidden" role="alert" hidden>
             Incorrect code. Please try again.
           </div>
         </div>
 
-        <div id="step-attending" class="hidden">
-          <p id="welcome-message" class="hidden"></p>
+        <div id="step-attending" class="hidden" hidden>
+          <p id="welcome-message" class="hidden" hidden></p>
           <p id="party-name-message"></p>
           <div class="rsvp-choice">
             <button type="button" id="party-yes">Yes</button>
@@ -54,7 +60,7 @@
           </div>
         </div>
 
-        <form id="step-guests" class="hidden" novalidate>
+        <form id="step-guests" class="hidden" novalidate hidden>
           <div class="name-edit-controls">
             <button
               type="button"
@@ -65,17 +71,23 @@
             >
               Edit names
             </button>
-            <p id="name-edit-note" class="hidden">
+            <p id="name-edit-note" class="hidden" hidden>
               Use this to correct spelling only. Contact Chris or Lorraine for any
               other changes.
             </p>
           </div>
           <div id="guest-cards"></div>
-          <div id="meal-error" class="error hidden" role="alert"></div>
+          <div id="meal-error" class="error hidden" role="alert" hidden></div>
           <button type="submit">Submit RSVP</button>
         </form>
 
-        <div id="final-message" class="hidden" role="status" aria-live="polite"></div>
+        <div
+          id="final-message"
+          class="hidden"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></div>
       </div>
     </main>
 

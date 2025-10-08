@@ -1,3 +1,5 @@
+'use strict';
+
 // Utility function to sanitize text input
 function sanitizeInput(input) {
   if (typeof input !== 'string') return '';
@@ -14,6 +16,18 @@ function sanitizeInput(input) {
 
 function sanitizeNameValue(value) {
   return sanitizeInput(value);
+}
+
+function showElement(element) {
+  if (!element) return;
+  element.classList.remove('hidden');
+  element.removeAttribute('hidden');
+}
+
+function hideElement(element) {
+  if (!element) return;
+  element.classList.add('hidden');
+  element.setAttribute('hidden', '');
 }
 // Enhanced validation function
 function validateInviteCode(code) {
@@ -36,7 +50,6 @@ function validateInviteCode(code) {
 
 // assets/js/rsvp.js
 // Handles RSVP code validation and submission via JSONP
-'use strict';
 
 let updateSuccessMessage = 'RSVP submitted successfully';
 
@@ -59,7 +72,7 @@ window.handleUpdate = function handleUpdate(res) {
       msg = error;
     }
     finalMessage.textContent = msg;
-    finalMessage.classList.remove('hidden');
+    showElement(finalMessage);
     return;
   }
 
@@ -70,7 +83,7 @@ window.handleUpdate = function handleUpdate(res) {
 
   if (message) {
     finalMessage.textContent = message;
-    finalMessage.classList.remove('hidden');
+    showElement(finalMessage);
   }
 };
 
@@ -88,9 +101,9 @@ window.handleValidate = function handleValidate(res) {
   const name = payload && payload.partyName;
 
   if (ok && size > 0) {
-    codeError.classList.add('hidden');
-    stepCode.classList.add('hidden');
-    stepAttending.classList.remove('hidden');
+    hideElement(codeError);
+    hideElement(stepCode);
+    showElement(stepAttending);
     guestsData = rawGuests.slice(0, size);
     while (guestsData.length < size) {
       guestsData.push({
@@ -113,7 +126,7 @@ window.handleValidate = function handleValidate(res) {
       } else {
         welcomeMessage.textContent = 'We found your record.';
       }
-      welcomeMessage.classList.remove('hidden');
+      showElement(welcomeMessage);
     }
 
     // Sanitize party name for display
@@ -139,7 +152,7 @@ window.handleValidate = function handleValidate(res) {
         break;
     }
     codeError.textContent = msg;
-    codeError.classList.remove('hidden');
+    showElement(codeError);
   }
 };
 
@@ -187,9 +200,9 @@ function validateCode(code) {
     '&callback=handleValidate';
   return jsonpRequest(url, 'handleValidate').catch(() => {
     codeError.textContent = 'Request failed. Please try again.';
-    codeError.classList.remove('hidden');
+    showElement(codeError);
   }).finally(() => {
-    if (codeStatus) codeStatus.classList.add('hidden');
+    if (codeStatus) hideElement(codeStatus);
   });
 }
 
@@ -284,11 +297,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const code = codeInput.value;
     const validation = validateInviteCode(code);
     
-    codeError.classList.add('hidden');
+    hideElement(codeError);
 
     if (!validation.valid) {
       codeError.textContent = validation.error;
-      codeError.classList.remove('hidden');
+      showElement(codeError);
       return;
     }
 
@@ -296,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
     codeSubmit.disabled = true;
     if (codeStatus) {
       codeStatus.textContent = 'Looking up record...';
-      codeStatus.classList.remove('hidden');
+      showElement(codeStatus);
     }
     validateCode(code).finally(() => {
       codeSubmit.disabled = false;
@@ -304,10 +317,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('party-no').addEventListener('click', () => {
-    stepAttending.classList.add('hidden');
+    hideElement(stepAttending);
     updateSuccessMessage = "We'll miss you!";
     finalMessage.textContent = 'Submitting your RSVP...';
-    finalMessage.classList.remove('hidden');
+    showElement(finalMessage);
     if (currentCode)
       rsvpNo(currentCode).catch(() => {
         finalMessage.textContent =
@@ -316,12 +329,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('party-yes').addEventListener('click', () => {
-    stepAttending.classList.add('hidden');
+    hideElement(stepAttending);
     isEditingNames = false;
     namesEdited = false;
     updateNameEditControls();
     generateGuestCards(guestsData);
-    stepGuests.classList.remove('hidden');
+    showElement(stepGuests);
   });
 
   guestCards.addEventListener('change', (e) => {
@@ -355,22 +368,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const anyAttending = updatedGuests.some((g) => g.attending === 'yes');
     if (!anyAttending) {
       mealError.textContent = 'Please select at least one guest to attend.';
-      mealError.classList.remove('hidden');
+      showElement(mealError);
       return;
     }
     if (!valid) {
       mealError.textContent = 'Every attending guest must choose a meal.';
-      mealError.classList.remove('hidden');
+      showElement(mealError);
       return;
     }
-    mealError.classList.add('hidden');
+    hideElement(mealError);
     guestsData = updatedGuests;
-    stepGuests.classList.add('hidden');
+    hideElement(stepGuests);
     isEditingNames = false;
     updateNameEditControls();
     updateSuccessMessage = 'Thank you for your RSVP!';
     finalMessage.textContent = 'Submitting your RSVP...';
-    finalMessage.classList.remove('hidden');
+    showElement(finalMessage);
     if (currentCode)
       rsvpYes(currentCode, guestsData).catch(() => {
         finalMessage.textContent =
@@ -388,9 +401,9 @@ function updateNameEditControls() {
   }
   if (nameEditNote) {
     if (isEditingNames && guestsData.length) {
-      nameEditNote.classList.remove('hidden');
+      showElement(nameEditNote);
     } else {
-      nameEditNote.classList.add('hidden');
+      hideElement(nameEditNote);
     }
   }
 }
@@ -515,9 +528,10 @@ function generateGuestCards(guests, editing = isEditingNames) {
 
     const options = [
       { value: '', text: 'Select meal' },
-      { value: 'chicken', text: 'Chicken' },
-      { value: 'beef', text: 'Beef' },
-      { value: 'veg', text: 'Vegetarian' },
+      { value: 'med-well beef', text: 'Medium Well Beef' },
+      { value: 'med-rare beef', text: 'Medium Rare Beef' },
+      { value: 'fish', text: 'Fish' },
+      { value: 'vegetarian', text: 'Vegetarian' },
     ];
 
     options.forEach((opt) => {
