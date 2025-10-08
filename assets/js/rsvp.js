@@ -51,7 +51,6 @@ function validateInviteCode(code) {
 // assets/js/rsvp.js
 // Handles RSVP code validation and submission via JSONP
 
-
 let updateSuccessMessage = 'RSVP submitted successfully';
 
 // Exposed globally so the JSONP endpoint can invoke it
