@@ -5,13 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://script.google.com https://script.googleusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://script.google.com https://script.googleusercontent.com; upgrade-insecure-requests;"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://script.google.com https://script.googleusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; f[...]"
     />
     <meta name="description" content="RSVP for Christopher & Lorraine's Wedding - September 12, 2026" />
     <title>RSVP</title>
     <link rel="icon" href="assets/images/favicon.png" type="image/png" />
 
     <link rel="stylesheet" href="assets/css/main.css" />
+    <style>
+      /* Local styles for the invite-help block */
+      .invite-help {
+        margin-top: 0.75rem;
+      }
+      .invite-help details {
+        border-left: 3px solid rgba(0,0,0,0.06);
+        padding-left: 0.75rem;
+        background: rgba(0,0,0,0.01);
+        border-radius: 4px;
+      }
+      .invite-help summary {
+        cursor: pointer;
+        font-weight: 600;
+        list-style: none;
+      }
+      .invite-help img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0.5rem 0;
+        border-radius: 4px;
+      }
+      .invite-help figure {
+        margin: 0.5rem 0 1rem 0;
+      }
+      .invite-help figcaption {
+        font-size: 0.9rem;
+        color: #555;
+      }
+    </style>
   </head>
   <body class="allow-scroll">
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -39,6 +70,29 @@
             />
             <button id="code-submit" type="submit">Submit</button>
           </form>
+
+          <!-- Inline expandable help for locating the invite code -->
+          <div class="invite-help" aria-hidden="false">
+            <details>
+              <summary id="invite-code-help-summary">Where do I find my invite code?</summary>
+              <p>
+                The invite code is printed on the RSVP card you received — often near your
+                name or on the top-right of the card. If you received an email version of the invite,
+                look for the code in the card image or the message body.
+              </p>
+
+              <figure>
+                <img src="assets/images/IMG_2405.jpeg" alt="Back of invitation showing where invite code is printed">
+                <figcaption>Example: back of the invitation showing invite code location (IMG_2405)</figcaption>
+              </figure>
+
+              <figure>
+                <img src="assets/images/IMG_2402.jpeg" alt="Close-up of invite card showing the invite code">
+                <figcaption>Example: close-up of the invite code on the RSVP card (IMG_2402)</figcaption>
+              </figure>
+            </details>
+          </div>
+
           <div
             id="code-status"
             class="hidden"
@@ -97,4 +151,3 @@
     <script src="assets/js/rsvp.js"></script>
   </body>
 </html>
-
