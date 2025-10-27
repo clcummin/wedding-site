@@ -58,6 +58,14 @@
             <label for="code-input"
               >Enter the "Invite Code" you received with your invitation:</label
             >
+            <p class="code-help" id="code-help">
+              <small
+                ><em
+                  >Your invite code can be found on the front of your physical
+                  invitation.</em
+                ></small
+              >
+            </p>
             <input
               type="text"
               id="code-input"
@@ -67,6 +75,7 @@
               maxlength="20"
               minlength="3"
               title="Enter your invite code (3-20 characters, letters, numbers, and hyphens only)"
+              aria-describedby="code-help"
             />
             <button id="code-submit" type="submit">Submit</button>
           </form>
