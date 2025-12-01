@@ -1778,6 +1778,14 @@ body {
   background: var(--emerald-hover);
 }
 
+.code-help {
+  font-style: italic;
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
 
 /* Wedding Party page — page-specific styles */
 
