@@ -1392,10 +1392,11 @@ body {
 }
 
 .attire-section ul {
+  width: fit-content;
   margin: 0 auto;
-  padding: 0;
-  text-align: center;
-  list-style-position: inside;
+  padding-left: 1.2rem;
+  text-align: left;
+  list-style-position: outside;
 }
 
 .donts {
