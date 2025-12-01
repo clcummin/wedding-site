@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const navLinks = [
     { href: 'our-story.html', text: 'Our Story' },
     { href: 'events.html', text: 'Events' },
-    { href: 'attire.html', text: 'Attire' },
+    { href: 'dress_code.html', text: 'Dress Code' },
     { href: 'wedding-party.html', text: 'Wedding Party' },
     { href: 'registry.html', text: 'Registry' },
     { href: 'travel.html', text: 'Travel' },
