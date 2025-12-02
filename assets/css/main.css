@@ -1810,12 +1810,16 @@ body {
   background: var(--white);
   border-radius: var(--card-radius);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  text-align: center;
+  
+  display: flex;              /* enables Flexbox */
+  flex-direction: column;     /* stack children vertically */
+  justify-content: center;    /* vertical centering */
+  align-items: center;        /* horizontal centering */
+  
+  text-align: center;         /* center text inside each element */
   padding: 1rem;
   cursor: pointer;
-  transition:
-    transform 0.2s,
-    box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 @media (max-width: 600px) {
