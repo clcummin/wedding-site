@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { href: 'events.html', text: 'Events' },
     { href: 'dress_code.html', text: 'Dress Code' },
     { href: 'wedding-party.html', text: 'Wedding Party' },
-    { href: 'registry.html', text: 'Registry' },
+    { href: 'gifts.html', text: 'Gifts' },
     { href: 'travel.html', text: 'Travel' },
     { href: 'gallery.html', text: 'Gallery' },
     { href: 'rsvp.html', text: 'RSVP' },
