@@ -1932,7 +1932,9 @@ body {
 
   .party-heading {
     text-align: center;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
+    line-height: 1.1;
+    overflow-wrap: anywhere;
   }
 
   .party-grid {
