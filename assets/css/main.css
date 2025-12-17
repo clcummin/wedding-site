@@ -1852,6 +1852,13 @@ body {
   }
 }
 
+.proposal-video {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 12px;
+  margin-top: 0.5rem;
+}
+
 @media (max-width: 600px) {
   .party-layout {
     grid-template-columns: 1fr;
