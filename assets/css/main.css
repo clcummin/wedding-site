@@ -1870,10 +1870,21 @@ body {
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
+.party-card img {
+  width: 72%;
+  max-width: 200px;
+  margin: 0 auto 0.75rem;
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+}
+
 @media (max-width: 600px) {
   .party-grid {
-    grid-template-columns: 1fr 1fr; /* Retain two columns */
-    grid-template-rows: auto auto; /* Adjust height for varying content */
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
   }
 
   /* Ensure titles (Bridesmaid, Groomsmen) align properly */
@@ -1909,7 +1920,18 @@ body {
 
 @media (max-width: 600px) {
   .party-layout {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+    gap: 0.75rem 1rem;
+  }
+
+  .party-heading {
+    text-align: left;
+    font-size: 1.05rem;
+  }
+
+  .party-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
   }
 
   .grid-spacer {
@@ -1923,20 +1945,16 @@ body {
   .proposal-video {
     max-height: 320px;
   }
+
+  .party-card img {
+    width: 68%;
+    max-width: 160px;
+  }
 }
 
 .party-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-}
-.party-card img {
-  width: 70%;
-  max-width: 220px;
-  margin: 0 auto 0.75rem;
-  display: block;
-  border-radius: 50%;
-  object-fit: cover;
-  cursor: pointer;
 }
 .party-card h2 {
   margin: 0.5rem 0 0.2rem;
