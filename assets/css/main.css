@@ -1848,7 +1848,20 @@ body {
 
 @media (max-width: 600px) {
   .party-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr; /* Retain two columns */
+    grid-template-rows: auto auto; /* Adjust height for varying content */
+  }
+
+  /* Ensure titles (Bridesmaid, Groomsmen) align properly */
+  .party-grid-title {
+    grid-column: span 1; /* Each title spans one column */
+    text-align: center; /* Align text to center */
+  }
+
+  /* Move video under the Bridesmaid title explicitly */
+  .bridesmaid-video {
+    grid-column: 1; /* Place video under Bridesmaid */
+    grid-row: span 1;
   }
 }
 
