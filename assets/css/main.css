@@ -1816,6 +1816,16 @@ body {
   margin: 0;
 }
 
+.show-desktop-only {
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .show-desktop-only {
+    display: none;
+  }
+}
+
 /* Proposal callout */
 .proposal-callout {
   grid-column: 1 / -1;
