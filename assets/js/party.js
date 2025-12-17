@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const roleEl = document.getElementById("modalRole");
   const bioEl = document.getElementById("modalBio");
   const close = modal.querySelector(".modal-close");
+  const proposalToggle = document.querySelector(".proposal-toggle");
+  const proposalWrapper = document.getElementById("proposalVideo");
+  const proposalVideo = proposalWrapper?.querySelector("video");
 
   cards.forEach((card) => {
     card.addEventListener("click", () => {
@@ -34,5 +37,22 @@ document.addEventListener("DOMContentLoaded", () => {
   // Also close when clicking outside the modal content
   modal.addEventListener("click", (e) => {
     if (e.target === modal) modal.classList.add("hidden");
+  });
+
+  proposalToggle?.addEventListener("click", () => {
+    const isExpanded = proposalToggle.getAttribute("aria-expanded") === "true";
+    proposalToggle.setAttribute("aria-expanded", String(!isExpanded));
+    proposalToggle.textContent = isExpanded
+      ? "Show bridal proposal video"
+      : "Hide bridal proposal video";
+
+    if (!isExpanded) {
+      proposalWrapper?.removeAttribute("hidden");
+      proposalWrapper?.classList.remove("collapsed");
+    } else {
+      proposalWrapper?.setAttribute("hidden", "");
+      proposalWrapper?.classList.add("collapsed");
+      proposalVideo?.pause();
+    }
   });
 });

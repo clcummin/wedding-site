@@ -1813,6 +1813,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  margin: 0;
 }
 
 /* Proposal callout */
@@ -1823,6 +1824,29 @@ body {
 
 .proposal-callout a {
   font-weight: 600;
+}
+
+.proposal-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  border: 2px solid var(--emerald-border);
+  background: var(--bg-emerald-dark);
+  color: var(--white);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+
+.proposal-toggle:hover,
+.proposal-toggle:focus-visible {
+  background: var(--emerald-hover);
+  color: var(--white);
 }
 
 /* Party grid spans both columns */
@@ -1867,26 +1891,38 @@ body {
 
 .proposal-video {
   width: 100%;
-  max-width: 100%;
+  max-width: 720px;
   border-radius: 12px;
+  margin-top: 0.75rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.proposal-video-wrapper {
+  display: flex;
+  justify-content: center;
   margin-top: 0.5rem;
+}
+
+.proposal-video-wrapper.collapsed {
+  display: none;
 }
 
 @media (max-width: 600px) {
   .party-layout {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
   .grid-spacer {
     display: none;
   }
 
-  .party-heading.groomsmen {
-    display: none;
+  .proposal-callout {
+    margin-bottom: 0.5rem;
   }
 
-  .proposal-callout {
-    margin-bottom: 1rem;
+  .proposal-video {
+    max-height: 320px;
   }
 }
 
