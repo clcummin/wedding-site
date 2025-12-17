@@ -32,18 +32,28 @@
     <p>
       💍 <strong>Check out Lorraine’s bridal proposal!</strong><br />
     </p>
-    <video
-    class="proposal-video"
-    controls
-    preload="metadata"
-    poster="assets/images/bridal-proposal-poster.jpg"
-  >
-    <source
-      src="assets/videos/lorraine-bridal-proposal.mp4"
-      type="video/mp4"
-    />
-    Your browser does not support the video tag.
-  </video>
+    <button
+      class="proposal-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="proposalVideo"
+    >
+      Show bridal proposal video
+    </button>
+    <div id="proposalVideo" class="proposal-video-wrapper" hidden>
+      <video
+        class="proposal-video"
+        controls
+        preload="metadata"
+        poster="assets/images/bridal-proposal-poster.jpg"
+      >
+        <source
+          src="assets/videos/lorraine-bridal-proposal.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+    </div>
   </div>
 
   <!-- Spacer keeps grid alignment -->
