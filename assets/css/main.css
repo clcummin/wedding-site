@@ -1800,6 +1800,36 @@ body {
 }
 /* Page title uses global styles */
 
+.party-layout {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 2rem;
+}
+
+/* Headings */
+.party-heading {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Proposal callout */
+.proposal-callout {
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.proposal-callout a {
+  font-weight: 600;
+}
+
+/* Party grid spans both columns */
+.party-grid {
+  grid-column: 1 / -1;
+}
+
 /* Grid of party cards */
 .party-grid {
   display: grid;
@@ -1821,6 +1851,25 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+@media (max-width: 600px) {
+  .party-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-spacer {
+    display: none;
+  }
+
+  .party-heading.groomsmen {
+    display: none;
+  }
+
+  .proposal-callout {
+    margin-bottom: 1rem;
+  }
+}
+
 .party-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
