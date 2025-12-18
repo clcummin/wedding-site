@@ -2061,6 +2061,25 @@ body {
   color: #333;
 }
 
+.swipe-hint {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--emerald-accent);
+  letter-spacing: 0.01em;
+}
+
+.swipe-hint .chevron {
+  font-size: 1.4rem;
+}
+
+.swipe-hint .swipe-text {
+  font-size: 0.95rem;
+}
+
 /* Close button */
 .modal-close {
   position: absolute;
