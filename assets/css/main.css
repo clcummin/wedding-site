@@ -453,20 +453,26 @@ body {
 /* keep using your .main-nav rules, but scoped inside .site-header */
 .site-header .main-nav a {
   color: var(--white);
+  border: 2px solid transparent;
 }
 .site-header .main-nav a.is-current,
 .site-header .main-nav a[aria-current='page'] {
-  background: var(--emerald-accent);
-  color: var(--white);
+  background: var(--white);
+  color: var(--emerald-border);
+  box-shadow:
+    0 0 0 2px var(--emerald-border),
+    0 8px 22px rgba(0, 0, 0, 0.25);
 }
 .site-header .main-nav a:focus-visible {
-  outline: 3px solid var(--emerald-accent);
-  outline-offset: 2px;
+  outline: 3px solid var(--white);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 2px rgba(1, 68, 33, 0.65);
 }
 .site-header .main-nav a:hover:not([aria-current='page']),
 .site-header .main-nav a:focus:not([aria-current='page']) {
-  background: var(--white);
-  color: var(--emerald-border);
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--white);
+  border-color: var(--white);
 }
 .site-header .main-nav {
   margin: 0;
