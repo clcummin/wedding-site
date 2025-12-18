@@ -14,19 +14,40 @@ document.addEventListener("DOMContentLoaded", () => {
   const proposalWrapper = document.getElementById("proposalVideo");
   const proposalVideo = proposalWrapper?.querySelector("video");
 
-  cards.forEach((card) => {
-    card.addEventListener("click", () => {
-      const imgSrc = card.dataset.img || "assets/images/attire.png";
-      const name = card.dataset.name || "Wedding Party Member";
-      const role = card.dataset.role || "Celebrating with us";
-      const bio = card.dataset.bio || "More details about this member will be shared soon.";
+  const orderedCards = Array.from(cards);
+  let currentIndex = 0;
 
-      img.src = imgSrc;
-      img.alt = name;
-      nameEl.textContent = name;
-      roleEl.textContent = role;
-      bioEl.textContent = bio;
-      modal.classList.remove("hidden");
+  function showMember(index) {
+    const card = orderedCards[index];
+    if (!card) return;
+
+    const imgSrc = card.dataset.img || "assets/images/attire.png";
+    const name = card.dataset.name || "Wedding Party Member";
+    const role = card.dataset.role || "Celebrating with us";
+    const bio = card.dataset.bio || "More details about this member will be shared soon.";
+
+    img.src = imgSrc;
+    img.alt = name;
+    nameEl.textContent = name;
+    roleEl.textContent = role;
+    bioEl.textContent = bio;
+    modal.classList.remove("hidden");
+  }
+
+  function showNext() {
+    currentIndex = (currentIndex + 1) % orderedCards.length;
+    showMember(currentIndex);
+  }
+
+  function showPrevious() {
+    currentIndex = (currentIndex - 1 + orderedCards.length) % orderedCards.length;
+    showMember(currentIndex);
+  }
+
+  cards.forEach((card, index) => {
+    card.addEventListener("click", () => {
+      currentIndex = index;
+      showMember(currentIndex);
     });
   });
 
@@ -38,6 +59,30 @@ document.addEventListener("DOMContentLoaded", () => {
   modal.addEventListener("click", (e) => {
     if (e.target === modal) modal.classList.add("hidden");
   });
+
+  // Swipe navigation for modal content
+  let touchStartX = 0;
+  let touchEndX = 0;
+  const swipeThreshold = 40;
+
+  function handleTouchStart(e) {
+    touchStartX = e.changedTouches[0].screenX;
+  }
+
+  function handleTouchEnd(e) {
+    touchEndX = e.changedTouches[0].screenX;
+    const distance = touchEndX - touchStartX;
+
+    if (Math.abs(distance) < swipeThreshold) return;
+    if (distance < 0) {
+      showNext();
+    } else {
+      showPrevious();
+    }
+  }
+
+  modal.addEventListener("touchstart", handleTouchStart, { passive: true });
+  modal.addEventListener("touchend", handleTouchEnd, { passive: true });
 
   proposalToggle?.addEventListener("click", () => {
     const isExpanded = proposalToggle.getAttribute("aria-expanded") === "true";
