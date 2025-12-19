@@ -48,7 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function handleResize() {
     const nowSingle = window.matchMedia("(max-width: 700px)").matches;
     if (nowSingle !== singlePage) {
-      window.location.reload();
+      singlePage = nowSingle;
+      index = singlePage ? Math.min(index * 2, pages.length - 1) : Math.floor(index / 2);
+      show(index);
     }
   }
 

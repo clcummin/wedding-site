@@ -26,11 +26,17 @@ function initHeader() {
   const header = document.querySelector('.site-header');
   if (!header) return;
 
-  const updateBodyPadding = () => {
-    document.body.style.paddingTop = header.offsetHeight + 'px';
+  const setHeaderOffset = () => {
+    document.documentElement.style.setProperty('--header-offset', `${header.offsetHeight}px`);
   };
-  updateBodyPadding();
-  window.addEventListener('resize', updateBodyPadding);
+  setHeaderOffset();
+
+  if (window.ResizeObserver) {
+    const resizeObserver = new ResizeObserver(setHeaderOffset);
+    resizeObserver.observe(header);
+  } else {
+    window.addEventListener('resize', setHeaderOffset);
+  }
 
   window.addEventListener(
     'scroll',
@@ -52,8 +58,18 @@ function initHeader() {
     mainNav.classList.toggle('show-right', currentScroll < maxScroll);
   };
 
-  navList.addEventListener('scroll', updateNavScroll, passiveScrollOptions);
-  window.addEventListener('resize', updateNavScroll);
+  let scheduled = false;
+  const scheduleNavUpdate = () => {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(() => {
+      scheduled = false;
+      updateNavScroll();
+    });
+  };
+
+  navList.addEventListener('scroll', scheduleNavUpdate, passiveScrollOptions);
+  window.addEventListener('resize', scheduleNavUpdate);
   updateNavScroll();
 }
 
