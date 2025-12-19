@@ -2182,8 +2182,8 @@ body {
 }
 .modal-dot {
   display: inline-block;
-  width: 3px;
-  height: 3px;
+  width: 1px;
+  height: 1px;
   border-radius: 50%;
   background: #cbd5d1;
   margin: 0 2px;
