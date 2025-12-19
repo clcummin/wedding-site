@@ -5,11 +5,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll(".party-card");
   const modal = document.getElementById("partyModal");
+  const modalContent = modal?.querySelector(".modal-content");
   const img = document.getElementById("modalImg");
   const nameEl = document.getElementById("modalName");
   const roleEl = document.getElementById("modalRole");
   const bioEl = document.getElementById("modalBio");
-  const close = modal?.querySelector(".modal-close");
   const prevBtn = modal?.querySelector(".modal-nav.prev");
   const nextBtn = modal?.querySelector(".modal-nav.next");
   const proposalToggle = document.querySelector(".proposal-toggle");
@@ -29,9 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
     "[contenteditable='true']",
   ].join(",");
 
-  if (!modal || !cards.length || !img || !nameEl || !roleEl || !bioEl || !close) return;
+  if (!modal || !cards.length || !img || !nameEl || !roleEl || !bioEl || !modalContent) return;
 
   modal.setAttribute("aria-hidden", "true");
+  modalContent.setAttribute("tabindex", "-1");
 
   const orderedCards = Array.from(cards);
   let currentIndex = 0;
@@ -72,7 +73,8 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.setAttribute("aria-hidden", "false");
     lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     refreshFocusableElements();
-    close.focus();
+    const initialFocus = focusableElements[0] || modalContent;
+    initialFocus?.focus();
   }
 
   function closeModal() {
@@ -100,8 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
       openModal(index);
     });
   });
-
-  close.addEventListener("click", closeModal);
 
   // Also close when clicking outside the modal content
   modal.addEventListener("click", (e) => {
