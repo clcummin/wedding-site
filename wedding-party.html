@@ -214,18 +214,18 @@
       <div class="modal-content">
         <button class="modal-close" aria-label="Close">&times;</button>
         <div class="modal-profile">
-          <img src="" alt="" id="modalImg" loading="lazy" />
+          <div class="modal-visual">
+            <button class="modal-nav prev" type="button" aria-label="Previous wedding party member">&#10094;</button>
+            <img src="" alt="" id="modalImg" loading="lazy" />
+            <button class="modal-nav next" type="button" aria-label="Next wedding party member">&#10095;</button>
+          </div>
           <div class="modal-details">
             <h2 id="modalName"></h2>
             <p class="role" id="modalRole"></p>
             <p id="modalBio"></p>
           </div>
         </div>
-        <div class="swipe-hint" aria-hidden="true">
-          <span class="chevron">‹</span>
-          <span class="swipe-text">Swipe to see more</span>
-          <span class="chevron">›</span>
-        </div>
+        <div class="modal-dots" role="tablist" aria-label="Wedding party members"></div>
       </div>
     </div>
 
