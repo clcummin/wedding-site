@@ -2123,9 +2123,9 @@ body {
   background: rgba(0, 0, 0, 0.55);
   color: var(--white);
   border: none;
-  font-size: 1.15rem;
-  width: 2.25rem;
-  height: 2.25rem;
+  font-size: 0.9rem;
+  width: 1.75rem;
+  height: 1.75rem;
   cursor: pointer;
   border-radius: 50px;
   transition: background var(--t-fast) var(--ease);
