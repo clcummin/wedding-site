@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const roleEl = document.getElementById("modalRole");
   const bioEl = document.getElementById("modalBio");
   const close = modal?.querySelector(".modal-close");
-  const dotsContainer = modal?.querySelector(".modal-dots");
   const prevBtn = modal?.querySelector(".modal-nav.prev");
   const nextBtn = modal?.querySelector(".modal-nav.next");
   const proposalToggle = document.querySelector(".proposal-toggle");
@@ -26,35 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentIndex = 0;
   let lastFocusedElement = null;
 
-  function buildDots() {
-    if (!dotsContainer) return;
-
-    dotsContainer.innerHTML = "";
-    orderedCards.forEach((card, index) => {
-      const dot = document.createElement("button");
-      dot.type = "button";
-      dot.className = "modal-dot";
-      dot.dataset.index = String(index);
-      dot.setAttribute(
-        "aria-label",
-        `Show ${card.dataset.name || "wedding party member"} (${index + 1} of ${orderedCards.length})`,
-      );
-      dot.setAttribute("aria-pressed", "false");
-      dotsContainer.appendChild(dot);
-    });
-  }
-
-  function updateDots(index) {
-    if (!dotsContainer) return;
-
-    const dots = dotsContainer.querySelectorAll(".modal-dot");
-    dots.forEach((dot, dotIndex) => {
-      const isActive = dotIndex === index;
-      dot.classList.toggle("active", isActive);
-      dot.setAttribute("aria-pressed", String(isActive));
-    });
-  }
-
   function showMember(index) {
     const card = orderedCards[index];
     if (!card) return;
@@ -69,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
     nameEl.textContent = name;
     roleEl.textContent = role;
     bioEl.textContent = bio;
-    updateDots(index);
   }
 
   function openModal(index) {
@@ -107,7 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
       openModal(index);
     });
   });
-  buildDots();
 
   close.addEventListener("click", closeModal);
 
@@ -122,18 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   nextBtn?.addEventListener("click", () => {
     showNext();
-  });
-
-  dotsContainer?.addEventListener("click", (event) => {
-    const target = event.target;
-    if (!(target instanceof HTMLElement)) return;
-    if (!target.classList.contains("modal-dot")) return;
-
-    const index = Number(target.dataset.index);
-    if (Number.isInteger(index)) {
-      currentIndex = index;
-      showMember(currentIndex);
-    }
   });
 
   document.addEventListener("keydown", (event) => {
