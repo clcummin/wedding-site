@@ -2097,6 +2097,7 @@ body {
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
 }
 .modal-profile {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 1.25rem;
@@ -2104,12 +2105,11 @@ body {
 }
 .modal-visual {
   position: relative;
-  display: grid;
-  grid-template-columns: auto auto auto;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
-  justify-items: center;
 }
 .modal-content img {
   width: 136px;
@@ -2119,8 +2119,10 @@ body {
   flex-shrink: 0;
 }
 .modal-nav {
-  position: static;
-  background: rgba(0, 0, 0, 0.55);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.28);
   color: var(--white);
   border: none;
   font-size: 0.55rem;
@@ -2137,13 +2139,13 @@ body {
 }
 .modal-nav:hover,
 .modal-nav:focus-visible {
-  background: rgba(0, 0, 0, 0.72);
+  background: rgba(0, 0, 0, 0.45);
 }
 .modal-nav.prev {
-  justify-self: end;
+  left: -1.1rem;
 }
 .modal-nav.next {
-  justify-self: start;
+  right: -1.1rem;
 }
 .modal-details {
   flex: 1;
