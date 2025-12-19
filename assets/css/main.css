@@ -1785,11 +1785,12 @@ body {
 /* RSVP page — page-specific styles */
 #rsvpCard {
   font-family: var(--font-body);
-  text-align: center;
+  text-align: left;
   cursor: default;
   transition: none;
   max-width: 500px;
   margin: 0 auto;
+  padding: 1.5rem 1.25rem;
 }
 
 #rsvpCard:hover,
@@ -1808,19 +1809,24 @@ body {
 #rsvpCard select,
 #rsvpCard button {
   font-family: var(--font-body);
-  margin: 0.5rem auto;
+  margin: 0.4rem 0;
   display: block;
 }
 
 #rsvpCard .rsvp-choice {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  margin: 1rem 0;
+  gap: 0.75rem;
+  margin: 1rem 0 0.5rem;
+  flex-wrap: wrap;
 }
 
 #rsvpCard #guest-cards {
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
 }
 
 #rsvpCard button {
@@ -1828,8 +1834,9 @@ body {
   color: var(--white);
   border-radius: var(--btn-radius);
   border: 2px solid var(--emerald-border);
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.25rem;
   cursor: pointer;
+  font-size: 1rem;
 }
 
 #rsvpCard button:hover {
@@ -2248,8 +2255,11 @@ body {
   margin: 1rem 0;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 1rem;
+  background: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
 }
 
 .guest-card label {
@@ -2257,14 +2267,79 @@ body {
   align-items: center;
   gap: 0.5rem;
   font-family: var(--font-body);
+  color: #111;
+  line-height: 1.4;
 }
 
 .guest-card select {
-  margin-left: 1rem;
+  margin-left: 0;
+  width: 100%;
 }
 
 .guest-card .guest-name {
   flex: 1;
+}
+
+.guest-card .name-edit-fields {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.guest-card .name-field label {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.guest-card .name-field input {
+  margin: 0.25rem 0 0;
+}
+
+.guest-card .guest-attendance {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  #rsvpCard {
+    max-width: 560px;
+  }
+  .guest-card {
+    flex-wrap: wrap;
+  }
+  .guest-card .name-edit-fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .guest-card .guest-attendance {
+    flex: 1;
+  }
+  #rsvpCard .rsvp-choice button {
+    min-width: 140px;
+  }
+}
+
+@media (max-width: 639px) {
+  #rsvpCard {
+    padding: 1.25rem 1rem;
+  }
+  #rsvpCard input,
+  #rsvpCard select {
+    padding: 0.65rem 0.85rem;
+  }
+  .guest-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.85rem;
+  }
+  .guest-card .guest-attendance {
+    order: 2;
+  }
+  .guest-card select {
+    order: 3;
+  }
+  .guest-card .name-edit-fields {
+    order: 1;
+  }
 }
 
 /* Security and validation enhancements */
