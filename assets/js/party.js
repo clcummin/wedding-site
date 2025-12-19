@@ -9,13 +9,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const nameEl = document.getElementById("modalName");
   const roleEl = document.getElementById("modalRole");
   const bioEl = document.getElementById("modalBio");
-  const close = modal.querySelector(".modal-close");
+  const close = modal?.querySelector(".modal-close");
   const proposalToggle = document.querySelector(".proposal-toggle");
   const proposalWrapper = document.getElementById("proposalVideo");
   const proposalVideo = proposalWrapper?.querySelector("video");
+  const body = document.body;
+
+  if (!modal || !cards.length || !img || !nameEl || !roleEl || !bioEl || !close) return;
+
+  modal.setAttribute("aria-hidden", "true");
 
   const orderedCards = Array.from(cards);
   let currentIndex = 0;
+  let lastFocusedElement = null;
 
   function showMember(index) {
     const card = orderedCards[index];
@@ -31,7 +37,26 @@ document.addEventListener("DOMContentLoaded", () => {
     nameEl.textContent = name;
     roleEl.textContent = role;
     bioEl.textContent = bio;
+  }
+
+  function openModal(index) {
+    currentIndex = index;
+    showMember(currentIndex);
     modal.classList.remove("hidden");
+    body.classList.add("no-scroll");
+    modal.setAttribute("aria-hidden", "false");
+    lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    close.focus();
+  }
+
+  function closeModal() {
+    modal.classList.add("hidden");
+    body.classList.remove("no-scroll");
+    modal.setAttribute("aria-hidden", "true");
+    if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+      lastFocusedElement.focus();
+    }
+    lastFocusedElement = null;
   }
 
   function showNext() {
@@ -46,18 +71,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   cards.forEach((card, index) => {
     card.addEventListener("click", () => {
-      currentIndex = index;
-      showMember(currentIndex);
+      openModal(index);
     });
   });
 
-  close.addEventListener("click", () => {
-    modal.classList.add("hidden");
-  });
+  close.addEventListener("click", closeModal);
 
   // Also close when clicking outside the modal content
   modal.addEventListener("click", (e) => {
-    if (e.target === modal) modal.classList.add("hidden");
+    if (e.target === modal) closeModal();
   });
 
   // Swipe navigation for modal content
@@ -83,6 +105,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   modal.addEventListener("touchstart", handleTouchStart, { passive: true });
   modal.addEventListener("touchend", handleTouchEnd, { passive: true });
+
+  document.addEventListener("keydown", (event) => {
+    if (modal.classList.contains("hidden")) return;
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      showNext();
+    } else if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      showPrevious();
+    } else if (event.key === "Escape") {
+      event.preventDefault();
+      closeModal();
+    }
+  });
 
   proposalToggle?.addEventListener("click", () => {
     const isExpanded = proposalToggle.getAttribute("aria-expanded") === "true";
