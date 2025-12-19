@@ -2104,7 +2104,7 @@ body {
   flex-wrap: wrap;
 }
 .modal-visual {
-  position: static;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2122,12 +2122,12 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.28);
   color: var(--white);
   border: none;
   font-size: 0.55rem;
-  width: 0.9rem;
-  height: 0.9rem;
+  width: 0.95rem;
+  height: 0.95rem;
   padding: 0;
   cursor: pointer;
   border-radius: 50px;
@@ -2135,17 +2135,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 .modal-nav:hover,
 .modal-nav:focus-visible {
-  background: rgba(0, 0, 0, 0.34);
+  background: rgba(0, 0, 0, 0.45);
 }
 .modal-nav.prev {
-  left: -1.35rem;
+  left: -1.1rem;
 }
 .modal-nav.next {
-  right: -1.35rem;
+  right: -1.1rem;
 }
 .modal-details {
   flex: 1;
@@ -2166,6 +2166,40 @@ body {
   line-height: 1.6;
   margin: 0;
   color: #333;
+}
+.modal-dots {
+  margin-top: 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  row-gap: 0.2rem;
+  padding: 0.25rem 0.5rem;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  max-width: min(540px, 92vw);
+  margin-inline: auto;
+}
+.modal-dot {
+  display: inline-block;
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 50%;
+  background: #cbd5d1;
+  margin: 0 0.1rem;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.modal-dot.active {
+  background: var(--emerald-accent);
+}
+.modal-dot:focus-visible {
+  outline: 2px solid var(--emerald-accent);
+  outline-offset: 2px;
 }
 
 /* Close button */
@@ -2198,13 +2232,15 @@ body {
     width: 112px;
     height: 112px;
   }
-  .modal-nav {
-    left: -0.9rem;
-    right: auto;
+  .modal-dots {
+    max-width: calc(100% - 2rem);
+    padding: 0.12rem 0.3rem;
+    gap: 0.1rem;
   }
-  .modal-nav.next {
-    left: auto;
-    right: -0.9rem;
+  .modal-dot {
+    width: 0.26rem;
+    height: 0.26rem;
+    margin: 0 0.08rem;
   }
 }
 
