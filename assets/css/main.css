@@ -1768,12 +1768,27 @@ body {
   color: #222;
 }
 
+#rsvpCard form {
+  width: 100%;
+  gap: 0.75rem;
+}
+
 #rsvpCard input,
 #rsvpCard select,
 #rsvpCard button {
   font-family: var(--font-body);
   margin: 0.4rem 0;
   display: block;
+}
+
+#rsvpCard input,
+#rsvpCard select {
+  font-size: 1rem;
+}
+
+#rsvpCard label {
+  font-size: 1rem;
+  line-height: 1.4;
 }
 
 #rsvpCard .rsvp-choice {
@@ -1797,7 +1812,7 @@ body {
   color: var(--white);
   border-radius: var(--btn-radius);
   border: 2px solid var(--emerald-border);
-  padding: 0.6rem 1.25rem;
+  padding: 0.55rem 1.1rem;
   cursor: pointer;
   font-size: 1rem;
 }
@@ -1818,6 +1833,14 @@ body {
   margin-top: 0.75rem;
   text-align: left;
   color: #222;
+}
+
+.section-lead {
+  margin: 0.25rem 0 0.75rem;
+  text-align: center;
+  color: #333;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 .invite-help details {
@@ -2198,12 +2221,11 @@ body {
 
 /* RSVP guest cards */
 .guest-card {
-  padding: 1rem;
-  margin: 1rem 0;
+  padding: 0.9rem 1rem;
+  margin: 0.85rem 0;
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.65rem;
   background: #f8f8f8;
   border: 1px solid #e0e0e0;
   border-radius: 12px;
@@ -2218,13 +2240,33 @@ body {
   line-height: 1.4;
 }
 
+.guest-card .guest-attendance input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  min-height: 18px;
+}
+
+.guest-card input[type='checkbox'] {
+  min-width: 18px;
+  min-height: 18px;
+}
+
 .guest-card select {
   margin-left: 0;
   width: 100%;
+  font-size: 0.95rem;
 }
 
 .guest-card .guest-name {
   flex: 1;
+}
+
+.guest-card .guest-controls {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  width: 100%;
 }
 
 .guest-card .name-edit-fields {
@@ -2252,7 +2294,11 @@ body {
     max-width: 560px;
   }
   .guest-card {
-    flex-wrap: wrap;
+    padding: 1rem 1.1rem;
+  }
+  .guest-card .guest-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
   }
   .guest-card .name-edit-fields {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2274,73 +2320,10 @@ body {
     padding: 0.65rem 0.85rem;
   }
   .guest-card {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0.85rem;
+    padding: 0.8rem 0.85rem;
   }
-  .guest-card .guest-attendance {
-    order: 2;
-  }
-  .guest-card select {
-    order: 3;
-  }
-  .guest-card .name-edit-fields {
-    order: 1;
-  }
-}
-
-.alcohol-section {
-  margin: 1.5rem 0;
-  padding: 1rem;
-  background: #f9f9f9;
-  border: 1px solid #e5e5e5;
-  border-radius: 12px;
-}
-
-.alcohol-section h2 {
-  margin: 0 0 0.25rem;
-  font-size: 1.1rem;
-}
-
-.alcohol-section p {
-  margin: 0 0 0.75rem;
-  color: #444;
-}
-
-.option-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.75rem;
-}
-
-.alcohol-option {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.65rem 0.75rem;
-  border: 1px solid #e1e1e1;
-  border-radius: 10px;
-  background: #fff;
-}
-
-.alcohol-option input[type='checkbox'] {
-  width: 1.1rem;
-  height: 1.1rem;
-}
-
-.alcohol-option label {
-  margin: 0;
-  font-weight: 600;
-  color: #1a1a1a;
-}
-
-.alcohol-option span {
-  color: #4a4a4a;
-}
-
-@media (min-width: 640px) {
-  .option-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .guest-card .guest-controls {
+    grid-template-columns: 1fr;
   }
 }
 
