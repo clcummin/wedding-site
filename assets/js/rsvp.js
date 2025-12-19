@@ -18,6 +18,18 @@ function sanitizeNameValue(value) {
   return sanitizeInput(value);
 }
 
+function sanitizeAlcoholSelections(values) {
+  const allowed = new Set(alcoholOptionsConfig.map((opt) => opt.value));
+  if (!Array.isArray(values)) return [];
+  const unique = [];
+  values.forEach((val) => {
+    if (allowed.has(val) && !unique.includes(val)) {
+      unique.push(val);
+    }
+  });
+  return unique.slice(0, 2);
+}
+
 function showElement(element) {
   if (!element) return;
   element.classList.remove('hidden');
@@ -52,6 +64,13 @@ function validateInviteCode(code) {
 // Handles RSVP code validation and submission via JSONP
 
 let updateSuccessMessage = 'RSVP submitted successfully';
+const alcoholOptionsConfig = [
+  { value: 'cognac', label: 'Cognac' },
+  { value: 'bourbon', label: 'Bourbon' },
+  { value: 'tequila', label: 'Tequila' },
+  { value: 'beer/wine', label: 'Beer/Wine' },
+  { value: 'n/a', label: 'N/A' },
+];
 
 // Exposed globally so the JSONP endpoint can invoke it
 window.handleUpdate = function handleUpdate(res) {
@@ -99,6 +118,7 @@ window.handleValidate = function handleValidate(res) {
   const size =
     parseInt(payload && payload.partySize, 10) || rawGuests.length;
   const name = payload && payload.partyName;
+  const alcoholPrefs = sanitizeAlcoholSelections(payload && payload.alcohol);
 
   if (ok && size > 0) {
     hideElement(codeError);
@@ -116,6 +136,8 @@ window.handleValidate = function handleValidate(res) {
     }
     isEditingNames = false;
     namesEdited = false;
+    alcoholSelections = alcoholPrefs;
+    setAlcoholSelections(alcoholSelections);
     updateNameEditControls();
 
     if (welcomeMessage) {
@@ -206,12 +228,13 @@ function validateCode(code) {
   });
 }
 
-function rsvpNo(code) {
+function rsvpNo(code, alcoholPrefs = []) {
   const guests = guestsData.map((g) => ({
     guestCode: g.guestCode,
     attending: 'no',
     meal: '',
   }));
+  const alcohol = sanitizeAlcoholSelections(alcoholPrefs);
   const url =
     apiBase +
     '?action=update&code=' +
@@ -219,11 +242,13 @@ function rsvpNo(code) {
     '&rsvped=no' +
     '&guests=' +
     encodeURIComponent(JSON.stringify(guests)) +
+    '&alcohol=' +
+    encodeURIComponent(JSON.stringify(alcohol)) +
     '&callback=handleUpdate';
   return jsonpRequest(url, 'handleUpdate');
 }
 
-function rsvpYes(code, guests) {
+function rsvpYes(code, guests, alcoholPrefs = []) {
   const guestPayload = guests.map((g) => {
     const payload = {
       guestCode: g.guestCode,
@@ -236,6 +261,7 @@ function rsvpYes(code, guests) {
     }
     return payload;
   });
+  const alcohol = sanitizeAlcoholSelections(alcoholPrefs);
   const url =
     apiBase +
     '?action=update&code=' +
@@ -243,8 +269,72 @@ function rsvpYes(code, guests) {
     '&rsvped=yes' +
     '&guests=' +
     encodeURIComponent(JSON.stringify(guestPayload)) +
+    '&alcohol=' +
+    encodeURIComponent(JSON.stringify(alcohol)) +
     '&callback=handleUpdate';
   return jsonpRequest(url, 'handleUpdate');
+}
+
+function renderAlcoholOptions() {
+  if (!alcoholOptions) return;
+  alcoholOptions.textContent = '';
+  alcoholOptionsConfig.forEach((opt) => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'alcohol-option';
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = `alcohol-${opt.value.replace(/[^a-z0-9]/gi, '-')}`;
+    checkbox.value = opt.value;
+
+    const label = document.createElement('label');
+    label.setAttribute('for', checkbox.id);
+    label.textContent = opt.label;
+
+    const description = document.createElement('span');
+    description.textContent =
+      opt.value === 'n/a'
+        ? 'Select if you do not have a preference.'
+        : 'Add to your party preferences.';
+
+    wrapper.appendChild(checkbox);
+    wrapper.appendChild(label);
+    wrapper.appendChild(description);
+    alcoholOptions.appendChild(wrapper);
+  });
+  setAlcoholSelections(alcoholSelections);
+}
+
+function getSelectedAlcoholSelections() {
+  if (!alcoholOptions) return [];
+  const selectedValues = Array.from(
+    alcoholOptions.querySelectorAll('input[type="checkbox"]:checked')
+  ).map((input) => input.value);
+  return sanitizeAlcoholSelections(selectedValues);
+}
+
+function setAlcoholSelections(selections) {
+  const sanitized = sanitizeAlcoholSelections(selections);
+  alcoholSelections = sanitized;
+  if (!alcoholOptions) return;
+  const inputs = alcoholOptions.querySelectorAll('input[type="checkbox"]');
+  inputs.forEach((input) => {
+    input.checked = sanitized.includes(input.value);
+  });
+}
+
+function updateAlcoholSelections(changedInput) {
+  const selected = getSelectedAlcoholSelections();
+  if (selected.length > 2) {
+    if (changedInput) changedInput.checked = false;
+    if (alcoholError) {
+      alcoholError.textContent = 'Please select up to two alcohol preferences.';
+      showElement(alcoholError);
+    }
+    return;
+  }
+  alcoholSelections = selected;
+  hideElement(alcoholError);
 }
 
 let stepCode,
@@ -257,6 +347,8 @@ let stepCode,
   finalMessage,
   partyNameMessage,
   welcomeMessage,
+  alcoholOptions,
+  alcoholError,
   codeSubmit,
   codeForm,
   codeInput,
@@ -265,7 +357,8 @@ let stepCode,
   currentCode = '',
   guestsData = [],
   isEditingNames = false,
-  namesEdited = false;
+  namesEdited = false,
+  alcoholSelections = [];
 
 document.addEventListener('DOMContentLoaded', () => {
   stepCode = document.getElementById('step-code');
@@ -278,6 +371,8 @@ document.addEventListener('DOMContentLoaded', () => {
   finalMessage = document.getElementById('final-message');
   partyNameMessage = document.getElementById('party-name-message');
   welcomeMessage = document.getElementById('welcome-message');
+  alcoholOptions = document.getElementById('alcohol-options');
+  alcoholError = document.getElementById('alcohol-error');
   codeSubmit = document.getElementById('code-submit');
   codeForm = document.getElementById('code-form');
   codeInput = document.getElementById('code-input');
@@ -285,6 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
   nameEditNote = document.getElementById('name-edit-note');
 
   updateNameEditControls();
+  renderAlcoholOptions();
 
   if (nameEditToggle) {
     nameEditToggle.addEventListener('click', () => {
@@ -322,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
     finalMessage.textContent = 'Submitting your RSVP...';
     showElement(finalMessage);
     if (currentCode)
-      rsvpNo(currentCode).catch(() => {
+      rsvpNo(currentCode, alcoholSelections).catch(() => {
         finalMessage.textContent =
           'There was a problem saving your RSVP. Please try again.';
       });
@@ -334,8 +430,18 @@ document.addEventListener('DOMContentLoaded', () => {
     namesEdited = false;
     updateNameEditControls();
     generateGuestCards(guestsData);
+    setAlcoholSelections(alcoholSelections);
+    hideElement(alcoholError);
     showElement(stepGuests);
   });
+
+  if (alcoholOptions) {
+    alcoholOptions.addEventListener('change', (e) => {
+      if (e.target && e.target.type === 'checkbox') {
+        updateAlcoholSelections(e.target);
+      }
+    });
+  }
 
   guestCards.addEventListener('change', (e) => {
     if (e.target.classList.contains('attending')) {
@@ -376,8 +482,26 @@ document.addEventListener('DOMContentLoaded', () => {
       showElement(mealError);
       return;
     }
+    const selectedAlcohol = getSelectedAlcoholSelections();
+    if (!selectedAlcohol.length) {
+      if (alcoholError) {
+        alcoholError.textContent =
+          'Please select up to two alcohol preferences (choose "N/A" if none).';
+        showElement(alcoholError);
+      }
+      return;
+    }
+    if (selectedAlcohol.length > 2) {
+      if (alcoholError) {
+        alcoholError.textContent = 'Please select up to two alcohol preferences.';
+        showElement(alcoholError);
+      }
+      return;
+    }
+    hideElement(alcoholError);
     hideElement(mealError);
     guestsData = updatedGuests;
+    alcoholSelections = selectedAlcohol;
     hideElement(stepGuests);
     isEditingNames = false;
     updateNameEditControls();
@@ -385,7 +509,7 @@ document.addEventListener('DOMContentLoaded', () => {
     finalMessage.textContent = 'Submitting your RSVP...';
     showElement(finalMessage);
     if (currentCode)
-      rsvpYes(currentCode, guestsData).catch(() => {
+      rsvpYes(currentCode, guestsData, alcoholSelections).catch(() => {
         finalMessage.textContent =
           'There was a problem saving your RSVP. Please try again.';
       });
@@ -547,4 +671,3 @@ function generateGuestCards(guests, editing = isEditingNames) {
     guestCards.appendChild(card);
   });
 }
-
