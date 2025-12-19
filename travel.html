@@ -8,7 +8,7 @@
     />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://script.google.com https://script.googleusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://script.google.com https://script.googleusercontent.com; upgrade-insecure-requests;"
+      content="default-src 'self'; script-src 'self' https://script.google.com https://script.googleusercontent.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://script.google.com https://script.googleusercontent.com; upgrade-insecure-requests;"
     />
     <meta name="description" content="Travel and accommodation information for Christopher & Lorraine's Wedding" />
     <title>Travel</title>
@@ -110,7 +110,7 @@
             src="assets/images/venue_map.pdf"
             aria-label="Venue Map"
             title="Venue Map"
-            style="border: none;"
+            class="map-embed"
           ></iframe>
           <div
             class="map-trigger"
@@ -140,7 +140,11 @@
           Venue map full-screen view
         </h2>
         <button class="close" aria-label="Close">&times;</button>
-        <iframe src="assets/images/venue_map.pdf" title="Venue Map"></iframe>
+        <iframe
+          src="assets/images/venue_map.pdf"
+          title="Venue Map"
+          class="map-embed"
+        ></iframe>
       </div>
     </div>
 
