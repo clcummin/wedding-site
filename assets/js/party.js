@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const roleEl = document.getElementById("modalRole");
   const bioEl = document.getElementById("modalBio");
   const close = modal?.querySelector(".modal-close");
+  const dotsContainer = modal?.querySelector(".modal-dots");
+  const prevBtn = modal?.querySelector(".modal-nav.prev");
+  const nextBtn = modal?.querySelector(".modal-nav.next");
   const proposalToggle = document.querySelector(".proposal-toggle");
   const proposalWrapper = document.getElementById("proposalVideo");
   const proposalVideo = proposalWrapper?.querySelector("video");
@@ -22,6 +25,35 @@ document.addEventListener("DOMContentLoaded", () => {
   const orderedCards = Array.from(cards);
   let currentIndex = 0;
   let lastFocusedElement = null;
+
+  function buildDots() {
+    if (!dotsContainer) return;
+
+    dotsContainer.innerHTML = "";
+    orderedCards.forEach((card, index) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "modal-dot";
+      dot.dataset.index = String(index);
+      dot.setAttribute(
+        "aria-label",
+        `Show ${card.dataset.name || "wedding party member"} (${index + 1} of ${orderedCards.length})`,
+      );
+      dot.setAttribute("aria-pressed", "false");
+      dotsContainer.appendChild(dot);
+    });
+  }
+
+  function updateDots(index) {
+    if (!dotsContainer) return;
+
+    const dots = dotsContainer.querySelectorAll(".modal-dot");
+    dots.forEach((dot, dotIndex) => {
+      const isActive = dotIndex === index;
+      dot.classList.toggle("active", isActive);
+      dot.setAttribute("aria-pressed", String(isActive));
+    });
+  }
 
   function showMember(index) {
     const card = orderedCards[index];
@@ -37,6 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     nameEl.textContent = name;
     roleEl.textContent = role;
     bioEl.textContent = bio;
+    updateDots(index);
   }
 
   function openModal(index) {
@@ -74,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
       openModal(index);
     });
   });
+  buildDots();
 
   close.addEventListener("click", closeModal);
 
@@ -82,29 +116,25 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target === modal) closeModal();
   });
 
-  // Swipe navigation for modal content
-  let touchStartX = 0;
-  let touchEndX = 0;
-  const swipeThreshold = 40;
+  prevBtn?.addEventListener("click", () => {
+    showPrevious();
+  });
 
-  function handleTouchStart(e) {
-    touchStartX = e.changedTouches[0].screenX;
-  }
+  nextBtn?.addEventListener("click", () => {
+    showNext();
+  });
 
-  function handleTouchEnd(e) {
-    touchEndX = e.changedTouches[0].screenX;
-    const distance = touchEndX - touchStartX;
+  dotsContainer?.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+    if (!target.classList.contains("modal-dot")) return;
 
-    if (Math.abs(distance) < swipeThreshold) return;
-    if (distance < 0) {
-      showNext();
-    } else {
-      showPrevious();
+    const index = Number(target.dataset.index);
+    if (Number.isInteger(index)) {
+      currentIndex = index;
+      showMember(currentIndex);
     }
-  }
-
-  modal.addEventListener("touchstart", handleTouchStart, { passive: true });
-  modal.addEventListener("touchend", handleTouchEnd, { passive: true });
+  });
 
   document.addEventListener("keydown", (event) => {
     if (modal.classList.contains("hidden")) return;
