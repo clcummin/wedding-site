@@ -27,9 +27,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Default placeholders
-  const placeholders = Array.from({ length: 12 }).map(
-    (_, i) => `https://via.placeholder.com/600x400?text=Photo+${i + 1}`,
-  );
+  const placeholders = Array.from({ length: 12 }).map((_, i) => {
+    const label = encodeURIComponent(`Photo ${i + 1}`);
+    return `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400'>`
+      + `<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>`
+      + `<stop stop-color='%23014421' offset='0'/><stop stop-color='%2300975c' offset='1'/></linearGradient></defs>`
+      + `<rect width='600' height='400' rx='18' fill='url(%23g)'/>`
+      + `<text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle'`
+      + ` fill='%23ffffff' font-family='Cinzel Decorative, serif' font-size='48'>${label}</text>`
+      + `</svg>`;
+  });
 
   async function init() {
     const files = await fetchPhotos();

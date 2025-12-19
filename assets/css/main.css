@@ -170,6 +170,10 @@ input[type="submit"]:hover {
   box-shadow: 0 6px 24px rgba(1, 68, 33, 0.25);
 }
 
+.landing-photo--offset {
+  object-position: center 20%;
+}
+
 .landing-title {
   font-family: var(--font-heading);
   font-size: clamp(2.6rem, 5vw, 3.1rem);
@@ -301,6 +305,35 @@ input[type="submit"]:hover {
 .text-page-buttons {
   text-align: center;
   margin: 1.5rem 0;
+}
+
+.text-page-buttons.vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.gift-handle {
+  font-size: 1.1rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.gift-qr {
+  width: 400px;
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.address-block {
+  text-align: center;
+}
+
+.address-block p {
+  margin: 0;
+  font-size: 1.1rem;
 }
 
 /* fade utility */
@@ -576,6 +609,8 @@ body {
   overflow: hidden;
   border-radius: var(--card-radius);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  padding-bottom: 56.25%; /* 16:9 ratio */
+  margin-top: 1rem;
 }
 .iframe-container iframe,
 .iframe-container img {
@@ -1797,6 +1832,45 @@ body {
   text-align: center;
 }
 
+.invite-help {
+  margin-top: 0.75rem;
+  text-align: left;
+  color: #222;
+}
+
+.invite-help details {
+  border-left: 3px solid rgba(0, 0, 0, 0.06);
+  padding: 0.75rem 0.75rem 0.75rem 1rem;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 6px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.invite-help summary {
+  cursor: pointer;
+  font-weight: 700;
+  list-style: none;
+  letter-spacing: 0.01em;
+}
+
+.invite-help img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0.5rem 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+}
+
+.invite-help figure {
+  margin: 0.5rem 0 1rem 0;
+}
+
+.invite-help figcaption {
+  font-size: 0.9rem;
+  color: #444;
+}
+
 
 /* Wedding Party page — page-specific styles */
 
@@ -2113,10 +2187,13 @@ body {
 }
 
 
-/* Responsive map/embed */
-.iframe-container {
-  padding-bottom: 56.25%; /* 16:9 ratio */
-  margin-top: 1rem;
+.map-embed {
+  border: none;
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
 }
 
 /* RSVP guest cards */

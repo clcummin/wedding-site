@@ -233,10 +233,6 @@ function initMapOverlay() {
 window.initHeader = initHeader;
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (document.querySelector('.site-header')) {
-    initHeader();
-  }
-
   initCountdown();
   initMapOverlay();
 });

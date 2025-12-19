@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://script.google.com https://script.googleusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://script.google.com https://script.googleusercontent.com; upgrade-insecure-requests;"
+      content="default-src 'self'; script-src 'self' https://script.google.com https://script.googleusercontent.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://script.google.com https://script.googleusercontent.com; upgrade-insecure-requests;"
     />
     <meta name="description" content="Wedding Registry for Christopher & Lorraine - Gift Ideas and Wish List" />
     <title>Gifts</title>
@@ -18,35 +18,31 @@
     <div id="site-header"></div>
 
     <!-- ── Page Content ── -->
-<main class="content-container">
-  <h1>Gifts</h1>
-  <p>
-    Your presence at our celebration means the world to us. <br/>
-    If you’d like to give a gift, we are gratefully accepting contributions directly.
-  </p>
-
-  <div class="text-page-buttons" style="flex-direction: column; gap: 1.5rem;">
-     <!-- Username label -->
-    <p style="font-size: 1.1rem; margin: 0; font-weight: 600;">
-      PayPal: @BecomingCummings
-    </p>
-    <img
-      src="assets/images/gifts_qr.png"
-      alt="QR code for contributions"
-      class="registry-icon"
-      loading="lazy"
-     style="width: 400px; max-width: 100%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"
-    />
-    <div class="address-block" style="text-align: center;">
-      <p style="margin: 0; font-size: 1.1rem;">
-        <strong>Address:</strong><br />
-        Lorraine & Christopher <br />
-        3729 Bridlewood Cir<br />
-        Stockton, CA 95219
+    <main class="content-container">
+      <h1>Gifts</h1>
+      <p>
+        Your presence at our celebration means the world to us.<br />
+        If you’d like to give a gift, we are gratefully accepting contributions directly.
       </p>
-    </div>
-  </div>
-</main>
+
+      <div class="text-page-buttons vertical">
+        <p class="gift-handle">PayPal: @BecomingCummings</p>
+        <img
+          src="assets/images/gifts_qr.png"
+          alt="QR code for contributions"
+          class="registry-icon gift-qr"
+          loading="lazy"
+        />
+        <div class="address-block">
+          <p>
+            <strong>Address:</strong><br />
+            Lorraine & Christopher <br />
+            3729 Bridlewood Cir<br />
+            Stockton, CA 95219
+          </p>
+        </div>
+      </div>
+    </main>
 
     <!-- site-wide behaviors -->
     <script src="assets/js/header.js"></script>
