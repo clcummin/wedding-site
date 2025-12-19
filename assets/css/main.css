@@ -2097,19 +2097,19 @@ body {
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
 }
 .modal-profile {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 1.25rem;
   flex-wrap: wrap;
 }
 .modal-visual {
-  position: relative;
-  display: grid;
-  grid-template-columns: auto auto auto;
+  position: static;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
-  justify-items: center;
 }
 .modal-content img {
   width: 136px;
@@ -2119,30 +2119,33 @@ body {
   flex-shrink: 0;
 }
 .modal-nav {
-  position: static;
-  background: rgba(0, 0, 0, 0.55);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.2);
   color: var(--white);
   border: none;
-  font-size: 0.9rem;
-  width: 1.75rem;
-  height: 1.75rem;
+  font-size: 0.55rem;
+  width: 0.9rem;
+  height: 0.9rem;
+  padding: 0;
   cursor: pointer;
   border-radius: 50px;
   transition: background var(--t-fast) var(--ease);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 .modal-nav:hover,
 .modal-nav:focus-visible {
-  background: rgba(0, 0, 0, 0.72);
+  background: rgba(0, 0, 0, 0.34);
 }
 .modal-nav.prev {
-  justify-self: end;
+  left: -1.35rem;
 }
 .modal-nav.next {
-  justify-self: start;
+  right: -1.35rem;
 }
 .modal-details {
   flex: 1;
@@ -2163,39 +2166,6 @@ body {
   line-height: 1.6;
   margin: 0;
   color: #333;
-}
-.modal-dots {
-  margin-top: 0;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.25rem;
-  flex-wrap: wrap;
-  row-gap: 0.2rem;
-  padding: 0.25rem 0.5rem;
-  background: rgba(0, 0, 0, 0.55);
-  border-radius: 999px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
-  max-width: min(540px, 92vw);
-  margin-inline: auto;
-}
-.modal-dot {
-  display: inline-block;
-  width: 1px;
-  height: 1px;
-  border-radius: 50%;
-  background: #cbd5d1;
-  margin: 0 2px;
-  border: none;
-  cursor: pointer;
-}
-.modal-dot.active {
-  background: var(--emerald-accent);
-}
-.modal-dot:focus-visible {
-  outline: 2px solid var(--emerald-accent);
-  outline-offset: 2px;
 }
 
 /* Close button */
@@ -2228,15 +2198,13 @@ body {
     width: 112px;
     height: 112px;
   }
-  .modal-dots {
-    max-width: calc(100% - 2rem);
-    padding: 0.25rem 0.5rem;
-    gap: 0.2rem;
+  .modal-nav {
+    left: -0.9rem;
+    right: auto;
   }
-  .modal-dot {
-    width: 7px;
-    height: 7px;
-    margin: 0 2px;
+  .modal-nav.next {
+    left: auto;
+    right: -0.9rem;
   }
 }
 
