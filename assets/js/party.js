@@ -15,6 +15,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const proposalToggle = document.querySelector(".proposal-toggle");
   const proposalWrapper = document.getElementById("proposalVideo");
   const body = document.body;
+  const focusableSelector = [
+    "a[href]",
+    "area[href]",
+    "button:not([disabled])",
+    "input:not([disabled])",
+    "select:not([disabled])",
+    "textarea:not([disabled])",
+    "iframe",
+    "object",
+    "embed",
+    "[tabindex]:not([tabindex='-1'])",
+    "[contenteditable='true']",
+  ].join(",");
 
   if (!modal || !cards.length || !img || !nameEl || !roleEl || !bioEl || !close) return;
 
@@ -23,6 +36,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const orderedCards = Array.from(cards);
   let currentIndex = 0;
   let lastFocusedElement = null;
+  let focusableElements = [];
+
+  function refreshFocusableElements() {
+    if (modal.classList.contains("hidden")) {
+      focusableElements = [];
+      return;
+    }
+    focusableElements = Array.from(modal.querySelectorAll(focusableSelector)).filter(
+      (el) => !el.hasAttribute("disabled") && el.offsetParent !== null
+    );
+  }
 
   function showMember(index) {
     const card = orderedCards[index];
@@ -47,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     body.classList.add("no-scroll");
     modal.setAttribute("aria-hidden", "false");
     lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    refreshFocusableElements();
     close.focus();
   }
 
@@ -102,6 +127,20 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (event.key === "Escape") {
       event.preventDefault();
       closeModal();
+    } else if (event.key === "Tab") {
+      if (!focusableElements.length) return;
+      const first = focusableElements[0];
+      const last = focusableElements[focusableElements.length - 1];
+      const active = document.activeElement;
+      if (event.shiftKey) {
+        if (active === first || !modal.contains(active)) {
+          event.preventDefault();
+          last.focus();
+        }
+      } else if (active === last || !modal.contains(active)) {
+        event.preventDefault();
+        first.focus();
+      }
     }
   });
 

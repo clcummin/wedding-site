@@ -70,6 +70,20 @@ document.addEventListener("DOMContentLoaded", () => {
   // ── Lightbox ──
   let current = 0;
   let lastFocusedElement = null;
+  let focusableElements = [];
+  const focusableSelector = [
+    "a[href]",
+    "area[href]",
+    "button:not([disabled])",
+    "input:not([disabled])",
+    "select:not([disabled])",
+    "textarea:not([disabled])",
+    "iframe",
+    "object",
+    "embed",
+    "[tabindex]:not([tabindex='-1'])",
+    "[contenteditable='true']",
+  ].join(",");
   const lightbox = document.getElementById("lightbox");
   const lightMedia = lightbox.querySelector(".lightbox-media");
   const lightImg = lightMedia.querySelector("img");
@@ -79,6 +93,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const dotsContainer = lightbox.querySelector(".lightbox-dots");
 
   lightbox.setAttribute("aria-hidden", "true");
+
+  function refreshFocusableElements() {
+    if (lightbox.classList.contains("hidden")) {
+      focusableElements = [];
+      return;
+    }
+    focusableElements = Array.from(lightbox.querySelectorAll(focusableSelector)).filter(
+      (el) => !el.hasAttribute("disabled") && el.offsetParent !== null
+    );
+  }
 
   function updateDots() {
     // Clear existing dots safely
@@ -106,6 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function show() {
     lightImg.src = images[current];
     updateDots();
+    refreshFocusableElements();
   }
 
   function open(i) {
@@ -115,6 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.add("no-scroll");
     lightbox.setAttribute("aria-hidden", "false");
     lastFocusedElement = document.activeElement;
+    refreshFocusableElements();
     closeBtn.focus();
   }
 
@@ -163,6 +189,20 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (event.key === "Escape") {
       event.preventDefault();
       close();
+    } else if (event.key === "Tab") {
+      if (!focusableElements.length) return;
+      const first = focusableElements[0];
+      const last = focusableElements[focusableElements.length - 1];
+      const active = document.activeElement;
+      if (event.shiftKey) {
+        if (active === first || !lightbox.contains(active)) {
+          event.preventDefault();
+          last.focus();
+        }
+      } else if (active === last || !lightbox.contains(active)) {
+        event.preventDefault();
+        first.focus();
+      }
     }
   });
 
