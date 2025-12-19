@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const nextBtn = modal?.querySelector(".modal-nav.next");
   const proposalToggle = document.querySelector(".proposal-toggle");
   const proposalWrapper = document.getElementById("proposalVideo");
-  const proposalVideo = proposalWrapper?.querySelector("video");
   const body = document.body;
 
   if (!modal || !cards.length || !img || !nameEl || !roleEl || !bioEl || !close) return;
@@ -119,7 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       proposalWrapper?.setAttribute("hidden", "");
       proposalWrapper?.classList.add("collapsed");
-      proposalVideo?.pause();
     }
   });
 });

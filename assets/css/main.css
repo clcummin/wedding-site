@@ -191,13 +191,6 @@ input[type="submit"]:hover {
   color: var(--emerald-accent);
 }
 
-.landing-message {
-  font-size: 1.05rem;
-  line-height: 1.65;
-  margin: 0;
-  max-width: 42ch;
-}
-
 .landing-actions {
   display: flex;
   justify-content: center;
@@ -217,10 +210,6 @@ input[type="submit"]:hover {
   .landing-photo {
     width: 128px;
     height: 128px;
-  }
-
-  .landing-message {
-    font-size: 1rem;
   }
 }
 
@@ -1973,18 +1962,6 @@ body {
   .party-grid {
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 1rem;
-  }
-
-  /* Ensure titles (Bridesmaid, Groomsmen) align properly */
-  .party-grid-title {
-    grid-column: span 1; /* Each title spans one column */
-    text-align: center; /* Align text to center */
-  }
-
-  /* Move video under the Bridesmaid title explicitly */
-  .bridesmaid-video {
-    grid-column: 1; /* Place video under Bridesmaid */
-    grid-row: span 1;
   }
 }
 
