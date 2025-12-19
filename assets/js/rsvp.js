@@ -18,16 +18,10 @@ function sanitizeNameValue(value) {
   return sanitizeInput(value);
 }
 
-function sanitizeAlcoholSelections(values) {
+function sanitizeAlcoholValue(value) {
   const allowed = new Set(alcoholOptionsConfig.map((opt) => opt.value));
-  if (!Array.isArray(values)) return [];
-  const unique = [];
-  values.forEach((val) => {
-    if (allowed.has(val) && !unique.includes(val)) {
-      unique.push(val);
-    }
-  });
-  return unique.slice(0, 2);
+  if (!value || typeof value !== 'string') return '';
+  return allowed.has(value) ? value : '';
 }
 
 function showElement(element) {
@@ -69,7 +63,7 @@ const alcoholOptionsConfig = [
   { value: 'bourbon', label: 'Bourbon' },
   { value: 'tequila', label: 'Tequila' },
   { value: 'beer/wine', label: 'Beer/Wine' },
-  { value: 'n/a', label: 'N/A' },
+  { value: 'n/a', label: 'Non-alcoholic / N/A' },
 ];
 
 // Exposed globally so the JSONP endpoint can invoke it
@@ -118,13 +112,15 @@ window.handleValidate = function handleValidate(res) {
   const size =
     parseInt(payload && payload.partySize, 10) || rawGuests.length;
   const name = payload && payload.partyName;
-  const alcoholPrefs = sanitizeAlcoholSelections(payload && payload.alcohol);
 
   if (ok && size > 0) {
     hideElement(codeError);
     hideElement(stepCode);
     showElement(stepAttending);
-    guestsData = rawGuests.slice(0, size);
+    guestsData = rawGuests.slice(0, size).map((guest) => ({
+      ...guest,
+      alcohol: sanitizeAlcoholValue(guest && guest.alcohol),
+    }));
     while (guestsData.length < size) {
       guestsData.push({
         firstName: '',
@@ -132,12 +128,11 @@ window.handleValidate = function handleValidate(res) {
         guestCode: '',
         attending: 'no',
         meal: '',
+        alcohol: '',
       });
     }
     isEditingNames = false;
     namesEdited = false;
-    alcoholSelections = alcoholPrefs;
-    setAlcoholSelections(alcoholSelections);
     updateNameEditControls();
 
     if (welcomeMessage) {
@@ -228,13 +223,13 @@ function validateCode(code) {
   });
 }
 
-function rsvpNo(code, alcoholPrefs = []) {
+function rsvpNo(code) {
   const guests = guestsData.map((g) => ({
     guestCode: g.guestCode,
     attending: 'no',
     meal: '',
+    alcohol: '',
   }));
-  const alcohol = sanitizeAlcoholSelections(alcoholPrefs);
   const url =
     apiBase +
     '?action=update&code=' +
@@ -242,18 +237,17 @@ function rsvpNo(code, alcoholPrefs = []) {
     '&rsvped=no' +
     '&guests=' +
     encodeURIComponent(JSON.stringify(guests)) +
-    '&alcohol=' +
-    encodeURIComponent(JSON.stringify(alcohol)) +
     '&callback=handleUpdate';
   return jsonpRequest(url, 'handleUpdate');
 }
 
-function rsvpYes(code, guests, alcoholPrefs = []) {
+function rsvpYes(code, guests) {
   const guestPayload = guests.map((g) => {
     const payload = {
       guestCode: g.guestCode,
       attending: g.attending,
       meal: g.meal,
+      alcohol: sanitizeAlcoholValue(g.alcohol),
     };
     if (namesEdited) {
       payload.firstName = g.firstName || '';
@@ -261,7 +255,6 @@ function rsvpYes(code, guests, alcoholPrefs = []) {
     }
     return payload;
   });
-  const alcohol = sanitizeAlcoholSelections(alcoholPrefs);
   const url =
     apiBase +
     '?action=update&code=' +
@@ -269,72 +262,8 @@ function rsvpYes(code, guests, alcoholPrefs = []) {
     '&rsvped=yes' +
     '&guests=' +
     encodeURIComponent(JSON.stringify(guestPayload)) +
-    '&alcohol=' +
-    encodeURIComponent(JSON.stringify(alcohol)) +
     '&callback=handleUpdate';
   return jsonpRequest(url, 'handleUpdate');
-}
-
-function renderAlcoholOptions() {
-  if (!alcoholOptions) return;
-  alcoholOptions.textContent = '';
-  alcoholOptionsConfig.forEach((opt) => {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'alcohol-option';
-
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.id = `alcohol-${opt.value.replace(/[^a-z0-9]/gi, '-')}`;
-    checkbox.value = opt.value;
-
-    const label = document.createElement('label');
-    label.setAttribute('for', checkbox.id);
-    label.textContent = opt.label;
-
-    const description = document.createElement('span');
-    description.textContent =
-      opt.value === 'n/a'
-        ? 'Select if you do not have a preference.'
-        : 'Add to your party preferences.';
-
-    wrapper.appendChild(checkbox);
-    wrapper.appendChild(label);
-    wrapper.appendChild(description);
-    alcoholOptions.appendChild(wrapper);
-  });
-  setAlcoholSelections(alcoholSelections);
-}
-
-function getSelectedAlcoholSelections() {
-  if (!alcoholOptions) return [];
-  const selectedValues = Array.from(
-    alcoholOptions.querySelectorAll('input[type="checkbox"]:checked')
-  ).map((input) => input.value);
-  return sanitizeAlcoholSelections(selectedValues);
-}
-
-function setAlcoholSelections(selections) {
-  const sanitized = sanitizeAlcoholSelections(selections);
-  alcoholSelections = sanitized;
-  if (!alcoholOptions) return;
-  const inputs = alcoholOptions.querySelectorAll('input[type="checkbox"]');
-  inputs.forEach((input) => {
-    input.checked = sanitized.includes(input.value);
-  });
-}
-
-function updateAlcoholSelections(changedInput) {
-  const selected = getSelectedAlcoholSelections();
-  if (selected.length > 2) {
-    if (changedInput) changedInput.checked = false;
-    if (alcoholError) {
-      alcoholError.textContent = 'Please select up to two alcohol preferences.';
-      showElement(alcoholError);
-    }
-    return;
-  }
-  alcoholSelections = selected;
-  hideElement(alcoholError);
 }
 
 let stepCode,
@@ -347,8 +276,6 @@ let stepCode,
   finalMessage,
   partyNameMessage,
   welcomeMessage,
-  alcoholOptions,
-  alcoholError,
   codeSubmit,
   codeForm,
   codeInput,
@@ -357,8 +284,7 @@ let stepCode,
   currentCode = '',
   guestsData = [],
   isEditingNames = false,
-  namesEdited = false,
-  alcoholSelections = [];
+  namesEdited = false;
 
 document.addEventListener('DOMContentLoaded', () => {
   stepCode = document.getElementById('step-code');
@@ -371,8 +297,6 @@ document.addEventListener('DOMContentLoaded', () => {
   finalMessage = document.getElementById('final-message');
   partyNameMessage = document.getElementById('party-name-message');
   welcomeMessage = document.getElementById('welcome-message');
-  alcoholOptions = document.getElementById('alcohol-options');
-  alcoholError = document.getElementById('alcohol-error');
   codeSubmit = document.getElementById('code-submit');
   codeForm = document.getElementById('code-form');
   codeInput = document.getElementById('code-input');
@@ -380,7 +304,6 @@ document.addEventListener('DOMContentLoaded', () => {
   nameEditNote = document.getElementById('name-edit-note');
 
   updateNameEditControls();
-  renderAlcoholOptions();
 
   if (nameEditToggle) {
     nameEditToggle.addEventListener('click', () => {
@@ -418,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
     finalMessage.textContent = 'Submitting your RSVP...';
     showElement(finalMessage);
     if (currentCode)
-      rsvpNo(currentCode, alcoholSelections).catch(() => {
+      rsvpNo(currentCode).catch(() => {
         finalMessage.textContent =
           'There was a problem saving your RSVP. Please try again.';
       });
@@ -430,26 +353,23 @@ document.addEventListener('DOMContentLoaded', () => {
     namesEdited = false;
     updateNameEditControls();
     generateGuestCards(guestsData);
-    setAlcoholSelections(alcoholSelections);
-    hideElement(alcoholError);
     showElement(stepGuests);
   });
 
-  if (alcoholOptions) {
-    alcoholOptions.addEventListener('change', (e) => {
-      if (e.target && e.target.type === 'checkbox') {
-        updateAlcoholSelections(e.target);
-      }
-    });
-  }
-
   guestCards.addEventListener('change', (e) => {
+    if (!e.target.closest('.guest-card')) return;
+    const card = e.target.closest('.guest-card');
+    const mealSelect = card.querySelector('.meal');
+    const alcoholSelect = card.querySelector('.alcohol');
+
     if (e.target.classList.contains('attending')) {
-      const mealSelect = e.target
-        .closest('.guest-card')
-        .querySelector('.meal');
-      mealSelect.disabled = !e.target.checked;
-      if (!e.target.checked) mealSelect.value = '';
+      const isChecked = e.target.checked;
+      if (mealSelect) mealSelect.disabled = !isChecked;
+      if (alcoholSelect) alcoholSelect.disabled = !isChecked;
+      if (!isChecked) {
+        if (mealSelect) mealSelect.value = '';
+        if (alcoholSelect) alcoholSelect.value = '';
+      }
     }
   });
 
@@ -464,11 +384,13 @@ document.addEventListener('DOMContentLoaded', () => {
     cards.forEach((card, idx) => {
       const attending = card.querySelector('.attending').checked;
       const meal = card.querySelector('.meal').value;
-      if (attending && !meal) valid = false;
+      const alcohol = sanitizeAlcoholValue(card.querySelector('.alcohol').value);
+      if (attending && (!meal || !alcohol)) valid = false;
       updatedGuests.push({
         ...guestsData[idx],
         attending: attending ? 'yes' : 'no',
         meal: attending ? meal : '',
+        alcohol: attending ? alcohol : '',
       });
     });
     const anyAttending = updatedGuests.some((g) => g.attending === 'yes');
@@ -478,30 +400,13 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     if (!valid) {
-      mealError.textContent = 'Every attending guest must choose a meal.';
+      mealError.textContent =
+        'Every attending guest must choose a meal and one drink option.';
       showElement(mealError);
       return;
     }
-    const selectedAlcohol = getSelectedAlcoholSelections();
-    if (!selectedAlcohol.length) {
-      if (alcoholError) {
-        alcoholError.textContent =
-          'Please select up to two alcohol preferences (choose "N/A" if none).';
-        showElement(alcoholError);
-      }
-      return;
-    }
-    if (selectedAlcohol.length > 2) {
-      if (alcoholError) {
-        alcoholError.textContent = 'Please select up to two alcohol preferences.';
-        showElement(alcoholError);
-      }
-      return;
-    }
-    hideElement(alcoholError);
     hideElement(mealError);
     guestsData = updatedGuests;
-    alcoholSelections = selectedAlcohol;
     hideElement(stepGuests);
     isEditingNames = false;
     updateNameEditControls();
@@ -509,7 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
     finalMessage.textContent = 'Submitting your RSVP...';
     showElement(finalMessage);
     if (currentCode)
-      rsvpYes(currentCode, guestsData, alcoholSelections).catch(() => {
+      rsvpYes(currentCode, guestsData).catch(() => {
         finalMessage.textContent =
           'There was a problem saving your RSVP. Please try again.';
       });
@@ -648,6 +553,7 @@ function generateGuestCards(guests, editing = isEditingNames) {
 
     const select = document.createElement('select');
     select.className = 'meal';
+    select.setAttribute('aria-label', `Meal selection for ${displayName}`);
     if (!attending) select.disabled = true;
 
     const options = [
@@ -666,8 +572,33 @@ function generateGuestCards(guests, editing = isEditingNames) {
       select.appendChild(option);
     });
 
+    const alcoholSelect = document.createElement('select');
+    alcoholSelect.className = 'alcohol';
+    alcoholSelect.setAttribute('aria-label', `Drink preference for ${displayName}`);
+    if (!attending) alcoholSelect.disabled = true;
+
+    const alcoholOptions = [{ value: '', text: 'Select drink' }].concat(
+      alcoholOptionsConfig.map((opt) => ({
+        value: opt.value,
+        text: opt.label,
+      }))
+    );
+
+    alcoholOptions.forEach((opt) => {
+      const option = document.createElement('option');
+      option.value = opt.value;
+      option.textContent = opt.text;
+      if (guest.alcohol === opt.value) option.selected = true;
+      alcoholSelect.appendChild(option);
+    });
+
+    const controlsRow = document.createElement('div');
+    controlsRow.className = 'guest-controls';
+    controlsRow.appendChild(select);
+    controlsRow.appendChild(alcoholSelect);
+
     card.appendChild(label);
-    card.appendChild(select);
+    card.appendChild(controlsRow);
     guestCards.appendChild(card);
   });
 }
