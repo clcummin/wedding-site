@@ -726,6 +726,30 @@ body {
   margin: 1.35rem 0 0;
 }
 
+.intro-section {
+  margin: 1.35rem 0 0;
+  padding: 1.25rem 1.5rem;
+  border-radius: 14px;
+  border: 1px solid rgba(1, 68, 33, 0.08);
+  background: #f8fbf9;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.intro-section__label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--emerald-border);
+}
+
+.intro-section p {
+  margin: 0;
+  color: #1f1f1f;
+  line-height: 1.55;
+}
+
 .info-card {
   border-radius: 14px;
   border: 1px solid rgba(1, 68, 33, 0.08);
