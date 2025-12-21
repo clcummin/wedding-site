@@ -245,10 +245,37 @@ function initMapOverlay() {
   });
 }
 
+function initMapFallback() {
+  const mapEmbed = document.querySelector('.map-section .map-embed');
+  const fallback = document.querySelector('.map-section .map-fallback');
+  if (!mapEmbed || !fallback) return;
+
+  let hasLoaded = false;
+  const revealFallback = () => {
+    if (hasLoaded) return;
+    fallback.classList.add('is-visible');
+  };
+
+  const loadTimeout = window.setTimeout(revealFallback, 4000);
+
+  mapEmbed.addEventListener('load', () => {
+    hasLoaded = true;
+    fallback.classList.remove('is-visible');
+    window.clearTimeout(loadTimeout);
+  });
+
+  mapEmbed.addEventListener('error', () => {
+    hasLoaded = false;
+    window.clearTimeout(loadTimeout);
+    revealFallback();
+  });
+}
+
 // Expose the initializer so header.js can call it after injecting markup.
 window.initHeader = initHeader;
 
 document.addEventListener('DOMContentLoaded', () => {
   initCountdown();
   initMapOverlay();
+  initMapFallback();
 });
