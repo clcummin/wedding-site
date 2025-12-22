@@ -176,6 +176,7 @@ input[type="submit"]:hover {
   height: 168px;
   border-radius: 50%;
   object-fit: cover;
+  border: 6px solid var(--emerald-border);
   box-shadow: 0 6px 24px rgba(1, 68, 33, 0.25);
 }
 
