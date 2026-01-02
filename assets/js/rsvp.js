@@ -445,7 +445,7 @@ function updateNameEditControls() {
 }
 
 function saveEditedNames() {
-  if (!guestCards) return false;
+  if (!guestCards) return { hasChanges: false, blockedChange: false };
   const cards = guestCards.querySelectorAll('.guest-card');
   let hasChanges = false;
   let blockedChange = false;
@@ -493,7 +493,7 @@ function saveEditedNames() {
     nameEditError.textContent = 'You are now allowed to change Karl to Jeff.';
     showElement(nameEditError);
   }
-  return hasChanges;
+  return { hasChanges, blockedChange };
 }
 
 function toggleNameEditing() {
@@ -507,7 +507,13 @@ function toggleNameEditing() {
     return;
   }
 
-  saveEditedNames();
+  const saveResult = saveEditedNames();
+  if (saveResult && saveResult.blockedChange) {
+    isEditingNames = true;
+    updateNameEditControls();
+    generateGuestCards(guestsData);
+    return;
+  }
   isEditingNames = false;
   updateNameEditControls();
   generateGuestCards(guestsData);
