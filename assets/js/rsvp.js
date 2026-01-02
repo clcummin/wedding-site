@@ -131,6 +131,7 @@ window.handleValidate = function handleValidate(res) {
         alcohol: '',
       });
     }
+    originalGuestsData = guestsData.map((guest) => ({ ...guest }));
     isEditingNames = false;
     namesEdited = false;
     updateNameEditControls();
@@ -281,8 +282,10 @@ let stepCode,
   codeInput,
   nameEditToggle,
   nameEditNote,
+  nameEditError,
   currentCode = '',
   guestsData = [],
+  originalGuestsData = [],
   isEditingNames = false,
   namesEdited = false;
 
@@ -302,6 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
   codeInput = document.getElementById('code-input');
   nameEditToggle = document.getElementById('name-edit-toggle');
   nameEditNote = document.getElementById('name-edit-note');
+  nameEditError = document.getElementById('name-edit-error');
 
   updateNameEditControls();
 
@@ -435,18 +439,39 @@ function updateNameEditControls() {
       hideElement(nameEditNote);
     }
   }
+  if (nameEditError && !isEditingNames) {
+    hideElement(nameEditError);
+  }
 }
 
 function saveEditedNames() {
   if (!guestCards) return false;
   const cards = guestCards.querySelectorAll('.guest-card');
   let hasChanges = false;
+  let blockedChange = false;
+  if (nameEditError) {
+    hideElement(nameEditError);
+  }
   cards.forEach((card, idx) => {
     const firstInput = card.querySelector('.name-first');
     const lastInput = card.querySelector('.name-last');
     if (!firstInput || !lastInput || !guestsData[idx]) return;
     const sanitizedFirst = sanitizeNameValue(firstInput.value);
     const sanitizedLast = sanitizeNameValue(lastInput.value);
+    const originalGuest = originalGuestsData[idx] || {};
+    const isRestrictedParty = currentCode === '14453';
+    const isKarlToJeff =
+      isRestrictedParty &&
+      (originalGuest.firstName || '').toLowerCase() === 'karl' &&
+      sanitizedFirst.toLowerCase() === 'jeff';
+
+    if (isKarlToJeff) {
+      firstInput.value = originalGuest.firstName || '';
+      lastInput.value = originalGuest.lastName || '';
+      guestsData[idx] = { ...originalGuest };
+      blockedChange = true;
+      return;
+    }
     if ((guestsData[idx].firstName || '') !== sanitizedFirst) {
       hasChanges = true;
     }
@@ -463,6 +488,10 @@ function saveEditedNames() {
   });
   if (hasChanges) {
     namesEdited = true;
+  }
+  if (blockedChange && nameEditError) {
+    nameEditError.textContent = 'You are now allowed to change Karl to Jeff.';
+    showElement(nameEditError);
   }
   return hasChanges;
 }
