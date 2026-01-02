@@ -490,7 +490,7 @@ function saveEditedNames() {
     namesEdited = true;
   }
   if (blockedChange && nameEditError) {
-    nameEditError.textContent = 'You are now allowed to change Karl to Jeff.';
+    nameEditError.textContent = 'You are not allowed to change Karl to Jeff.';
     showElement(nameEditError);
   }
   return { hasChanges, blockedChange };
