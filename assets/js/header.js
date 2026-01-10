@@ -9,13 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const navLinks = [
     { href: 'our-story.html', text: 'Our Story' },
     { href: 'rsvp.html', text: 'RSVP' },
-    { href: 'events.html', text: 'Events' },
     { href: 'dress_code.html', text: 'Dress Code' },
+    { href: 'travel.html', text: 'Travel' },
+    { href: 'events.html', text: 'Events' },
+    { href: 'faqs.html', text: 'FAQs' },
     { href: 'wedding-party.html', text: 'Wedding Party' },
     { href: 'gifts.html', text: 'Gifts' },
-    { href: 'travel.html', text: 'Travel' },
     { href: 'gallery.html', text: 'Gallery' },
-    { href: 'faqs.html', text: 'FAQs' },
   ];
 
   const header = document.createElement('header');
