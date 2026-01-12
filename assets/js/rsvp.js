@@ -69,20 +69,23 @@ function setFinalMessage(message, includeDressCodeReminder = false) {
   if (!finalMessage) return;
   finalMessage.innerHTML = '';
 
-  const messageSpan = document.createElement('span');
-  messageSpan.textContent = message;
-  finalMessage.appendChild(messageSpan);
+  const messageParagraph = document.createElement('p');
+  messageParagraph.className = 'final-message-line';
+  messageParagraph.textContent = message;
+  finalMessage.appendChild(messageParagraph);
 
   if (includeDressCodeReminder) {
-    finalMessage.appendChild(document.createTextNode(' '));
+    const reminderParagraph = document.createElement('p');
+    reminderParagraph.className = 'final-message-line';
     const reminderSpan = document.createElement('span');
     reminderSpan.textContent = dressCodeReminder.text;
-    finalMessage.appendChild(reminderSpan);
+    reminderParagraph.appendChild(reminderSpan);
     const reminderLink = document.createElement('a');
     reminderLink.href = dressCodeReminder.linkHref;
     reminderLink.textContent = dressCodeReminder.linkText;
-    finalMessage.appendChild(reminderLink);
-    finalMessage.appendChild(document.createTextNode('.'));
+    reminderParagraph.appendChild(reminderLink);
+    reminderParagraph.appendChild(document.createTextNode('.'));
+    finalMessage.appendChild(reminderParagraph);
   }
 
   showElement(finalMessage);
