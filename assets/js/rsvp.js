@@ -60,7 +60,7 @@ function validateInviteCode(code) {
 let updateSuccessMessage = 'RSVP submitted successfully';
 let showDressCodeReminder = false;
 const dressCodeReminder = {
-  text: 'Dress code is mandatory — please review the ',
+  text: 'Note: Dress code is mandatory — please review the ',
   linkText: 'dress code page',
   linkHref: 'dress_code.html',
 };
