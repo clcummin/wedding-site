@@ -2241,6 +2241,14 @@ body {
   margin-top: 0.5rem;
 }
 
+#rsvpCard #final-message {
+  text-align: center;
+}
+
+#rsvpCard #final-message .final-message-line {
+  margin: 0 0 0.75rem;
+}
+
 #rsvpCard button {
   background: var(--bg-emerald-dark);
   color: var(--white);

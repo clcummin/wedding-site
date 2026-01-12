@@ -58,6 +58,38 @@ function validateInviteCode(code) {
 // Handles RSVP code validation and submission via JSONP
 
 let updateSuccessMessage = 'RSVP submitted successfully';
+let showDressCodeReminder = false;
+const dressCodeReminder = {
+  text: 'Note: Dress code is mandatory — please review the ',
+  linkText: 'dress code page',
+  linkHref: 'dress_code.html',
+};
+
+function setFinalMessage(message, includeDressCodeReminder = false) {
+  if (!finalMessage) return;
+  finalMessage.innerHTML = '';
+
+  const messageParagraph = document.createElement('p');
+  messageParagraph.className = 'final-message-line';
+  messageParagraph.textContent = message;
+  finalMessage.appendChild(messageParagraph);
+
+  if (includeDressCodeReminder) {
+    const reminderParagraph = document.createElement('p');
+    reminderParagraph.className = 'final-message-line';
+    const reminderSpan = document.createElement('span');
+    reminderSpan.textContent = dressCodeReminder.text;
+    reminderParagraph.appendChild(reminderSpan);
+    const reminderLink = document.createElement('a');
+    reminderLink.href = dressCodeReminder.linkHref;
+    reminderLink.textContent = dressCodeReminder.linkText;
+    reminderParagraph.appendChild(reminderLink);
+    reminderParagraph.appendChild(document.createTextNode('.'));
+    finalMessage.appendChild(reminderParagraph);
+  }
+
+  showElement(finalMessage);
+}
 const alcoholOptionsConfig = [
   { value: 'cognac', label: 'Cognac' },
   { value: 'bourbon', label: 'Bourbon' },
@@ -95,8 +127,7 @@ window.handleUpdate = function handleUpdate(res) {
   }
 
   if (message) {
-    finalMessage.textContent = message;
-    showElement(finalMessage);
+    setFinalMessage(message, ok && showDressCodeReminder);
   }
 };
 
@@ -342,6 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('party-no').addEventListener('click', () => {
     hideElement(stepAttending);
     updateSuccessMessage = "We'll miss you!";
+    showDressCodeReminder = false;
     finalMessage.textContent = 'Submitting your RSVP...';
     showElement(finalMessage);
     if (currentCode)
@@ -415,6 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
     isEditingNames = false;
     updateNameEditControls();
     updateSuccessMessage = 'Thank you for your RSVP!';
+    showDressCodeReminder = true;
     finalMessage.textContent = 'Submitting your RSVP...';
     showElement(finalMessage);
     if (currentCode)
