@@ -2883,3 +2883,11 @@ a:focus {
     transition-duration: 0.01ms !important;
   }
 }
+
+.rsvp-closed-card {
+  text-align: center;
+}
+
+.rsvp-closed-card .main-btn {
+  margin-top: 0.75rem;
+}
