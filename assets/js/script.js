@@ -189,21 +189,15 @@ function initCountdown() {
   }
 }
 
-function initWeekendHome() {
-  const main = document.querySelector('[data-weekend-switch-date]');
-  const before = document.querySelector('[data-home-before]');
-  const after = document.querySelector('[data-home-after]');
-  if (!main || !before || !after) return;
+function initDatedRedirect() {
+  const redirectSource = document.querySelector('[data-redirect-date][data-redirect-url]');
+  if (!redirectSource) return;
 
-  const switchDate = new Date(main.dataset.weekendSwitchDate);
-  if (Number.isNaN(switchDate.getTime())) return;
+  const redirectDate = new Date(redirectSource.dataset.redirectDate);
+  if (Number.isNaN(redirectDate.getTime())) return;
 
-  const weekendIsHere = Date.now() >= switchDate.getTime();
-  before.hidden = weekendIsHere;
-  after.hidden = !weekendIsHere;
-
-  if (weekendIsHere) {
-    document.title = 'Wedding Weekend Essentials | Becoming Cummings';
+  if (Date.now() >= redirectDate.getTime()) {
+    window.location.replace(redirectSource.dataset.redirectUrl);
   }
 }
 
@@ -298,7 +292,7 @@ window.initHeader = initHeader;
 
 document.addEventListener('DOMContentLoaded', () => {
   initCountdown();
-  initWeekendHome();
+  initDatedRedirect();
   initMapOverlay();
   initMapFallback();
 });
