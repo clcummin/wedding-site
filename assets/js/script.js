@@ -78,6 +78,7 @@ function initCountdown() {
   if (!countdownEl) return;
 
   const targetDate = countdownEl.dataset.targetDate || '2026-09-12T00:00:00';
+  const completeUrl = countdownEl.dataset.completeUrl;
   const target = new Date(targetDate);
 
   if (Number.isNaN(target.getTime())) {
@@ -145,7 +146,10 @@ function initCountdown() {
     const diff = target - Date.now();
     if (diff <= 0) {
       if (timerId) window.clearInterval(timerId);
-      countdownEl.textContent = "It's today!";
+      countdownEl.textContent = 'Wedding weekend is here!';
+      if (completeUrl) {
+        window.location.replace(completeUrl);
+      }
       return;
     }
 
@@ -182,6 +186,24 @@ function initCountdown() {
   } catch (error) {
     console.error('Error initializing countdown:', error);
     countdownEl.textContent = 'Wedding Date: September 12, 2026';
+  }
+}
+
+function initWeekendHome() {
+  const main = document.querySelector('[data-weekend-switch-date]');
+  const before = document.querySelector('[data-home-before]');
+  const after = document.querySelector('[data-home-after]');
+  if (!main || !before || !after) return;
+
+  const switchDate = new Date(main.dataset.weekendSwitchDate);
+  if (Number.isNaN(switchDate.getTime())) return;
+
+  const weekendIsHere = Date.now() >= switchDate.getTime();
+  before.hidden = weekendIsHere;
+  after.hidden = !weekendIsHere;
+
+  if (weekendIsHere) {
+    document.title = 'Wedding Weekend Essentials | Becoming Cummings';
   }
 }
 
@@ -276,6 +298,7 @@ window.initHeader = initHeader;
 
 document.addEventListener('DOMContentLoaded', () => {
   initCountdown();
+  initWeekendHome();
   initMapOverlay();
   initMapFallback();
 });
